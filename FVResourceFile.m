@@ -212,7 +212,7 @@ struct FVResourceMap {
 	}
 	numberOfTypes = CFSwapInt16BigToHost(numberOfTypes) + 1;
 	
-	NSMutableArray *typesTemp = [NSMutableArray array];
+	NSMutableArray *typesTemp = [[NSMutableArray alloc] initWithCapacity:numberOfTypes];
 	
 	for (uint16_t typeIndex=0; typeIndex<numberOfTypes; typeIndex++) {
 		uint32_t type;
@@ -288,7 +288,7 @@ struct FVResourceMap {
             resource.dataSize = dataLength;
             resource.dataOffset = dataOffset + sizeof(dataOffset);
 			if (strlen(name)) {
-				[resource setName:[NSString stringWithCString:name encoding:NSMacOSRomanStringEncoding]];
+				resource.name = [[NSString alloc] initWithCString:name encoding:NSMacOSRomanStringEncoding];
 			}
 			resource.file = self;
 			resource.type = obj;
@@ -296,13 +296,13 @@ struct FVResourceMap {
 		}
 		
 		NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"ident" ascending:YES];
-		[resourcesTemp sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+		[resourcesTemp sortUsingDescriptors:@[sort]];
 		
 		obj.resources = resourcesTemp;
 	}		
 	
 	NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"typeString" ascending:YES selector:@selector(caseInsensitiveCompare:)];
-	[typesTemp sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+	[typesTemp sortUsingDescriptors:@[sort]];
 	
 	types = typesTemp;
 	
@@ -314,7 +314,7 @@ struct FVResourceMap {
 	if (![fork seekTo:header->dataOffset + resource.dataOffset]) {
 		return nil;
 	}
-	NSMutableData *data = [NSMutableData dataWithLength:resource.dataSize];
+	NSMutableData *data = [[NSMutableData alloc] initWithLength:resource.dataSize];
 	if (!data) {
 		return nil;
 	}

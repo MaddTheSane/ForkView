@@ -8,15 +8,20 @@
 
 import Foundation
 
-final public class FVResource: NSObject {
+final public class FVResource: NSObject, Printable {
     public var ident: UInt16 = 0
     public var name: String = ""
     public var dataSize: UInt32 = 0
     public var dataOffset: UInt32 = 0
     public var type: FVResourceType? = nil
-    public var file: FVResourceFile? = nil
+    public weak var file: FVResourceFile? = nil
     
     public var data: NSData? {
         return file?.dataForResource(self)
     }
+	
+	override public var description: String {
+		let tmpType = type?.typeString ?? "(undefined)"
+		return name + ": size: \(dataSize), offset: \(dataOffset), type: \(tmpType)"
+	}
 }

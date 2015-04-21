@@ -31,24 +31,24 @@
         return nil;
     }
     if (type == FVForkTypeData) {
-        return [NSData dataWithContentsOfFile:file];
+        return [[NSData alloc] initWithContentsOfFile:file];
     }
     ssize_t rsrcSize = 0;
     rsrcSize = getxattr(path, FVFORK_RESOURCE_NAME, NULL, 0, 0, 0);
     if (rsrcSize <= 0 || rsrcSize > FVFORK_MAX_RESOURCE_FORK_SIZE) {
         return nil;
     }
-    NSMutableData *data = [NSMutableData dataWithLength:rsrcSize];
+    NSMutableData *data = [[NSMutableData alloc] initWithLength:rsrcSize];
     if (getxattr(path, FVFORK_RESOURCE_NAME, [data mutableBytes], rsrcSize, 0, 0) != rsrcSize) {
         // ??? shouldn't happen
         return nil;
     }
-    return data;
+    return [data copy];
 }
 
 - (id)initWithURL:(NSURL *)fileURL type:(FVForkType)type
 {
-    NSData *forkData = [[self class] forkDataForFile:[fileURL path] type:type];
+    NSData *forkData = [FVFork forkDataForFile:[fileURL path] type:type];
     if (forkData == nil) {
         return nil;
     }

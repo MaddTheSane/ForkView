@@ -8,7 +8,7 @@
 
 import Foundation
 
-final public class FVResourceType: NSObject {
+final public class FVResourceType: NSObject, Printable {
     public var type: OSType = 0
     public var count: UInt32 = 0
     public var offset: UInt32 = 0
@@ -26,4 +26,8 @@ final public class FVResourceType: NSObject {
             (type & 0x000000FF)
         );
     }
+	
+	override public var description: String {
+		return typeString
+	}
 };
