@@ -126,8 +126,6 @@
 		A54A9B27138DDCB6004F8BB9 /* FVResourceFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FVResourceFile.m; sourceTree = "<group>"; };
 		A54AA022138E1F81004F8BB9 /* FVResourceFilePriv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVResourceFilePriv.h; sourceTree = "<group>"; };
 		A54AA09F138E22E7004F8BB9 /* FVTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVTemplate.h; sourceTree = "<group>"; };
-		A54AA0B6138E2428004F8BB9 /* FVPNGTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVPNGTemplate.h; sourceTree = "<group>"; };
-		A54AA0B7138E2428004F8BB9 /* FVPNGTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FVPNGTemplate.m; sourceTree = "<group>"; };
 		A5530FA913FAD0D0003C2275 /* FVWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVWindowController.h; sourceTree = "<group>"; };
 		A5530FAA13FAD0D0003C2275 /* FVWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FVWindowController.m; sourceTree = "<group>"; };
 		A5A0779D198E9B6A00AAFF2F /* FVResourceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVResourceType.swift; sourceTree = "<group>"; };
@@ -264,9 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				A54AA09F138E22E7004F8BB9 /* FVTemplate.h */,
-				A54AA0B6138E2428004F8BB9 /* FVPNGTemplate.h */,
 				55E11DC21AE70C3B00815555 /* FVPNGTemplate.swift */,
-				A54AA0B7138E2428004F8BB9 /* FVPNGTemplate.m */,
 			);
 			name = Templates;
 			sourceTree = "<group>";

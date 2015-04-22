@@ -44,127 +44,117 @@ final class FVPNGTemplate: NSViewController, FVTemplate {
         // Do view setup here.
     }
 	
-	//+ (NSImage*)imageFromResource:(FVResource*)resource
 	class func imageFromResource(resource: FVResource) -> NSImage? {
-		/*
-		{
-		NSData *rsrcData = [resource data];
-		switch (resource.type.type) {
-		case 'icns':
-		case 'PICT':
-		case 'PNG ':
-		return [[NSImage alloc] initWithData:rsrcData];
-		case 'ICON':
-		{
-		if ([rsrcData length] == 128) {
-		int width = 32, height = 32;
-		CFBitVectorRef bitVector = CFBitVectorCreate(kCFAllocatorDefault, (const UInt8*)[rsrcData bytes], [rsrcData length]*8);
-		NSBitmapImageRep *bmp = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-		pixelsWide:width
-		pixelsHigh:height
-		bitsPerSample:8
-		samplesPerPixel:4
-		hasAlpha:YES
-		isPlanar:NO
-		colorSpaceName:NSCalibratedRGBColorSpace
-		bytesPerRow:width*4
-		bitsPerPixel:32];
-		struct FVRGBColor *color = (struct FVRGBColor*)[bmp bitmapData];
-		const unsigned numPixels = width * height;
-		for (int i = 0; i < numPixels; ++i, ++color) {
-		if (CFBitVectorGetBitAtIndex(bitVector, i)) {
-		color->r = color->g = color->b = 0;
-		} else {
-		color->r = color->g = color->b = 255;
+		if let rsrcData = resource.data {
+			switch resource.type!.type {
+			case "icns", "PICT", "PNG ":
+				return NSImage(data: rsrcData)
+				
+			case "ICON":
+				if rsrcData.length == 128 {
+					let width = 32
+					let height = 32
+					let bitVector = CFBitVectorCreate(kCFAllocatorDefault, UnsafePointer<UInt8>(rsrcData.bytes), rsrcData.length * 8)
+					if let bmp = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: width, pixelsHigh: height, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: NSCalibratedRGBColorSpace, bytesPerRow: width * 4, bitsPerPixel: 32) {
+						var color = UnsafeMutablePointer<FVRGBColor>(bmp.bitmapData)
+						let numPixels = width * height
+						for var i = 0; i < numPixels; ++i, ++color {
+							if (CFBitVectorGetBitAtIndex(bitVector, i) != 0) {
+								color.memory.r = 0
+								color.memory.g = 0
+								color.memory.b = 0;
+							} else {
+								color.memory.r = 255
+								color.memory.g = 255
+								color.memory.b = 255
+							}
+							color.memory.a = 255;
+						}
+						let img = NSImage()
+						img.addRepresentation(bmp)
+						return img
+					}
+				}
+				
+			case "ICN#":
+				if rsrcData.length == 256 {
+					let width = 32
+					let height = 32
+					let bitVector = CFBitVectorCreate(kCFAllocatorDefault, UnsafePointer<UInt8>(rsrcData.bytes), rsrcData.length * 8)
+					if let bmp = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: width, pixelsHigh: height, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: NSCalibratedRGBColorSpace, bytesPerRow: width * 4, bitsPerPixel: 32) {
+						var color = UnsafeMutablePointer<FVRGBColor>(bmp.bitmapData)
+						let numPixels = width * height
+						for var i = 0; i < numPixels; ++i, ++color {
+							if (CFBitVectorGetBitAtIndex(bitVector, i) != 0) {
+								color.memory.r = 0
+								color.memory.g = 0
+								color.memory.b = 0;
+							} else {
+								color.memory.r = 255
+								color.memory.g = 255
+								color.memory.b = 255
+							}
+							if (CFBitVectorGetBitAtIndex(bitVector, i + numPixels) != 0) {
+								color.memory.a = 255;
+							} else {
+								color.memory.a = 0;
+							}
+						}
+						let img = NSImage()
+						img.addRepresentation(bmp)
+						return img
+					}
+				}
+				
+			case "ics#":
+				if rsrcData.length == 64 {
+					let width = 16
+					let height = 16
+					let bitVector = CFBitVectorCreate(kCFAllocatorDefault, UnsafePointer<UInt8>(rsrcData.bytes), rsrcData.length * 8)
+					if let bmp = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: width, pixelsHigh: height, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: NSCalibratedRGBColorSpace, bytesPerRow: width * 4, bitsPerPixel: 32) {
+						var color = UnsafeMutablePointer<FVRGBColor>(bmp.bitmapData)
+						let numPixels = width * height
+						for var i = 0; i < numPixels; ++i, ++color {
+							if (CFBitVectorGetBitAtIndex(bitVector, i) != 0) {
+								color.memory.r = 0
+								color.memory.g = 0
+								color.memory.b = 0;
+							} else {
+								color.memory.r = 255
+								color.memory.g = 255
+								color.memory.b = 255
+							}
+							color.memory.a = 255;
+						}
+						let img = NSImage()
+						img.addRepresentation(bmp)
+						return img
+					}
+				}
+
+				
+			default:
+				break
+			}
 		}
-		color->a = 255;
-		}
-		CFRelease(bitVector);
-		NSImage *img = [[NSImage alloc] init];
-		[img addRepresentation:bmp];
-		return img;
-		}
-		break;
-		}
-		case 'ICN#':
-		{
-		if ([rsrcData length] == 256) {
-		int width = 32, height = 32;
-		CFBitVectorRef bitVector = CFBitVectorCreate(kCFAllocatorDefault, (const UInt8*)[rsrcData bytes], [rsrcData length]*8);
-		NSBitmapImageRep *bmp = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-		pixelsWide:width
-		pixelsHigh:height
-		bitsPerSample:8
-		samplesPerPixel:4
-		hasAlpha:YES
-		isPlanar:NO
-		colorSpaceName:NSCalibratedRGBColorSpace
-		bytesPerRow:width*4
-		bitsPerPixel:32];
-		struct FVRGBColor *color = (struct FVRGBColor*)[bmp bitmapData];
-		const unsigned numPixels = width * height;
-		for (int i = 0; i < numPixels; ++i, ++color) {
-		if (CFBitVectorGetBitAtIndex(bitVector, i)) {
-		color->r = color->g = color->b = 0;
-		} else {
-		color->r = color->g = color->b = 255;
-		}
-		if (CFBitVectorGetBitAtIndex(bitVector, i + numPixels)) {
-		color->a = 255;
-		} else {
-		color->a = 0;
-		}
-		}
-		CFRelease(bitVector);
-		NSImage *img = [[NSImage alloc] init];
-		[img addRepresentation:bmp];
-		return img;
-		}
-		break;
-		}
-		case 'ics#':
-		{
-		if ([rsrcData length] == 64) {
-		int width = 16, height = 16;
-		CFBitVectorRef bitVector = CFBitVectorCreate(kCFAllocatorDefault, (const UInt8*)[rsrcData bytes], [rsrcData length]*8);
-		NSBitmapImageRep *bmp = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-		pixelsWide:width
-		pixelsHigh:height
-		bitsPerSample:8
-		samplesPerPixel:4
-		hasAlpha:YES
-		isPlanar:NO
-		colorSpaceName:NSCalibratedRGBColorSpace
-		bytesPerRow:width*4
-		bitsPerPixel:32];
-		struct FVRGBColor *color = (struct FVRGBColor*)[bmp bitmapData];
-		const unsigned numPixels = width * height;
-		for (int i = 0; i < numPixels; ++i, ++color) {
-		if (CFBitVectorGetBitAtIndex(bitVector, i)) {
-		color->r = color->g = color->b = 0;
-		} else {
-		color->r = color->g = color->b = 255;
-		}
-		color->a = 255;
-		}
-		CFRelease(bitVector);
-		NSImage *img = [[NSImage alloc] init];
-		[img addRepresentation:bmp];
-		return img;
-		}
-		break;
-		}
-		}
-		return nil;
-		}
-*/
 		return nil
 	}
 	
-	init!(resource: FVResource!) {
-		
-		//- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-		super.init(nibName: nil, bundle: nil)
+	init?(resource: FVResource!) {
+		if let img = FVPNGTemplate.imageFromResource(resource) {
+			var rect = NSRect(origin: NSPoint.zeroPoint, size: img.size)
+			let colorView = FVColorView(frame:rect)
+			let imgView = FVImageView(frame: colorView.bounds)
+			imgView.image = img
+			imgView.autoresizingMask = .ViewWidthSizable | .ViewHeightSizable
+			colorView.addSubview(imgView)
+			
+			super.init(nibName: nil, bundle: nil)
+			self.view = colorView
+		} else {
+			super.init(nibName: nil, bundle: nil)
+			return nil
+		}
 	}
 
 	required init?(coder: NSCoder) {
