@@ -9,6 +9,27 @@
 #import <Foundation/Foundation.h>
 #import "FVFork.h"
 
+typedef NS_OPTIONS(SInt16, FVResAttributes) {
+	///System or application heap?
+	FVResSysHeap	= 64,
+	
+	///Purgeable resource?
+	FVResPurgeable	= 32,
+	
+	///Load it in locked?
+	FVResLocked		= 16,
+	
+	///Protected?
+	FVResProtected	= 8,
+	
+	///Load in on OpenResFile?
+	FVResPreload	= 4,
+	
+	///Resource changed?
+	FVResChanged	= 2
+};
+
+
 typedef struct FVResourceHeader FVResourceHeader;
 typedef struct FVResourceMap FVResourceMap;
 
