@@ -15,5 +15,6 @@
 - (instancetype)initWithResource:(FVResource *)resource;
 
 @property (readonly) NSView *view;
++ (NSSet *)handledResourceTypes;
 
 @end

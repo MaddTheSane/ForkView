@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1DDD582C0DA1D0D100B32029 /* FVWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* FVWindow.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		555CA9E61AE89B29004F7406 /* StringListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 555CA9E51AE89B29004F7406 /* StringListView.xib */; };
+		555CA9EC1AE89F78004F7406 /* StringListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555CA9EB1AE89F78004F7406 /* StringListTemplate.swift */; };
 		55E11DC31AE70C3B00815555 /* FVPNGTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E11DC21AE70C3B00815555 /* FVPNGTemplate.swift */; };
 		55E11E031AE7122500815555 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; };
 		55E11E041AE7122500815555 /* SwiftAdditions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -117,7 +119,9 @@
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FVWindow.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		55E11DC21AE70C3B00815555 /* FVPNGTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FVPNGTemplate.swift; path = Templates/FVPNGTemplate.swift; sourceTree = "<group>"; };
+		555CA9E51AE89B29004F7406 /* StringListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StringListView.xib; sourceTree = "<group>"; };
+		555CA9EB1AE89F78004F7406 /* StringListTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringListTemplate.swift; sourceTree = "<group>"; };
+		55E11DC21AE70C3B00815555 /* FVPNGTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVPNGTemplate.swift; sourceTree = "<group>"; };
 		55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftAdditions.xcodeproj; path = SwiftAdditions/SwiftAdditions.xcodeproj; sourceTree = "<group>"; };
 		55E11E231AE723C300815555 /* AttributesFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesFormatter.swift; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* ForkView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ForkView-Info.plist"; sourceTree = "<group>"; };
@@ -127,7 +131,7 @@
 		A54A9B26138DDCB6004F8BB9 /* FVResourceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVResourceFile.h; sourceTree = "<group>"; };
 		A54A9B27138DDCB6004F8BB9 /* FVResourceFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FVResourceFile.m; sourceTree = "<group>"; };
 		A54AA022138E1F81004F8BB9 /* FVResourceFilePriv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVResourceFilePriv.h; sourceTree = "<group>"; };
-		A54AA09F138E22E7004F8BB9 /* FVTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVTemplate.h; sourceTree = "<group>"; };
+		A54AA09F138E22E7004F8BB9 /* FVTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FVTemplate.h; path = ../FVTemplate.h; sourceTree = "<group>"; };
 		A5530FA913FAD0D0003C2275 /* FVWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FVWindowController.h; sourceTree = "<group>"; };
 		A5530FAA13FAD0D0003C2275 /* FVWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FVWindowController.m; sourceTree = "<group>"; };
 		A5A0779D198E9B6A00AAFF2F /* FVResourceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVResourceType.swift; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 				8D15AC360486D014006FF6A4 /* ForkView-Info.plist */,
 				1DDD58280DA1D0D100B32029 /* FVWindow.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				555CA9E51AE89B29004F7406 /* StringListView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -266,8 +271,9 @@
 			children = (
 				A54AA09F138E22E7004F8BB9 /* FVTemplate.h */,
 				55E11DC21AE70C3B00815555 /* FVPNGTemplate.swift */,
+				555CA9EB1AE89F78004F7406 /* StringListTemplate.swift */,
 			);
-			name = Templates;
+			path = Templates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,6 +400,7 @@
 			files = (
 				1DDD582C0DA1D0D100B32029 /* FVWindow.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				555CA9E61AE89B29004F7406 /* StringListView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +421,7 @@
 				A5A077A8198EDF0600AAFF2F /* FVLine.swift in Sources */,
 				55E11DC31AE70C3B00815555 /* FVPNGTemplate.swift in Sources */,
 				A5A077A4198EA5DC00AAFF2F /* FVDocument.swift in Sources */,
+				555CA9EC1AE89F78004F7406 /* StringListTemplate.swift in Sources */,
 				A5530FAB13FAD0D0003C2275 /* FVWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

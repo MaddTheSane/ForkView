@@ -39,6 +39,10 @@ private final class FVColorView: NSView {
 
 final class FVPNGTemplate: NSViewController, FVTemplate {
 
+	class func handledResourceTypes() -> Set<NSObject> {
+		return [NSNumber(unsignedInt: "icns"), NSNumber(unsignedInt: "PICT"), NSNumber(unsignedInt: "PNG "), NSNumber(unsignedInt: "ICON"), NSNumber(unsignedInt: "ICN#"), NSNumber(unsignedInt: "ics#")]
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -140,7 +144,7 @@ final class FVPNGTemplate: NSViewController, FVTemplate {
 		return nil
 	}
 	
-	init?(resource: FVResource!) {
+	init?(resource: FVResource) {
 		if let img = FVPNGTemplate.imageFromResource(resource) {
 			var rect = NSRect(origin: NSPoint.zeroPoint, size: img.size)
 			let colorView = FVColorView(frame:rect)

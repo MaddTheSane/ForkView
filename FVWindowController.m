@@ -10,34 +10,30 @@
 #import "FVResourceFile.h"
 #import "ForkView-Swift.h"
 
-//#import "FVPNGTemplate.h"
-
-@implementation FVWindowController
+@implementation FVWindowController {
+	NSArray *templateClasses;
+}
 
 - (id)init
 {
     if ((self = [super initWithWindowNibName:@"FVWindow"]) != nil) {
-        windowControllers = [NSMutableArray array];
+        windowControllers = [[NSMutableArray alloc] init];
+		templateClasses = @[[FVPNGTemplate class], [StringListTemplate class]];
     }
 	return self;
 }
 
 - (Class)templateClassForResource:(FVResource *)resource
 {
-	Class class = nil;
-	switch (resource.type.type) {
-		case 'icns':
-		case 'PICT':
-		case 'PNG ':
-        case 'ICON':
-        case 'ICN#':
-        case 'ics#':
-			class = [FVPNGTemplate class];
-			break;
-		default:
-			break;
+	for (Class aClass in templateClasses) {
+		for (NSNumber *aResID in [aClass handledResourceTypes]) {
+			if (aResID.unsignedIntegerValue == resource.type.type) {
+				return aClass;
+			}
+		}
 	}
-	return class;
+	
+	return nil;
 }
 
 - (void)viewResource:(FVResource *)resource
