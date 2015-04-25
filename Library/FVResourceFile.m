@@ -321,7 +321,7 @@ struct FVResourceMap {
 	if (![fork read:resource.dataSize into:[data mutableBytes]]) {
 		return nil;
 	}
-	return data;
+	return [data copy];
 }
 
 - (FVForkType)forkType

@@ -10,13 +10,13 @@ import Cocoa
 import Carbon
 
 //Code taken from PlayerPRO Player's Sctf importer, modified to work in Swift
-private func getStringFromData(aResource: NSData, indexID: UInt16) -> [UInt8]? {
+private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [UInt8]? {
 	let handSize = aResource.length
 	var curSize = 2
 	var aId = indexID
 	
 	var data = UnsafePointer<UInt8>(aResource.bytes)
-	var count = UnsafePointer<UInt16>(aResource.bytes).memory.bigEndian
+	let count = UnsafePointer<Int16>(aResource.bytes).memory.bigEndian
 	
 	// First 2 bytes are the count of strings that this resource has.
 	if count < aId {
@@ -24,7 +24,7 @@ private func getStringFromData(aResource: NSData, indexID: UInt16) -> [UInt8]? {
 	}
 	
 	// skip count
-	data = data.advancedBy(2)
+	data += 2
 	
 	// looking for data.  data is in order
 	while (--aId >= 0) {
@@ -60,8 +60,21 @@ private func pascalStringToString(aStr: UnsafePointer<UInt8>) -> String? {
 	return nil
 }
 
+final class StringListObject: NSObject {
+	let name: String
+	let index: Int
+	
+	init(string: String, index: Int) {
+		self.name = string
+		self.index = index
+		
+		super.init()
+	}
+}
+
 final class StringListTemplate: NSViewController, FVTemplate {
-	let stringList: [String]
+	@objc let stringList: [StringListObject]
+	@IBOutlet weak var arrayController: NSArrayController!
 
 	class func handledResourceTypes() -> Set<NSObject> {
 		return [NSNumber(unsignedInt: "STR#")]
@@ -72,22 +85,22 @@ final class StringListTemplate: NSViewController, FVTemplate {
 		// Do view setup here.
 	}
 	
-	init?(resource: FVResource) {
+	required init?(resource: FVResource) {
 		
 		if let resData = resource.data where resource.type!.type == "STR#" {
-			var tmpStrList = [String]()
-			var strIdx: UInt16 = 0
-			while let aPasString = getStringFromData(resData, strIdx++) {
+			var tmpStrList = [StringListObject]()
+			var strIdx: Int16 = 0
+			while let aPasString = pascalStringFromData(resData, index: strIdx++) {
 				if let cStr = pascalStringToString(aPasString) {
-					tmpStrList.append(cStr)
+					tmpStrList.append(StringListObject(string: cStr, index: strIdx - 1))
 				} else {
-					tmpStrList.append("!!Unable to decode \(strIdx)!!")
+					tmpStrList.append(StringListObject(string: "!!Unable to decode \(strIdx - 1)!!", index: strIdx - 1))
 				}
 			}
 
 			stringList = tmpStrList
 			super.init(nibName: "StringListView", bundle: nil)
-			return nil
+			return
 		}
 		
 		stringList = []
@@ -99,5 +112,4 @@ final class StringListTemplate: NSViewController, FVTemplate {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
 }
