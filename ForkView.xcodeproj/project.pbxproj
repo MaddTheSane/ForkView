@@ -733,6 +733,7 @@
 				5571685E1AF06F5700B5DAD9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkViewer" */ = {
 			isa = XCConfigurationList;

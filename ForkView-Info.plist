@@ -22,7 +22,7 @@
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
-			<string>ForkView.FVDocument</string>
+			<string>ForkViewer.FVDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
 		</dict>
@@ -42,7 +42,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>NSDocumentClass</key>
-			<string>ForkView.FVDocument</string>
+			<string>ForkViewer.FVDocument</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
