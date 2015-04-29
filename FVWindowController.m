@@ -8,7 +8,8 @@
 
 #import "FVWindowController.h"
 #import "FVResourceFile.h"
-#import "ForkView-Swift.h"
+#import "ForkViewer-Swift.h"
+#import <ForkView/ForkView.h>
 
 @implementation FVWindowController {
 	NSArray *templateClasses;
