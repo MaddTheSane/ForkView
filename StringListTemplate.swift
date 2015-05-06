@@ -8,6 +8,7 @@
 
 import Cocoa
 import Carbon
+import SwiftAdditions
 
 //Code taken from PlayerPRO Player's Sctf importer, modified to work in Swift
 private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [UInt8]? {
@@ -72,12 +73,12 @@ final class StringListObject: NSObject {
 	}
 }
 
-final class StringListTemplate: NSViewController, FVTemplate {
+final class StringListTemplate: NSViewController, FVTypeController {
 	@objc let stringList: [StringListObject]
 	@IBOutlet weak var arrayController: NSArrayController!
 
-	class func handledResourceTypes() -> Set<NSObject> {
-		return [NSNumber(unsignedInt: "STR#")]
+	func supportedTypes() -> [String] {
+		return ["STR#"]
 	}
 
 	override func viewDidLoad() {
@@ -107,6 +108,10 @@ final class StringListTemplate: NSViewController, FVTemplate {
 		super.init(nibName: "StringListView", bundle: nil)
 		return nil
 
+	}
+	
+	func viewControllerFromResource(resource: FVResource, inout errmsg: String) -> NSViewController? {
+		return nil
 	}
 	
 	required init?(coder: NSCoder) {

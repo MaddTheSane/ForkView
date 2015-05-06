@@ -46,7 +46,7 @@
     return [data copy];
 }
 
-- (id)initWithURL:(NSURL *)fileURL type:(FVForkType)type
+- (instancetype)initWithURL:(NSURL *)fileURL type:(FVForkType)type
 {
     NSData *forkData = [FVFork forkDataForFile:[fileURL path] type:type];
     if (forkData == nil) {

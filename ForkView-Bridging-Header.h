@@ -4,5 +4,3 @@
 
 #import "FVResourceFile.h"
 #import "FVResourceFilePriv.h"
-#import "FVWindowController.h"
-#import "FVTemplate.h"
