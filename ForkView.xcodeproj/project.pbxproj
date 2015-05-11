@@ -18,6 +18,7 @@
 		557168651AF06F7200B5DAD9 /* FVResourceFilePriv.h in Headers */ = {isa = PBXBuildFile; fileRef = A54AA022138E1F81004F8BB9 /* FVResourceFilePriv.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		557168681AF06F7200B5DAD9 /* FVResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A0779D198E9B6A00AAFF2F /* FVResourceType.swift */; };
 		557168691AF06F7200B5DAD9 /* FVResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A077A0198EA0C000AAFF2F /* FVResource.swift */; };
+		55F1F88C1B0012B900518344 /* StringListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1F88B1B0012B900518344 /* StringListTemplate.swift */; };
 		55BFB0821B013562008371C4 /* FVDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A594AD1F1AF5693600197F25 /* FVDataReader.swift */; };
 		55E11E031AE7122500815555 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; };
 		55E11E041AE7122500815555 /* SwiftAdditions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -596,6 +597,7 @@
 				A5A077A8198EDF0600AAFF2F /* FVLine.swift in Sources */,
 				A5A077A4198EA5DC00AAFF2F /* FVDocument.swift in Sources */,
 				A594AD1E1AF5630A00197F25 /* FVSNDTypeController.swift in Sources */,
+				55F1F88C1B0012B900518344 /* StringListTemplate.swift in Sources */,
 				A594AD161AF48BB600197F25 /* FVWindowController.swift in Sources */,
 				A594AD201AF5693600197F25 /* FVDataReader.swift in Sources */,
 				A594AD1A1AF53AAD00197F25 /* FVImageTypeController.swift in Sources */,
@@ -717,6 +719,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = PICTConverter/Info.plist;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
