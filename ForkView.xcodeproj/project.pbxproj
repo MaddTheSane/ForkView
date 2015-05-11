@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1DDD582C0DA1D0D100B32029 /* FVWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* FVWindow.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
-		555CA9E61AE89B29004F7406 /* StringListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 555CA9E51AE89B29004F7406 /* StringListView.xib */; };
 		557168481AF06F5600B5DAD9 /* ForkView.h in Headers */ = {isa = PBXBuildFile; fileRef = 557168471AF06F5600B5DAD9 /* ForkView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5571685A1AF06F5700B5DAD9 /* ForkView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557168431AF06F5600B5DAD9 /* ForkView.framework */; };
 		5571685B1AF06F5700B5DAD9 /* ForkView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 557168431AF06F5600B5DAD9 /* ForkView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -17,14 +16,13 @@
 		557168631AF06F7200B5DAD9 /* FVResourceFile.h in Headers */ = {isa = PBXBuildFile; fileRef = A54A9B26138DDCB6004F8BB9 /* FVResourceFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		557168641AF06F7200B5DAD9 /* FVResourceFile.m in Sources */ = {isa = PBXBuildFile; fileRef = A54A9B27138DDCB6004F8BB9 /* FVResourceFile.m */; };
 		557168651AF06F7200B5DAD9 /* FVResourceFilePriv.h in Headers */ = {isa = PBXBuildFile; fileRef = A54AA022138E1F81004F8BB9 /* FVResourceFilePriv.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		557168661AF06F7200B5DAD9 /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
-		557168671AF06F7200B5DAD9 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		557168681AF06F7200B5DAD9 /* FVResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A0779D198E9B6A00AAFF2F /* FVResourceType.swift */; };
 		557168691AF06F7200B5DAD9 /* FVResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A077A0198EA0C000AAFF2F /* FVResource.swift */; };
 		55BFB0821B013562008371C4 /* FVDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A594AD1F1AF5693600197F25 /* FVDataReader.swift */; };
 		55E11E031AE7122500815555 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; };
 		55E11E041AE7122500815555 /* SwiftAdditions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		55E2F8D11AF9E7F60037194A /* StringListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E2F8D01AF9E7F60037194A /* StringListTemplate.swift */; };
+		55F1F88C1B0012B900518344 /* StringListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1F88B1B0012B900518344 /* StringListTemplate.swift */; };
+		55F1F88E1B0012C100518344 /* StringListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F1F88D1B0012C100518344 /* StringListView.xib */; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		A55408FE1AF70A9E0052A143 /* RSVerticallyCenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55408FD1AF70A9E0052A143 /* RSVerticallyCenteredTextFieldCell.swift */; };
 		A594AD131AF4874100197F25 /* FVTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A594AD121AF4874100197F25 /* FVTableView.swift */; };
@@ -146,13 +144,13 @@
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FVWindow.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		555CA9E51AE89B29004F7406 /* StringListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StringListView.xib; sourceTree = "<group>"; };
 		557168431AF06F5600B5DAD9 /* ForkView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ForkView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		557168461AF06F5600B5DAD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		557168471AF06F5600B5DAD9 /* ForkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForkView.h; sourceTree = "<group>"; };
 		55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftAdditions.xcodeproj; path = SwiftAdditions/SwiftAdditions.xcodeproj; sourceTree = "<group>"; };
 		55E11E231AE723C300815555 /* AttributesFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttributesFormatter.swift; path = Library/AttributesFormatter.swift; sourceTree = "<group>"; };
-		55E2F8D01AF9E7F60037194A /* StringListTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringListTemplate.swift; sourceTree = "<group>"; };
+		55F1F88B1B0012B900518344 /* StringListTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringListTemplate.swift; sourceTree = "<group>"; };
+		55F1F88D1B0012C100518344 /* StringListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StringListView.xib; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* ForkView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ForkView-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* ForkViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ForkViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A54A9B26138DDCB6004F8BB9 /* FVResourceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FVResourceFile.h; path = Library/FVResourceFile.h; sourceTree = "<group>"; };
@@ -243,8 +241,8 @@
 				8D15AC360486D014006FF6A4 /* ForkView-Info.plist */,
 				1DDD58280DA1D0D100B32029 /* FVWindow.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
-				555CA9E51AE89B29004F7406 /* StringListView.xib */,
 				A5FFD8E51B002348008AB914 /* TextView.xib */,
+				55F1F88D1B0012C100518344 /* StringListView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -338,8 +336,8 @@
 				A594AD1B1AF5403800197F25 /* FVTypeController.swift */,
 				A594AD191AF53AAD00197F25 /* FVImageTypeController.swift */,
 				A594AD1D1AF5630A00197F25 /* FVSNDTypeController.swift */,
-				55E2F8D01AF9E7F60037194A /* StringListTemplate.swift */,
 				A5FFD8E31AFEDC33008AB914 /* FVTextTypeController.swift */,
+				55F1F88B1B0012B900518344 /* StringListTemplate.swift */,
 			);
 			name = "Type Controllers";
 			sourceTree = "<group>";
@@ -359,7 +357,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				557168661AF06F7200B5DAD9 /* (null) in Headers */,
 				557168631AF06F7200B5DAD9 /* FVResourceFile.h in Headers */,
 				557168481AF06F5600B5DAD9 /* ForkView.h in Headers */,
 				557168651AF06F7200B5DAD9 /* FVResourceFilePriv.h in Headers */,
@@ -545,7 +542,7 @@
 				1DDD582C0DA1D0D100B32029 /* FVWindow.xib in Resources */,
 				A5FFD8E61B002348008AB914 /* TextView.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
-				555CA9E61AE89B29004F7406 /* StringListView.xib in Resources */,
+				55F1F88E1B0012C100518344 /* StringListView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,7 +553,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				557168671AF06F7200B5DAD9 /* (null) in Sources */,
 				557168681AF06F7200B5DAD9 /* FVResourceType.swift in Sources */,
 				557168691AF06F7200B5DAD9 /* FVResource.swift in Sources */,
 				557168621AF06F7200B5DAD9 /* AttributesFormatter.swift in Sources */,
@@ -569,7 +565,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E2F8D11AF9E7F60037194A /* StringListTemplate.swift in Sources */,
 				A5FFD8E41AFEDC33008AB914 /* FVTextTypeController.swift in Sources */,
 				A594AD131AF4874100197F25 /* FVTableView.swift in Sources */,
 				A594AD1C1AF5403800197F25 /* FVTypeController.swift in Sources */,
@@ -577,6 +572,7 @@
 				A5A077A8198EDF0600AAFF2F /* FVLine.swift in Sources */,
 				A5A077A4198EA5DC00AAFF2F /* FVDocument.swift in Sources */,
 				A594AD1E1AF5630A00197F25 /* FVSNDTypeController.swift in Sources */,
+				55F1F88C1B0012B900518344 /* (null) in Sources */,
 				A594AD161AF48BB600197F25 /* FVWindowController.swift in Sources */,
 				A594AD1A1AF53AAD00197F25 /* FVImageTypeController.swift in Sources */,
 			);

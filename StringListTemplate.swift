@@ -73,13 +73,17 @@ final class StringListObject: NSObject {
 	}
 }
 
-final class StringListTemplate: NSViewController, FVTypeController {
+final class StringListView: FVTypeController {
+	let supportedTypes = ["STR#"]
+    
+	func viewControllerFromResource(resource: FVResource, inout errmsg: String) -> NSViewController? {
+		return StringListTemplate(resource: resource)
+	}
+}
+
+final class StringListTemplate: NSViewController {
 	@objc let stringList: [StringListObject]
 	@IBOutlet weak var arrayController: NSArrayController!
-
-	func supportedTypes() -> [String] {
-		return ["STR#"]
-	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -108,10 +112,6 @@ final class StringListTemplate: NSViewController, FVTypeController {
 		super.init(nibName: "StringListView", bundle: nil)
 		return nil
 
-	}
-	
-	func viewControllerFromResource(resource: FVResource, inout errmsg: String) -> NSViewController? {
-		return nil
 	}
 	
 	required init?(coder: NSCoder) {
