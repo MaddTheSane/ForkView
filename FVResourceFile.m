@@ -8,7 +8,11 @@
 
 #import "FVResourceFile.h"
 #import "FVResourceFilePriv.h"
+#ifdef __FORKVIEWER__
+#import "ForkViewer-Swift.h"
+#else
 #import <ForkView/ForkView-Swift.h>
+#endif
 
 @interface NSError (FVResource)
 
