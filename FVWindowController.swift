@@ -19,6 +19,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     let typeControllers: [FVTypeController] = [
         FVImageTypeController(),
         FVSNDTypeController(),
+        FVTextTypeController(),
     ]
     var viewController: NSViewController? = nil
     
@@ -68,7 +69,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     func controllerForResource(resource: FVResource, inout errmsg: String) -> NSViewController? {
         if let type = resource.type?.typeString {
             for controller in typeControllers {
-                if let index = find(controller.supportedTypes(), type) {
+                if let index = find(controller.supportedTypes, type) {
                     return controller.viewControllerFromResource(resource, errmsg: &errmsg)
                 }
             }
@@ -122,7 +123,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     
     override func windowTitleForDocumentDisplayName(displayName: String) -> String {
         let doc = self.document as? FVDocument
-        return String(format: "%@ [%@]", displayName, doc!.resourceFile!.forkType == .Data ? "Data Fork" : "Resource Fork")
+        return String(format: "%@ [%@]", displayName, !doc!.resourceFile!.isResourceFork ? "Data Fork" : "Resource Fork")
     }
     
     func viewSelectedResource() {

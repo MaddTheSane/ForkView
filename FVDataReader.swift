@@ -8,9 +8,9 @@
 
 import Foundation
 
-final class FVDataReader {
-    private var data: NSData
-    private var pos: Int = 0
+@objc public final class FVDataReader {
+    private var data = NSData()
+    private var pos = 0
     
     var length: Int {
         get {
@@ -28,6 +28,44 @@ final class FVDataReader {
         self.data = data
     }
     
+    init?(URL: NSURL, resourceFork: Bool) {
+        // Apple's docs say "The maximum size of the resource fork in a file is 16 megabytes"
+        let maxResourceSize = 16777216
+        if !resourceFork {
+            var fileSize: AnyObject?
+            URL.getResourceValue(&fileSize, forKey: NSURLFileSizeKey, error: nil)
+            let fileSizeNum = fileSize as? NSNumber
+            if fileSizeNum == nil {
+                return nil
+            }
+            if fileSizeNum!.integerValue == 0 || fileSizeNum!.integerValue >= maxResourceSize {
+                return nil
+            }
+            let data = NSData(contentsOfURL: URL)
+            if data == nil {
+                return nil
+            }
+            self.data = data!
+        } else {
+            let rsrcSize = getxattr(URL.path!, XATTR_RESOURCEFORK_NAME, nil, 0, 0, 0)
+            if rsrcSize <= 0 || rsrcSize >= maxResourceSize {
+                return nil
+            }
+            let data = NSMutableData(length: rsrcSize)
+            if data == nil {
+                return nil
+            }
+            if getxattr(URL.path!, XATTR_RESOURCEFORK_NAME, data!.mutableBytes, rsrcSize, 0, 0) != rsrcSize {
+                return nil
+            }
+            self.data = data!
+        }
+    }
+    
+    class func dataReader(URL: NSURL, resourceFork: Bool) -> FVDataReader? {
+        return FVDataReader(URL: URL, resourceFork: resourceFork)
+    }
+    
     func read(size: Int) -> NSData? {
         if (pos + size > self.length) {
             return nil
@@ -35,6 +73,15 @@ final class FVDataReader {
         let subdata = data.subdataWithRange(NSMakeRange(pos, size))
         pos += size
         return subdata
+    }
+    
+    func read(size: CUnsignedInt, into buf: UnsafeMutablePointer<Void>) -> Bool {
+        let data = self.read(Int(size))
+        if data == nil {
+            return false
+        }
+        data!.getBytes(buf)
+        return true
     }
     
     func seekTo(offset: Int) -> Bool {
@@ -85,73 +132,19 @@ final class FVDataReader {
         return false
     }
     
-    func readUInt8() -> UInt8? {
+    func readUInt8(inout val: UInt8) -> Bool {
         if let dat = read(sizeof(UInt8)) {
-            return UnsafePointer<UInt8>(dat.bytes)[0]
+            dat.getBytes(&val)
+            return true
         }
-        return nil
+        return false
     }
 
-    func readInt8() -> Int8? {
+    func readInt8(inout val: Int8) -> Bool {
         if let dat = read(sizeof(Int8)) {
-            return UnsafePointer<Int8>(dat.bytes)[0]
+            dat.getBytes(&val)
+            return true
         }
-        return nil
-    }
-
-    func unpack(format: String, endian: Endian) -> [Any]? {
-        if count(format) == 0 {
-            return nil
-        }
-        let be = endian == .Big
-        var ret = [Any]()
-        for ch in format {
-            switch ch {
-            case "H": // UInt16
-                var val = UInt16()
-                if readUInt16(endian, &val) {
-                    ret.append(val)
-                } else {
-                    return nil
-                }
-            case "h": // Int16
-                var val = Int16()
-                if readInt16(endian, &val) {
-                    ret.append(val)
-                } else {
-                    return nil
-                }
-            case "I": // UInt32
-                var val = UInt32()
-                if readUInt32(endian, &val) {
-                    ret.append(val)
-                } else {
-                    return nil
-                }
-            case "i": // Int32
-                var val = Int32()
-                if readInt32(endian, &val) {
-                    ret.append(val)
-                } else {
-                    return nil
-                }
-            case "B": // UInt8
-                if let val = readUInt8() {
-                    ret.append(val)
-                } else {
-                    return nil
-                }
-            case "b": // Int8
-                if let val = readInt8() {
-                    ret.append(val)
-                } else {
-                    return nil
-                }
-            default:
-                println("Unknown format code \(ch)")
-                return nil
-            }
-        }
-        return ret
+        return false
     }
 }
