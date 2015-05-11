@@ -8,8 +8,8 @@
 
 import Cocoa
 
-final class AttributesFormatter: NSFormatter {
-	override func stringForObjectValue(obj: AnyObject) -> String? {
+public final class AttributesFormatter: NSFormatter {
+	override public func stringForObjectValue(obj: AnyObject) -> String? {
 		if let aNum = obj as? Int {
 			var addComma = false
 			var string = ""
@@ -58,7 +58,7 @@ final class AttributesFormatter: NSFormatter {
 		return nil
 	}
 	
-	override func attributedStringForObjectValue(obj: AnyObject, withDefaultAttributes attrs: [NSObject : AnyObject]?) -> NSAttributedString? {
+	override public func attributedStringForObjectValue(obj: AnyObject, withDefaultAttributes attrs: [NSObject : AnyObject]?) -> NSAttributedString? {
 		if let aStr = stringForObjectValue(obj) {
 			return NSAttributedString(string: aStr, attributes: attrs)
 		} else {
@@ -66,16 +66,16 @@ final class AttributesFormatter: NSFormatter {
 		}
 	}
 	
-	override func editingStringForObjectValue(obj: AnyObject) -> String {
+	override public func editingStringForObjectValue(obj: AnyObject) -> String {
 		//Can't return nil :(
 		return ""
 	}
 	
-	override func getObjectValue(obj: AutoreleasingUnsafeMutablePointer<AnyObject?>, forString string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
+	override public func getObjectValue(obj: AutoreleasingUnsafeMutablePointer<AnyObject?>, forString string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
 		return false
 	}
 	
-	override func isPartialStringValid(partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
+	override public func isPartialStringValid(partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
 		return false
 	}
 }
