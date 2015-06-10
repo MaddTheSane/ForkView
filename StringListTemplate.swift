@@ -29,7 +29,7 @@ private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [U
 	
 	// looking for data.  data is in order
 	while (--aId >= 0) {
-		var toAdd = Int(data.memory) + 1;
+		let toAdd = Int(data.memory) + 1;
 		curSize += toAdd
 		if (curSize >= handSize) {
 			return nil;
@@ -48,13 +48,13 @@ private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [U
 }
 
 private func pascalStringToString(aStr: UnsafePointer<UInt8>) -> String? {
-	if let CFaStr = CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, CFStringBuiltInEncodings.MacRoman.rawValue) as? String {
+	if let CFaStr = (CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, CFStringBuiltInEncodings.MacRoman.rawValue) as CFString?) as? String {
 		return CFaStr
 		// Perhaps the string is in another encoding. Try using the system's encoding to test this theory.
-	} else if let CFaStr = CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())) as? String {
+	} else if let CFaStr = (CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())) as CFString?) as? String {
 		return CFaStr
 		// Maybe GetApplicationTextEncoding can get the right format?
-	} else if let CFaStr = CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, GetApplicationTextEncoding()) as? String {
+	} else if let CFaStr = (CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, GetApplicationTextEncoding()) as CFString?) as? String {
 		return CFaStr
 	}
 	
@@ -85,6 +85,7 @@ final class StringListTemplate: NSViewController {
 	@objc let stringList: [StringListObject]
 	@IBOutlet weak var arrayController: NSArrayController!
 
+	@available(OSX 10.10, *)
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do view setup here.

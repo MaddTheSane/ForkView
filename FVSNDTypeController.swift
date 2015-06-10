@@ -11,6 +11,52 @@ import AudioToolbox
 import AVKit
 import AVFoundation
 
+// See Sound.h in Carbon
+// Also see "Sound Manager" legacy PDF
+private let firstSoundFormat: Int16  = 0x0001 /*general sound format*/
+private let secondSoundFormat: Int16 = 0x0002 /*special sampled sound format (HyperCard)*/
+private let initMono:   Int32 = 0x0080 /*monophonic channel*/
+private let initStereo: Int32 = 0x00C0 /*stereo channel*/
+private let initMACE3:  Int32 = 0x0300 /*MACE 3:1*/
+private let initMACE6:  Int32 = 0x0400 /*MACE 6:1*/
+private let nullCmd: UInt16   = 0
+private let soundCmd: UInt16  = 80
+private let bufferCmd: UInt16 = 81
+private let stdSH: UInt8 = 0x00 /*Standard sound header encode value*/
+private let extSH: UInt8 = 0xFF /*Extended sound header encode value*/
+private let cmpSH: UInt8 = 0xFE /*Compressed sound header encode value*/
+private struct ModRef {
+    var modNumber: UInt16 = 0
+    var modInit: Int32 = 0
+}
+private struct SndCommand {
+    var cmd: UInt16 = 0
+    var param1: Int16 = 0
+    var param2: Int32 = 0
+}
+private struct SndListResource {
+    var format: Int16 = 0
+    var numModifiers: Int16 = 0
+    var modifierPart = ModRef()
+    var numCommands: Int16 = 0
+    var commandPart = SndCommand()
+}
+private struct Snd2ListResource {
+    var format: Int16 = 0
+    var refCount: Int16 = 0
+    var numCommands: Int16 = 0
+    var commandPart = SndCommand()
+}
+private struct SoundHeader {
+    var samplePtr: UInt32 = 0
+    var length: UInt32 = 0
+    var sampleRate: UInt32 = 0
+    var loopStart: UInt32 = 0
+    var loopEnd: UInt32 = 0
+    var encode: UInt8 = 0
+    var baseFrequency: UInt8 = 0
+}
+
 final class FVSNDTypeController: FVTypeController {
     let supportedTypes = ["snd "]
     
@@ -18,8 +64,8 @@ final class FVSNDTypeController: FVTypeController {
         if let asset = assetForSND(resource.data!, errmsg: &errmsg) {
             let playerView = AVPlayerView(frame: NSMakeRect(0, 0, 100, 100))
             playerView.player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
-            playerView.autoresizingMask = .ViewWidthSizable | .ViewHeightSizable
-            playerView.player.play()
+            playerView.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
+            playerView.player?.play()
             let viewController = FVSNDViewController()
             viewController.view = playerView
             return viewController
@@ -28,51 +74,6 @@ final class FVSNDTypeController: FVTypeController {
     }
 
     func assetForSND(data: NSData, inout errmsg: String) -> AVAsset? {
-        // See Sound.h in Carbon
-        // Also see "Sound Manager" legacy PDF
-        let firstSoundFormat: Int16  = 0x0001 /*general sound format*/
-        let secondSoundFormat: Int16 = 0x0002 /*special sampled sound format (HyperCard)*/
-        let initMono:   Int32 = 0x0080 /*monophonic channel*/
-        let initStereo: Int32 = 0x00C0 /*stereo channel*/
-        let initMACE3:  Int32 = 0x0300 /*MACE 3:1*/
-        let initMACE6:  Int32 = 0x0400 /*MACE 6:1*/
-        let nullCmd: UInt16   = 0
-        let soundCmd: UInt16  = 80
-        let bufferCmd: UInt16 = 81
-        let stdSH: UInt8 = 0x00 /*Standard sound header encode value*/
-        let extSH: UInt8 = 0xFF /*Extended sound header encode value*/
-        let cmpSH: UInt8 = 0xFE /*Compressed sound header encode value*/
-        struct ModRef {
-            var modNumber: UInt16 = 0
-            var modInit: Int32 = 0
-        }
-        struct SndCommand {
-            var cmd: UInt16 = 0
-            var param1: Int16 = 0
-            var param2: Int32 = 0
-        }
-        struct SndListResource {
-            var format: Int16 = 0
-            var numModifiers: Int16 = 0
-            var modifierPart = ModRef()
-            var numCommands: Int16 = 0
-            var commandPart = SndCommand()
-        }
-        struct Snd2ListResource {
-            var format: Int16 = 0
-            var refCount: Int16 = 0
-            var numCommands: Int16 = 0
-            var commandPart = SndCommand()
-        }
-        struct SoundHeader {
-            var samplePtr: UInt32 = 0
-            var length: UInt32 = 0
-            var sampleRate: UInt32 = 0
-            var loopStart: UInt32 = 0
-            var loopEnd: UInt32 = 0
-            var encode: UInt8 = 0
-            var baseFrequency: UInt8 = 0
-        }
         
         let reader = FVDataReader(data)
         
@@ -196,12 +197,8 @@ final class FVSNDTypeController: FVTypeController {
         
         // Create a temporary file for storage
         let url = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingFormat("%d-%f.aif", arc4random(), NSDate().timeIntervalSinceReferenceDate))
-        if url == nil {
-            errmsg = "Can't make url for conversion"
-            return nil
-        }
         var audioFile: ExtAudioFileRef = nil
-        let createStatus = ExtAudioFileCreateWithURL(url, AudioFileTypeID(kAudioFileAIFFType), &stream, nil, UInt32(kAudioFileFlags_EraseFile), &audioFile)
+        let createStatus = ExtAudioFileCreateWithURL(url, AudioFileTypeID(kAudioFileAIFFType), &stream, nil, (AudioFileFlags.EraseFile.rawValue), &audioFile)
         if createStatus != noErr {
             errmsg = "ExtAudioFileCreateWithURL failed with status \(createStatus)"
             return nil
@@ -213,7 +210,7 @@ final class FVSNDTypeController: FVTypeController {
         audioBuffer.mNumberChannels = 1
         audioBuffer.mDataByteSize = header.length
         audioBuffer.mData = UnsafeMutablePointer(srcData)
-        var audioBufferData = UnsafeMutablePointer<UInt8>(audioBuffer.mData)
+        let audioBufferData = UnsafeMutablePointer<UInt8>(audioBuffer.mData)
         for var i = 0; i < Int(header.length); ++i {
             audioBufferData[i] ^= 0x80
         }
@@ -234,7 +231,7 @@ final class FVSNDTypeController: FVTypeController {
         }
         
         // Generate an AVAsset
-        return AVAsset.assetWithURL(url) as? AVAsset
+        return AVAsset(URL: url)
     }
     
     private func fixedToFloat(a: UInt32) -> Double {
@@ -246,8 +243,8 @@ final class FVSNDTypeController: FVTypeController {
 
 final class FVSNDViewController: NSViewController {
     override func viewWillDisappear() {
-        if let playerView = self.view as? AVPlayerView {
-            playerView.player.pause()
+        if let playerView = self.view as? AVPlayerView, player = playerView.player {
+            player.pause()
         }
     }
 }

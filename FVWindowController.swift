@@ -43,7 +43,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     }
     
     func tableViewMenuForSelection() -> NSMenu? {
-        var menu = NSMenu()
+        let menu = NSMenu()
         menu.addItemWithTitle("Export\u{2026}", action:Selector("export"), keyEquivalent:"")
         return menu
     }
@@ -53,7 +53,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     }
     
     @objc private func export() {
-        var savePanel = NSSavePanel()
+        let savePanel = NSSavePanel()
         savePanel.beginSheetModalForWindow(self.window!, completionHandler: { (Int result) in
             if result == NSFileHandlingPanelOKButton {
                 self.selectedResource?.data?.writeToURL(savePanel.URL!, atomically:true)
@@ -70,7 +70,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     func controllerForResource(resource: FVResource, inout errmsg: String) -> NSViewController? {
         if let type = resource.type?.typeString {
             for controller in typeControllers {
-                if let index = find(controller.supportedTypes, type) {
+                if let index = controller.supportedTypes.indexOf(type) {
                     return controller.viewControllerFromResource(resource, errmsg: &errmsg)
                 }
             }
@@ -98,7 +98,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
         parentWinFrame.origin = parentWin!.frame.origin
         
         let styleMask = NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
-        let window = NSWindow(contentRect: winFrame, styleMask: styleMask, backing: .Buffered, defer: true)
+        let window = NSWindow(contentRect: winFrame, styleMask: styleMask, backing: .Buffered, `defer`: true)
         window.releasedWhenClosed = true
         window.contentView = controller.view
         window.minSize = minSize
@@ -113,7 +113,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
         window.title = String(format: "%@ ID = %u from %@", resource.type!.typeString, resource.ident, filename);
 
         NSNotificationCenter.defaultCenter().addObserverForName(NSWindowWillCloseNotification, object: window, queue: nil) { (note: NSNotification!) -> Void in
-            if let index = find(self.windowControllers, windowController) {
+            if let index = self.windowControllers.indexOf(windowController) {
                 self.windowControllers.removeAtIndex(index)
             }
         }

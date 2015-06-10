@@ -8,7 +8,7 @@
 
 import Foundation
 
-final public class FVResource: NSObject, Printable {
+final public class FVResource: NSObject {
     public var ident: UInt16 = 0
     public var name: String = ""
     public var dataSize: UInt32 = 0

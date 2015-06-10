@@ -8,14 +8,14 @@
 
 import Foundation
 
-final public class FVResourceType: NSObject, Printable {
+final public class FVResourceType: NSObject {
     public var type: OSType = 0
     public var count: UInt32 = 0
     public var offset: UInt32 = 0
     public var resources = [FVResource]()
 
     public var typeString: String {
-		if let aType = UTCreateStringForOSType(type)?.takeRetainedValue() as? String {
+		if let aType = (UTCreateStringForOSType(type).takeRetainedValue() as CFString?) as? String {
 			return aType
 		}
 		

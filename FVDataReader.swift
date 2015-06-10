@@ -26,7 +26,11 @@ private let maxResourceSize = 16777216
     public init?(URL: NSURL, resourceFork: Bool) {
         if !resourceFork {
             var fileSize: AnyObject?
-            URL.getResourceValue(&fileSize, forKey: NSURLFileSizeKey, error: nil)
+            do {
+                try URL.getResourceValue(&fileSize, forKey: NSURLFileSizeKey)
+            } catch _ {
+                return nil
+            }
             if let fileSizeNum = fileSize as? NSNumber, data = NSData(contentsOfURL: URL) where fileSizeNum.integerValue == 0 || fileSizeNum.integerValue >= maxResourceSize {
             self.data = data
             } else {
@@ -79,7 +83,7 @@ private let maxResourceSize = 16777216
         case Little, Big
     }
     
-    public func readUInt16(_ endian: Endian = .Big, inout _ val: UInt16) -> Bool {
+    public func readUInt16(endian: Endian = .Big, inout _ val: UInt16) -> Bool {
         if let dat = read(sizeof(UInt16)) {
             dat.getBytes(&val, length: sizeof(UInt16))
             val = endian == .Big ? val.bigEndian : val.littleEndian
@@ -88,7 +92,7 @@ private let maxResourceSize = 16777216
         return false
     }
 
-    public func readInt16(_ endian: Endian = .Big, inout _ val: Int16) -> Bool {
+    public func readInt16(endian: Endian = .Big, inout _ val: Int16) -> Bool {
         if let dat = read(sizeof(Int16)) {
             dat.getBytes(&val, length: sizeof(Int16))
             val = endian == .Big ? val.bigEndian : val.littleEndian
@@ -97,7 +101,7 @@ private let maxResourceSize = 16777216
         return false
     }
 
-    public func readUInt32(_ endian: Endian = .Big, inout _ val: UInt32) -> Bool {
+    public func readUInt32(endian: Endian = .Big, inout _ val: UInt32) -> Bool {
         if let dat = read(sizeof(UInt32)) {
             dat.getBytes(&val, length: sizeof(UInt32))
             val = endian == .Big ? val.bigEndian : val.littleEndian
@@ -106,7 +110,7 @@ private let maxResourceSize = 16777216
         return false
     }
     
-    public func readInt32(_ endian: Endian = .Big, inout _ val: Int32) -> Bool {
+    public func readInt32(endian: Endian = .Big, inout _ val: Int32) -> Bool {
         if let dat = read(sizeof(Int32)) {
             dat.getBytes(&val, length: sizeof(Int32))
             val = endian == .Big ? val.bigEndian : val.littleEndian
