@@ -47,20 +47,17 @@ final class FVImageTypeController: FVTypeController {
             })
             return viewController
 		}
-        let img = imageFromResource(data, type: type)
-        if img == nil {
+        guard let img = imageFromResource(data, type: type) else {
             return nil
         }
         
-        let rect = NSRect(origin: .zeroPoint, size: img.size)
+        let rect = NSRect(origin: .zero, size: img.size)
         let imgView = FVImageView(frame: rect)
         imgView.image = img
         imgView.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
         let viewController = NSViewController()
         viewController.view = imgView
         return viewController
-        }
-        return nil
     }
     
     private struct FVRGBAColor {
@@ -112,7 +109,7 @@ final class FVImageTypeController: FVTypeController {
         if let bitmap = makeBitmap(size) {
         let color = UnsafeMutablePointer<FVRGBAColor>(bitmap.bitmapData)
         let numPixels = size * size
-        for (var i = 0; i < numPixels; ++i) {
+        for i in 0 ..< numPixels {
             let value: UInt8 = CFBitVectorGetBitAtIndex(bitVector, i) == 1 ? 0 : 255
             color[i].r = value
             color[i].g = value
@@ -157,7 +154,8 @@ final class FVImageTypeController: FVTypeController {
         }
         let color = UnsafeMutablePointer<FVRGBAColor>(bitmap!.bitmapData)
         let numPixels = size * size
-        for var i = 0, ptrIndex = 0; i < numPixels; ++i {
+        var ptrIndex = 0
+        for i in 0 ..< numPixels {
             let index: UInt8
             if i & 1 == 0 {
                 index = (ptr[ptrIndex] & 0xF0) >> 4
@@ -165,7 +163,7 @@ final class FVImageTypeController: FVTypeController {
                 index = (ptr[ptrIndex] & 0x0F)
             }
             if i > 0 && (i & 1) == 1 {
-                ++ptrIndex
+                ptrIndex += 1
             }
             let rgb = palette[Int(index)]
             color[i].r = rgb.r
@@ -443,7 +441,7 @@ final class FVImageTypeController: FVTypeController {
         let color = UnsafeMutablePointer<FVRGBAColor>(bitmap.bitmapData)
         let numPixels = size * size
         let ptr: UnsafePointer<UInt8> = UnsafePointer(data.bytes)
-        for var i = 0; i < numPixels; ++i {
+        for i in 0 ..< numPixels {
             let rgb = palette[Int(ptr[i])]
             color[i].r = rgb.r
             color[i].g = rgb.g

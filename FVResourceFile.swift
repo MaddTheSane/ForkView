@@ -34,6 +34,28 @@ final public class FVResourceFile: NSObject {
     private var map = ResourceMap()
     private let dataReader: FVDataReader!
     
+    struct ResourceAttributes: OptionSetType {
+        var rawValue: UInt16
+        
+        /// System or application heap?
+        static let SysHeap = ResourceAttributes(rawValue: 64)
+        
+        /// Purgeable resource?
+        static let Purgeable = ResourceAttributes(rawValue: 32)
+
+        /// Load it in locked?
+        static let Locked = ResourceAttributes(rawValue: 16)
+
+        /// Protected?
+        static let Protected = ResourceAttributes(rawValue: 32)
+
+        /// Load in on `OpenResFile`?
+        static let Preload = ResourceAttributes(rawValue: 32)
+        
+        /// Resource changed?
+        static let Changed = ResourceAttributes(rawValue: 32)
+    }
+    
     private struct ResourceHeader: Equatable {
         var dataOffset: UInt32 = 0
         var mapOffset: UInt32 = 0

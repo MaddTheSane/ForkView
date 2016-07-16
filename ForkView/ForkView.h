@@ -17,5 +17,3 @@ FOUNDATION_EXPORT const unsigned char ForkViewVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ForkView/PublicHeader.h>
 
-#import <ForkView/FVResourceFile.h>
-#import <ForkView/FVResourceFilePriv.h>

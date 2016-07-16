@@ -17,6 +17,10 @@
 		557168691AF06F7200B5DAD9 /* FVResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A077A0198EA0C000AAFF2F /* FVResource.swift */; };
 		55BB99631B029915009B3EDD /* FVResourceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB99621B029915009B3EDD /* FVResourceFile.swift */; };
 		55BFB0821B013562008371C4 /* FVDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A594AD1F1AF5693600197F25 /* FVDataReader.swift */; };
+		55D6AB0C1D3ABF2A007B6957 /* FVResourceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB99621B029915009B3EDD /* FVResourceFile.swift */; };
+		55D6AB171D3AC10D007B6957 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB161D3AC10D007B6957 /* Carbon.framework */; };
+		55D6AB1A1D3AC119007B6957 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB181D3AC119007B6957 /* ApplicationServices.framework */; };
+		55D6AB1B1D3AC119007B6957 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB191D3AC119007B6957 /* CoreServices.framework */; };
 		55E11E031AE7122500815555 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; };
 		55E11E041AE7122500815555 /* SwiftAdditions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55F1F88C1B0012B900518344 /* StringListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1F88B1B0012B900518344 /* StringListTemplate.swift */; };
@@ -153,6 +157,9 @@
 		557168461AF06F5600B5DAD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		557168471AF06F5600B5DAD9 /* ForkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForkView.h; sourceTree = "<group>"; };
 		55BB99621B029915009B3EDD /* FVResourceFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVResourceFile.swift; sourceTree = "<group>"; };
+		55D6AB161D3AC10D007B6957 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		55D6AB181D3AC119007B6957 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		55D6AB191D3AC119007B6957 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftAdditions.xcodeproj; path = SwiftAdditions/SwiftAdditions.xcodeproj; sourceTree = "<group>"; };
 		55E11E231AE723C300815555 /* AttributesFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesFormatter.swift; sourceTree = "<group>"; };
 		55F1F88B1B0012B900518344 /* StringListTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringListTemplate.swift; sourceTree = "<group>"; usesTabs = 1; };
@@ -200,6 +207,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55D6AB1A1D3AC119007B6957 /* ApplicationServices.framework in Frameworks */,
+				55D6AB1B1D3AC119007B6957 /* CoreServices.framework in Frameworks */,
+				55D6AB171D3AC10D007B6957 /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +265,9 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55D6AB181D3AC119007B6957 /* ApplicationServices.framework */,
+				55D6AB191D3AC119007B6957 /* CoreServices.framework */,
+				55D6AB161D3AC10D007B6957 /* Carbon.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -570,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				557168681AF06F7200B5DAD9 /* FVResourceType.swift in Sources */,
+				55D6AB0C1D3ABF2A007B6957 /* FVResourceFile.swift in Sources */,
 				557168691AF06F7200B5DAD9 /* FVResource.swift in Sources */,
 				557168621AF06F7200B5DAD9 /* AttributesFormatter.swift in Sources */,
 				55BFB0821B013562008371C4 /* FVDataReader.swift in Sources */,

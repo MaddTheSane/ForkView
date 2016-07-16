@@ -176,7 +176,7 @@ final class FVSNDTypeController: FVTypeController {
             errmsg = "Bad header"
             return nil
         }
-        for var i = Int16(0); i < numCommands; ++i {
+        for i in Int16(0) ..< numCommands {
             if !reader.readUInt16(.Big, &commandPart.cmd) ||
                 !reader.readInt16(.Big, &commandPart.param1) ||
                 !reader.readInt32(.Big, &commandPart.param2) {
@@ -231,7 +231,7 @@ final class FVSNDTypeController: FVTypeController {
         
         // Generate an AudioStreamBasicDescription for conversion
         var stream = AudioStreamBasicDescription()
-        stream.mSampleRate = fixedToFloat(header.sampleRate)
+        stream.mSampleRate = Float64(header.sampleRate >> 16)
         stream.mFormatID = AudioFormatID(kAudioFormatLinearPCM)
         stream.mFormatFlags = AudioFormatFlags(kLinearPCMFormatFlagIsSignedInteger)
         stream.mBytesPerPacket = 1
@@ -256,7 +256,7 @@ final class FVSNDTypeController: FVTypeController {
         audioBuffer.mDataByteSize = header.length
         audioBuffer.mData = UnsafeMutablePointer(srcData)
         let audioBufferData = UnsafeMutablePointer<UInt8>(audioBuffer.mData)
-        for var i = 0; i < Int(header.length); ++i {
+        for i in 0 ..< Int(header.length) {
             audioBufferData[i] ^= 0x80
         }
         var bufferList = AudioBufferList(mNumberBuffers: 1, mBuffers: audioBuffer)

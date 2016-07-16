@@ -12,15 +12,13 @@ final class FVTextTypeController: FVTypeController {
     let supportedTypes = ["plst", "TEXT", "utf8", "utxt", "ut16", "weba", "RTF ", "rtfd", "STR "]
     
     func viewControllerFromResourceData(data: NSData, type: String, inout errmsg: String) -> NSViewController? {
-        let str = attributedStringFromResource(data, type: type)
-        if str == nil {
+        guard let str = attributedStringFromResource(data, type: type) else {
             return nil
         }
-        let viewController = NSViewController(nibName: "TextView", bundle: nil)
-        if viewController == nil {
+        guard let viewController = NSViewController(nibName: "TextView", bundle: nil) else {
             return nil
         }
-        let scrollView = viewController!.view as! NSScrollView
+        let scrollView = viewController.view as! NSScrollView
         let textView = scrollView.documentView as! NSTextView
         textView.textStorage?.setAttributedString(str)
         return viewController

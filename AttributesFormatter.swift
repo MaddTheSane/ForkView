@@ -8,17 +8,19 @@
 
 import Cocoa
 
+private typealias FVResAttributes = FVResourceFile.ResourceAttributes
+
 public final class AttributesFormatter: NSFormatter {
 	override public func stringForObjectValue(obj: AnyObject) -> String? {
 		if let aNum = obj as? Int {
 			var addComma = false
 			var string = ""
 			var attributeCount = 0
-			let attributes = FVResAttributes(rawValue: Int16(aNum))
+			let attributes = FVResAttributes(rawValue: UInt16(aNum))
 			
 			func countAttribute(anAttrib: FVResAttributes) {
-				if (attributes & anAttrib) == anAttrib {
-					attributeCount++
+				if attributes.contains(anAttrib) {
+					attributeCount += 1
 				}
 			}
 			
@@ -28,7 +30,7 @@ public final class AttributesFormatter: NSFormatter {
 			countAttribute(.Purgeable)
 			countAttribute(.SysHeap)
 			
-			func addToString(anAttrib: FVResAttributes, #longString: String, shortString: String? = nil) {
+			func addToString(anAttrib: FVResAttributes, longString: String, shortString: String? = nil) {
 				if addComma {
 					string += ", "
 				}
@@ -36,7 +38,7 @@ public final class AttributesFormatter: NSFormatter {
 					if let shortString = shortString {
 						string += shortString
 					} else {
-						let endIdx = advance(longString.startIndex, 3)
+						let endIdx = longString.startIndex.advancedBy(3)
 						let aShortStr = longString[longString.startIndex..<endIdx]
 						string += aShortStr
 					}
@@ -58,7 +60,7 @@ public final class AttributesFormatter: NSFormatter {
 		return nil
 	}
 	
-	override public func attributedStringForObjectValue(obj: AnyObject, withDefaultAttributes attrs: [NSObject : AnyObject]?) -> NSAttributedString? {
+	override public func attributedStringForObjectValue(obj: AnyObject, withDefaultAttributes attrs: [String : AnyObject]?) -> NSAttributedString? {
 		if let aStr = stringForObjectValue(obj) {
 			return NSAttributedString(string: aStr, attributes: attrs)
 		} else {
@@ -66,9 +68,8 @@ public final class AttributesFormatter: NSFormatter {
 		}
 	}
 	
-	override public func editingStringForObjectValue(obj: AnyObject) -> String {
-		//Can't return nil :(
-		return ""
+	override public func editingStringForObjectValue(obj: AnyObject) -> String? {
+		return nil
 	}
 	
 	override public func getObjectValue(obj: AutoreleasingUnsafeMutablePointer<AnyObject?>, forString string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
