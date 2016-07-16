@@ -8,7 +8,6 @@
 
 import Cocoa
 import Carbon
-import SwiftAdditions
 
 //Code taken from PlayerPRO Player's Sctf importer, modified to work in Swift
 private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [UInt8]? {
@@ -48,17 +47,7 @@ private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [U
 }
 
 private func pascalStringToString(aStr: UnsafePointer<UInt8>) -> String? {
-	if let CFaStr = (CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, CFStringBuiltInEncodings.MacRoman.rawValue) as CFString?) as? String {
-		return CFaStr
-		// Perhaps the string is in another encoding. Try using the system's encoding to test this theory.
-	} else if let CFaStr = (CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())) as CFString?) as? String {
-		return CFaStr
-		// Maybe GetApplicationTextEncoding can get the right format?
-	} else if let CFaStr = (CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, GetApplicationTextEncoding()) as CFString?) as? String {
-		return CFaStr
-	}
-	
-	return nil
+	return CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, CFStringBuiltInEncodings.MacRoman.rawValue) as String
 }
 
 final class StringListObject: NSObject {
@@ -75,9 +64,9 @@ final class StringListObject: NSObject {
 
 final class StringListView: FVTypeController {
 	let supportedTypes = ["STR#"]
-    
-	func viewControllerFromResource(resource: FVResource, inout errmsg: String) -> NSViewController? {
-		return StringListTemplate(resource: resource)
+	
+	func viewControllerFromResourceData(data: NSData, type: String, inout errmsg: String) -> NSViewController? {
+        return StringListTemplate(resData: data, type: type)
 	}
 }
 
@@ -85,34 +74,20 @@ final class StringListTemplate: NSViewController {
 	@objc let stringList: [StringListObject]
 	@IBOutlet weak var arrayController: NSArrayController!
 
-	@available(OSX 10.10, *)
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		// Do view setup here.
-	}
-	
-	required init?(resource: FVResource) {
-		
-		if let resData = resource.data where resource.type!.type == "STR#" {
-			var tmpStrList = [StringListObject]()
-			var strIdx: Int16 = 0
-			while let aPasString = pascalStringFromData(resData, index: strIdx++) {
-				if let cStr = pascalStringToString(aPasString) {
-					tmpStrList.append(StringListObject(string: cStr, index: strIdx - 1))
-				} else {
-					tmpStrList.append(StringListObject(string: "!!Unable to decode \(strIdx - 1)!!", index: strIdx - 1))
-				}
-			}
+    required init?(resData: NSData, type: String) {
+        var tmpStrList = [StringListObject]()
+        var strIdx: Int16 = 0
+        while let aPasString = pascalStringFromData(resData, index: strIdx++) {
+            if let cStr = pascalStringToString(aPasString) {
+                tmpStrList.append(StringListObject(string: cStr, index: strIdx - 1))
+            } else {
+                tmpStrList.append(StringListObject(string: "!!Unable to decode \(strIdx - 1)!!", index: strIdx - 1))
+            }
+        }
 
-			stringList = tmpStrList
-			super.init(nibName: "StringListView", bundle: nil)
-			return
-		}
-		
-		stringList = []
-		super.init(nibName: "StringListView", bundle: nil)
-		return nil
-
+        stringList = tmpStrList
+        super.init(nibName: "StringListView", bundle: nil)
+        return
 	}
 	
 	required init?(coder: NSCoder) {

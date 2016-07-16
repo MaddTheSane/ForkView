@@ -15,16 +15,7 @@ final public class FVResourceType: NSObject {
     public var resources = [FVResource]()
 
     public var typeString: String {
-		if let aType = (UTCreateStringForOSType(type).takeRetainedValue() as CFString?) as? String {
-			return aType
-		}
-		
-        return String(format:"%c%c%c%c",
-            (type & 0xFF000000) >> 24,
-            (type & 0x00FF0000) >> 16,
-            (type & 0x0000FF00) >> 8,
-            (type & 0x000000FF)
-        );
+        return UTCreateStringForOSType(type).takeRetainedValue() as String
     }
 	
 	override public var description: String {

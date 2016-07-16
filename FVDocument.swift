@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Kevin Wojniak. All rights reserved.
 //
 
-import AppKit
+import Cocoa
 
 @NSApplicationMain final class FVDocument: NSDocument, NSApplicationDelegate {
     var resourceFile: FVResourceFile? = nil
@@ -22,13 +22,14 @@ import AppKit
     override func readFromURL(url: NSURL, ofType typeName: String) throws {
         var outError: NSError! = NSError(domain: "Migrator", code: 0, userInfo: nil)
 		do {
-            resourceFile = try FVResourceFile(contentsOfURL: url)
+            resourceFile = try FVResourceFile.resourceFileWithContentsOfURL(url)
         } catch let error as NSError {
             outError = error
-            throw outError
+            resourceFile = nil
         }
         if resourceFile != nil {
             return
         }
+        throw outError
     }
 }

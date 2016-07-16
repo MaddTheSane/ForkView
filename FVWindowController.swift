@@ -25,7 +25,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     var viewController: NSViewController? = nil
     
     class func windowController() -> Self {
-        return self(windowNibName: "FVWindow")
+        return self.init(windowNibName: "FVWindow")
     }
     
     override func windowDidLoad() {
@@ -33,7 +33,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
         
         tableView.customDelegate = self
         
-        NSNotificationCenter.defaultCenter().addObserverForName(NSWindowWillCloseNotification, object: self.window, queue: nil) { (note: NSNotification!) in
+        NSNotificationCenter.defaultCenter().addObserverForName(NSWindowWillCloseNotification, object: self.window, queue: nil) { (note: NSNotification) in
             for windowController in self.windowControllers {
                 windowController.close()
             }
@@ -54,7 +54,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     
     @objc private func export() {
         let savePanel = NSSavePanel()
-        savePanel.beginSheetModalForWindow(self.window!, completionHandler: { (Int result) in
+        savePanel.beginSheetModalForWindow(self.window!, completionHandler: { (result) in
             if result == NSFileHandlingPanelOKButton {
                 self.selectedResource?.data?.writeToURL(savePanel.URL!, atomically:true)
             }
@@ -68,12 +68,16 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     }
     
     func controllerForResource(resource: FVResource, inout errmsg: String) -> NSViewController? {
-        if let type = resource.type?.typeString {
-            for controller in typeControllers {
-                if let index = controller.supportedTypes.indexOf(type) {
-                    return controller.viewControllerFromResource(resource, errmsg: &errmsg)
+        if let rsrcData = resource.data where rsrcData.length > 0 {
+            if let type = resource.type?.typeString {
+                for controller in typeControllers {
+                    if let _ = controller.supportedTypes.indexOf(type) {
+                        return controller.viewControllerFromResourceData(rsrcData, type: type, errmsg: &errmsg)
+                    }
                 }
             }
+        } else {
+            errmsg = "No data"
         }
         return nil
     }
@@ -94,7 +98,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
         }
         
         let parentWin = self.window
-        var parentWinFrame = parentWin!.frameRectForContentRect(parentWin!.contentView.frame)
+        var parentWinFrame = parentWin!.frameRectForContentRect(parentWin!.contentView!.frame)
         parentWinFrame.origin = parentWin!.frame.origin
         
         let styleMask = NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
@@ -112,7 +116,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
         let filename = (self.document as? NSDocument)?.fileURL?.lastPathComponent ?? "(unknown)"
         window.title = String(format: "%@ ID = %u from %@", resource.type!.typeString, resource.ident, filename);
 
-        NSNotificationCenter.defaultCenter().addObserverForName(NSWindowWillCloseNotification, object: window, queue: nil) { (note: NSNotification!) -> Void in
+        NSNotificationCenter.defaultCenter().addObserverForName(NSWindowWillCloseNotification, object: window, queue: nil) { (note: NSNotification) -> Void in
             if let index = self.windowControllers.indexOf(windowController) {
                 self.windowControllers.removeAtIndex(index)
             }

@@ -11,7 +11,7 @@ import Foundation
 /// Apple's docs say "The maximum size of the resource fork in a file is 16 megabytes"
 private let maxResourceSize = 16777216
 
-@objc public final class FVDataReader {
+public final class FVDataReader {
     private var data = NSData()
     public private(set) var position = 0
     
@@ -29,6 +29,9 @@ private let maxResourceSize = 16777216
             do {
                 try URL.getResourceValue(&fileSize, forKey: NSURLFileSizeKey)
             } catch _ {
+            }
+            let fileSizeNum = fileSize as? NSNumber
+            if fileSizeNum == nil {
                 return nil
             }
             if let fileSizeNum = fileSize as? NSNumber, data = NSData(contentsOfURL: URL) where fileSizeNum.integerValue == 0 || fileSizeNum.integerValue >= maxResourceSize {
