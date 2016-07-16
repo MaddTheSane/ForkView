@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import ForkView
 
 @NSApplicationMain final class FVDocument: NSDocument, NSApplicationDelegate {
     var resourceFile: FVResourceFile? = nil

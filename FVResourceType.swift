@@ -21,4 +21,4 @@ final public class FVResourceType: NSObject {
 	override public var description: String {
 		return typeString
 	}
-};
+}

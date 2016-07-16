@@ -11,52 +11,6 @@ import AudioToolbox
 import AVKit
 import AVFoundation
 
-// See Sound.h in Carbon
-// Also see "Sound Manager" legacy PDF
-private let firstSoundFormat: Int16  = 0x0001 /*general sound format*/
-private let secondSoundFormat: Int16 = 0x0002 /*special sampled sound format (HyperCard)*/
-private let initMono:   Int32 = 0x0080 /*monophonic channel*/
-private let initStereo: Int32 = 0x00C0 /*stereo channel*/
-private let initMACE3:  Int32 = 0x0300 /*MACE 3:1*/
-private let initMACE6:  Int32 = 0x0400 /*MACE 6:1*/
-private let nullCmd: UInt16   = 0
-private let soundCmd: UInt16  = 80
-private let bufferCmd: UInt16 = 81
-private let stdSH: UInt8 = 0x00 /*Standard sound header encode value*/
-private let extSH: UInt8 = 0xFF /*Extended sound header encode value*/
-private let cmpSH: UInt8 = 0xFE /*Compressed sound header encode value*/
-private struct ModRef {
-    var modNumber: UInt16 = 0
-    var modInit: Int32 = 0
-}
-private struct SndCommand {
-    var cmd: UInt16 = 0
-    var param1: Int16 = 0
-    var param2: Int32 = 0
-}
-private struct SndListResource {
-    var format: Int16 = 0
-    var numModifiers: Int16 = 0
-    var modifierPart = ModRef()
-    var numCommands: Int16 = 0
-    var commandPart = SndCommand()
-}
-private struct Snd2ListResource {
-    var format: Int16 = 0
-    var refCount: Int16 = 0
-    var numCommands: Int16 = 0
-    var commandPart = SndCommand()
-}
-private struct SoundHeader {
-    var samplePtr: UInt32 = 0
-    var length: UInt32 = 0
-    var sampleRate: UInt32 = 0
-    var loopStart: UInt32 = 0
-    var loopEnd: UInt32 = 0
-    var encode: UInt8 = 0
-    var baseFrequency: UInt8 = 0
-}
-
 final class FVSNDTypeController: FVTypeController {
     let supportedTypes = ["snd "]
     
@@ -176,7 +130,7 @@ final class FVSNDTypeController: FVTypeController {
             errmsg = "Bad header"
             return nil
         }
-        for i in Int16(0) ..< numCommands {
+        for _ in Int16(0) ..< numCommands {
             if !reader.readUInt16(.Big, &commandPart.cmd) ||
                 !reader.readInt16(.Big, &commandPart.param1) ||
                 !reader.readInt32(.Big, &commandPart.param2) {
