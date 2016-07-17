@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#include <sys/xattr.h>
 
 //! Project version number for ForkView.
 FOUNDATION_EXPORT double ForkViewVersionNumber;

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Darwin.POSIX.sys.xattr
 
 /// Apple's docs say "The maximum size of the resource fork in a file is 16 megabytes"
 private let maxResourceSize = 16777216
@@ -40,11 +41,11 @@ public final class FVDataReader {
                 return nil
             }
         } else {
-            let rsrcSize = getxattr(URL.path!, XATTR_RESOURCEFORK_NAME, nil, 0, 0, 0)
+            let rsrcSize = getxattr(URL.fileSystemRepresentation, XATTR_RESOURCEFORK_NAME, nil, 0, 0, 0)
             if rsrcSize <= 0 || rsrcSize >= maxResourceSize {
                 return nil
             }
-            if let data = NSMutableData(length: rsrcSize) where getxattr(URL.path!, XATTR_RESOURCEFORK_NAME, data.mutableBytes, rsrcSize, 0, 0) != rsrcSize {
+            if let data = NSMutableData(length: rsrcSize) where getxattr(URL.fileSystemRepresentation, XATTR_RESOURCEFORK_NAME, data.mutableBytes, rsrcSize, 0, 0) != rsrcSize {
                 self.data = data
             } else {
                 return nil
