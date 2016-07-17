@@ -14,7 +14,7 @@ final class FVImageTypeController: FVTypeController {
 	]
     
     func viewControllerFromResourceData(data: NSData, type: String, inout errmsg: String) -> NSViewController? {
-		if type == "PICT" {
+        if type == "PICT" {
             //First, see if we can get the image size via NSImage
             let tmpCocoaImg = NSImage(data: data)
             let imgSize = tmpCocoaImg?.size ?? NSSize(width: 32, height: 32)
@@ -46,7 +46,7 @@ final class FVImageTypeController: FVTypeController {
                 })
             })
             return viewController
-		}
+        }
         guard let img = imageFromResource(data, type: type) else {
             return nil
         }
@@ -90,7 +90,9 @@ final class FVImageTypeController: FVTypeController {
 
     func imageFromBitmapData(data: NSData, maskData: NSData? = nil, size: Int) -> NSImage? {
         let ptr: UnsafePointer<UInt8> = UnsafePointer(data.bytes)
-        if let bitVector = CFBitVectorCreate(kCFAllocatorDefault, ptr, data.length * 8) {
+        guard let bitVector = CFBitVectorCreate(kCFAllocatorDefault, ptr, data.length * 8) else {
+            return nil
+        }
         
         let haveAlpha  = maskData != nil
         var maskBitVector: CFBitVectorRef
@@ -106,7 +108,9 @@ final class FVImageTypeController: FVTypeController {
             maskBitVector = CFBitVectorCreate(kCFAllocatorDefault, ptr, data.length * 8)
         }
         
-        if let bitmap = makeBitmap(size) {
+        guard let bitmap = makeBitmap(size) else {
+            return nil
+        }
         let color = UnsafeMutablePointer<FVRGBAColor>(bitmap.bitmapData)
         let numPixels = size * size
         for i in 0 ..< numPixels {
@@ -120,10 +124,6 @@ final class FVImageTypeController: FVTypeController {
         let img = NSImage()
         img.addRepresentation(bitmap)
         return img
-        }
-        }
-        
-        return nil
     }
     
     func imageFrom4BitColorData(data: NSData, size: Int) -> NSImage? {
@@ -148,11 +148,10 @@ final class FVImageTypeController: FVTypeController {
             FVRGBColor(r: 0, g: 0, b: 0),
         ]
         
-        let bitmap = makeBitmap(size)
-        if bitmap == nil {
+        guard bitmap = makeBitmap(size) else {
             return nil
         }
-        let color = UnsafeMutablePointer<FVRGBAColor>(bitmap!.bitmapData)
+        let color = UnsafeMutablePointer<FVRGBAColor>(bitmap.bitmapData)
         let numPixels = size * size
         var ptrIndex = 0
         for i in 0 ..< numPixels {
@@ -173,7 +172,7 @@ final class FVImageTypeController: FVTypeController {
         }
         
         let img = NSImage()
-        img.addRepresentation(bitmap!)
+        img.addRepresentation(bitmap)
         return img
     }
 
@@ -437,7 +436,9 @@ final class FVImageTypeController: FVTypeController {
             FVRGBColor(r: 0, g: 0, b: 0),
         ]
         
-        if let bitmap = makeBitmap(size) {
+        guard let bitmap = makeBitmap(size) else {
+            return nil
+        }
         let color = UnsafeMutablePointer<FVRGBAColor>(bitmap.bitmapData)
         let numPixels = size * size
         let ptr: UnsafePointer<UInt8> = UnsafePointer(data.bytes)
@@ -452,8 +453,6 @@ final class FVImageTypeController: FVTypeController {
         let img = NSImage()
         img.addRepresentation(bitmap)
         return img
-        }
-        return nil
     }
     
     func imageFromResource(rsrcData: NSData, type: String) -> NSImage? {
