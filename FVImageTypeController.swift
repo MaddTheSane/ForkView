@@ -13,28 +13,28 @@ final class FVImageTypeController: FVTypeController {
 		"GIFF"
 	]
     
-    func viewControllerFromResourceData(data: NSData, type: String, inout errmsg: String) -> NSViewController? {
+    func viewControllerFromResourceData(_ data: Data, type: String, errmsg: inout String) -> NSViewController? {
 		if type == "PICT" {
             //First, see if we can get the image size via NSImage
             let tmpCocoaImg = NSImage(data: data)
             let imgSize = tmpCocoaImg?.size ?? NSSize(width: 32, height: 32)
             
             let connectionToService = NSXPCConnection(serviceName: "com.kainjow.PICTConverter")
-            connectionToService.remoteObjectInterface = NSXPCInterface(withProtocol: PICTConverterProtocol.self)
+            connectionToService.remoteObjectInterface = NSXPCInterface(with: PICTConverterProtocol.self)
             connectionToService.resume()
             
             let rect = NSRect(origin: .zero, size: imgSize)
             let imgView = FVImageView(frame: rect)
             // TODO: temporary image showing we're fetching the image.
-            imgView.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
+            imgView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
             let viewController = NSViewController()
             viewController.view = imgView
 
             connectionToService.remoteObjectProxyWithErrorHandler({ (err) -> Void in
                 //TODO: image or some other way of showing failure.
                 NSLog("Error encountered when trying to speak with XPC service: %@", err)
-            }).convertPICTDataToTIFF(data, withReply: { (replyData) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            }).convertPICTData(totiff: data, withReply: { (replyData) -> Void in
+                OperationQueue.main().addOperation({ () -> Void in
                     if let replyData = replyData {
                         imgView.image = NSImage(data: replyData)!
                     } else if let cocoaImg = tmpCocoaImg {
@@ -54,7 +54,7 @@ final class FVImageTypeController: FVTypeController {
         let rect = NSRect(origin: .zero, size: img.size)
         let imgView = FVImageView(frame: rect)
         imgView.image = img
-        imgView.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
+        imgView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
         let viewController = NSViewController()
         viewController.view = imgView
         return viewController
@@ -73,7 +73,7 @@ final class FVImageTypeController: FVTypeController {
         var b: UInt8
     }
     
-    func makeBitmap(size: Int) -> NSBitmapImageRep? {
+    func makeBitmap(_ size: Int) -> NSBitmapImageRep? {
         return NSBitmapImageRep(
             bitmapDataPlanes: nil,
             pixelsWide: size,
@@ -88,22 +88,22 @@ final class FVImageTypeController: FVTypeController {
         )
     }
 
-    func imageFromBitmapData(data: NSData, maskData: NSData? = nil, size: Int) -> NSImage? {
-        let ptr: UnsafePointer<UInt8> = UnsafePointer(data.bytes)
-        if let bitVector = CFBitVectorCreate(kCFAllocatorDefault, ptr, data.length * 8) {
+    func imageFromBitmapData(_ data: Data, maskData: Data? = nil, size: Int) -> NSImage? {
+        let ptr: UnsafePointer<UInt8> = UnsafePointer((data as NSData).bytes)
+        if let bitVector = CFBitVectorCreate(kCFAllocatorDefault, ptr, data.count * 8) {
         
         let haveAlpha  = maskData != nil
-        var maskBitVector: CFBitVectorRef
+        var maskBitVector: CFBitVector
         if haveAlpha {
-            if data.length != maskData!.length {
+            if data.count != maskData!.count {
                 print("Data and mask lengths mismatch!")
                 return nil
             }
-            let maskPtr: UnsafePointer<UInt8> = UnsafePointer(maskData!.bytes)
-            maskBitVector = CFBitVectorCreate(kCFAllocatorDefault, maskPtr, maskData!.length * 8)
+            let maskPtr: UnsafePointer<UInt8> = UnsafePointer((maskData! as NSData).bytes)
+            maskBitVector = CFBitVectorCreate(kCFAllocatorDefault, maskPtr, maskData!.count * 8)
         } else {
             // create a dummy value since CFBitVector can't be nil
-            maskBitVector = CFBitVectorCreate(kCFAllocatorDefault, ptr, data.length * 8)
+            maskBitVector = CFBitVectorCreate(kCFAllocatorDefault, ptr, data.count * 8)
         }
         
         if let bitmap = makeBitmap(size) {
@@ -111,10 +111,10 @@ final class FVImageTypeController: FVTypeController {
         let numPixels = size * size
         for i in 0 ..< numPixels {
             let value: UInt8 = CFBitVectorGetBitAtIndex(bitVector, i) == 1 ? 0 : 255
-            color[i].r = value
-            color[i].g = value
-            color[i].b = value
-            color[i].a = !haveAlpha ? 255 : (CFBitVectorGetBitAtIndex(maskBitVector, i) == 1 ? 255 : 0)
+            color?[i].r = value
+            color?[i].g = value
+            color?[i].b = value
+            color?[i].a = !haveAlpha ? 255 : (CFBitVectorGetBitAtIndex(maskBitVector, i) == 1 ? 255 : 0)
         }
         
         let img = NSImage()
@@ -126,8 +126,8 @@ final class FVImageTypeController: FVTypeController {
         return nil
     }
     
-    func imageFrom4BitColorData(data: NSData, size: Int) -> NSImage? {
-        let ptr: UnsafePointer<UInt8> = UnsafePointer(data.bytes)
+    func imageFrom4BitColorData(_ data: Data, size: Int) -> NSImage? {
+        let ptr: UnsafePointer<UInt8> = UnsafePointer((data as NSData).bytes)
         
         let palette: [FVRGBColor] = [
             FVRGBColor(r: 255, g: 255, b: 255),
@@ -166,10 +166,10 @@ final class FVImageTypeController: FVTypeController {
                 ptrIndex += 1
             }
             let rgb = palette[Int(index)]
-            color[i].r = rgb.r
-            color[i].g = rgb.g
-            color[i].b = rgb.b
-            color[i].a = 255
+            color?[i].r = rgb.r
+            color?[i].g = rgb.g
+            color?[i].b = rgb.b
+            color?[i].a = 255
         }
         
         let img = NSImage()
@@ -177,7 +177,7 @@ final class FVImageTypeController: FVTypeController {
         return img
     }
 
-    func imageFrom8BitColorData(data: NSData, size: Int) -> NSImage? {
+    func imageFrom8BitColorData(_ data: Data, size: Int) -> NSImage? {
         let palette: [FVRGBColor] = [
             FVRGBColor(r: 255, g: 255, b: 255),
             FVRGBColor(r: 255, g: 255, b: 204),
@@ -440,13 +440,13 @@ final class FVImageTypeController: FVTypeController {
         if let bitmap = makeBitmap(size) {
         let color = UnsafeMutablePointer<FVRGBAColor>(bitmap.bitmapData)
         let numPixels = size * size
-        let ptr: UnsafePointer<UInt8> = UnsafePointer(data.bytes)
+        let ptr: UnsafePointer<UInt8> = UnsafePointer((data as NSData).bytes)
         for i in 0 ..< numPixels {
             let rgb = palette[Int(ptr[i])]
-            color[i].r = rgb.r
-            color[i].g = rgb.g
-            color[i].b = rgb.b
-            color[i].a = 255
+            color?[i].r = rgb.r
+            color?[i].g = rgb.g
+            color?[i].b = rgb.b
+            color?[i].a = 255
         }
         
         let img = NSImage()
@@ -456,48 +456,48 @@ final class FVImageTypeController: FVTypeController {
         return nil
     }
     
-    func imageFromResource(rsrcData: NSData, type: String) -> NSImage? {
+    func imageFromResource(_ rsrcData: Data, type: String) -> NSImage? {
         switch type {
         case "icns", "PNG ", "kcns", "GIFF":
             return NSImage(data: rsrcData)
         case "ICON":
-            if rsrcData.length == 128 {
+            if rsrcData.count == 128 {
                 return imageFromBitmapData(rsrcData, size: 32)
             }
         case "ICN#":
-            if rsrcData.length == 256 {
-                let data = rsrcData.subdataWithRange(NSMakeRange(0, 128))
-                let mask = rsrcData.subdataWithRange(NSMakeRange(128, 128))
+            if rsrcData.count == 256 {
+                let data = rsrcData.subdata(in: 0..<128)
+                let mask = rsrcData.subdata(in: 128..<256)
                 return imageFromBitmapData(data, maskData: mask, size: 32)
             }
         case "ics#":
-            if rsrcData.length == 64 {
+            if rsrcData.count == 64 {
                 return imageFromBitmapData(rsrcData, size: 16)
             }
         case "CURS":
-            if rsrcData.length == 68 {
-                let data = rsrcData.subdataWithRange(NSMakeRange(0, 32))
-                let mask = rsrcData.subdataWithRange(NSMakeRange(32, 32))
+            if rsrcData.count == 68 {
+                let data = rsrcData.subdata(in: 0..<32)
+                let mask = rsrcData.subdata(in: 32..<64)
                 return imageFromBitmapData(data, maskData: mask, size: 16)
             }
         case "PAT ":
-            if rsrcData.length == 8 {
+            if rsrcData.count == 8 {
                 return imageFromBitmapData(rsrcData, size: 8)
             }
         case "icl4":
-            if rsrcData.length == 512 {
+            if rsrcData.count == 512 {
                 return imageFrom4BitColorData(rsrcData, size: 32)
             }
         case "icl8":
-            if rsrcData.length == 1024 {
+            if rsrcData.count == 1024 {
                 return imageFrom8BitColorData(rsrcData, size: 32)
             }
         case "ics4":
-            if rsrcData.length == 128 {
+            if rsrcData.count == 128 {
                 return imageFrom4BitColorData(rsrcData, size: 16)
             }
         case "ics8":
-            if rsrcData.length == 256 {
+            if rsrcData.count == 256 {
                 return imageFrom8BitColorData(rsrcData, size: 16)
             }
         default:
