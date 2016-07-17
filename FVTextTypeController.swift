@@ -44,7 +44,7 @@ final class FVTextTypeController: FVTypeController {
         case "plst", "weba":
             let plist: AnyObject? = try? PropertyListSerialization.propertyList(from: rsrcData, options: PropertyListSerialization.ReadOptions(rawValue: PropertyListSerialization.MutabilityOptions().rawValue), format: nil)
             if plist != nil {
-                if let data = try? PropertyListSerialization.data(fromPropertyList: plist!, format: .xmlFormat_v1_0, options: PropertyListSerialization.WriteOptions(0)) {
+                if let data = try? PropertyListSerialization.data(fromPropertyList: plist!, format: .xml, options: PropertyListSerialization.WriteOptions(0)) {
                     return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
                 }
             }

@@ -153,7 +153,7 @@
 		55442B7B1B01269D00359921 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		55442B7C1B01269D00359921 /* PICTConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PICTConverter.h; sourceTree = "<group>"; usesTabs = 0; };
 		55442B7D1B01269D00359921 /* PICTConverterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PICTConverterProtocol.h; sourceTree = "<group>"; usesTabs = 0; };
-		557168431AF06F5600B5DAD9 /* ForkView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ForkView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		557168431AF06F5600B5DAD9 /* ResourceFork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ResourceFork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		557168461AF06F5600B5DAD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		557168471AF06F5600B5DAD9 /* ForkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForkView.h; sourceTree = "<group>"; };
 		55BB99621B029915009B3EDD /* FVResourceFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVResourceFile.swift; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				8D15AC370486D014006FF6A4 /* ForkView.app */,
-				557168431AF06F5600B5DAD9 /* ForkView.framework */,
+				557168431AF06F5600B5DAD9 /* ResourceFork.framework */,
 				A5FFD8FE1B0048EA008AB914 /* PICTConverter.xpc */,
 			);
 			name = Products;
@@ -393,9 +393,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		557168421AF06F5600B5DAD9 /* ForkView */ = {
+		557168421AF06F5600B5DAD9 /* ResourceFork */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5571685C1AF06F5700B5DAD9 /* Build configuration list for PBXNativeTarget "ForkView" */;
+			buildConfigurationList = 5571685C1AF06F5700B5DAD9 /* Build configuration list for PBXNativeTarget "ResourceFork" */;
 			buildPhases = (
 				5571683E1AF06F5600B5DAD9 /* Sources */,
 				5571683F1AF06F5600B5DAD9 /* Frameworks */,
@@ -406,14 +406,14 @@
 			);
 			dependencies = (
 			);
-			name = ForkView;
+			name = ResourceFork;
 			productName = ForkView;
-			productReference = 557168431AF06F5600B5DAD9 /* ForkView.framework */;
+			productReference = 557168431AF06F5600B5DAD9 /* ResourceFork.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		8D15AC270486D014006FF6A4 /* ForkViewer */ = {
+		8D15AC270486D014006FF6A4 /* ForkView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkViewer" */;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkView" */;
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
@@ -428,7 +428,7 @@
 				55E11E061AE7122500815555 /* PBXTargetDependency */,
 				A5FFD9061B004C12008AB914 /* PBXTargetDependency */,
 			);
-			name = ForkViewer;
+			name = ForkView;
 			productInstallPath = "$(HOME)/Applications";
 			productName = ForkView;
 			productReference = 8D15AC370486D014006FF6A4 /* ForkView.app */;
@@ -493,8 +493,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				8D15AC270486D014006FF6A4 /* ForkViewer */,
-				557168421AF06F5600B5DAD9 /* ForkView */,
+				8D15AC270486D014006FF6A4 /* ForkView */,
+				557168421AF06F5600B5DAD9 /* ResourceFork */,
 				A5FFD8FD1B0048EA008AB914 /* PICTConverter */,
 			);
 		};
@@ -887,7 +887,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5571685C1AF06F5700B5DAD9 /* Build configuration list for PBXNativeTarget "ForkView" */ = {
+		5571685C1AF06F5700B5DAD9 /* Build configuration list for PBXNativeTarget "ResourceFork" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5571685D1AF06F5700B5DAD9 /* Debug */,
@@ -905,7 +905,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkViewer" */ = {
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733C808A9546B00998B17 /* Debug */,

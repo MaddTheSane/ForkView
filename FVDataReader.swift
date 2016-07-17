@@ -87,36 +87,36 @@ public final class FVDataReader {
         case little, big
     }
     
-    public func readUInt16(_ endian: Endian = .big, _ val: inout UInt16) -> Bool {
-        if let dat = read(sizeof(UInt16)) {
-            (dat as NSData).getBytes(&val, length: sizeof(UInt16))
+    public func readUInt16(endian: Endian = .big, _ val: inout UInt16) -> Bool {
+        if let dat = read(sizeof(UInt16.self)) {
+            (dat as NSData).getBytes(&val, length: sizeof(UInt16.self))
             val = endian == .big ? val.bigEndian : val.littleEndian
             return true
         }
         return false
     }
 
-    public func readInt16(_ endian: Endian = .big, _ val: inout Int16) -> Bool {
-        if let dat = read(sizeof(Int16)) {
-            (dat as NSData).getBytes(&val, length: sizeof(Int16))
+    public func readInt16(endian: Endian = .big, _ val: inout Int16) -> Bool {
+        if let dat = read(sizeof(Int16.self)) {
+            (dat as NSData).getBytes(&val, length: sizeof(Int16.self))
             val = endian == .big ? val.bigEndian : val.littleEndian
             return true
         }
         return false
     }
 
-    public func readUInt32(_ endian: Endian = .big, _ val: inout UInt32) -> Bool {
-        if let dat = read(sizeof(UInt32)) {
-            (dat as NSData).getBytes(&val, length: sizeof(UInt32))
+    public func readUInt32(endian: Endian = .big, _ val: inout UInt32) -> Bool {
+        if let dat = read(sizeof(UInt32.self)) {
+            (dat as NSData).getBytes(&val, length: sizeof(UInt32.self))
             val = endian == .big ? val.bigEndian : val.littleEndian
             return true
         }
         return false
     }
     
-    public func readInt32(_ endian: Endian = .big, _ val: inout Int32) -> Bool {
-        if let dat = read(sizeof(Int32)) {
-            (dat as NSData).getBytes(&val, length: sizeof(Int32))
+    public func readInt32(endian: Endian = .big, _ val: inout Int32) -> Bool {
+        if let dat = read(sizeof(Int32.self)) {
+            (dat as NSData).getBytes(&val, length: sizeof(Int32.self))
             val = endian == .big ? val.bigEndian : val.littleEndian
             return true
         }
@@ -124,16 +124,16 @@ public final class FVDataReader {
     }
     
     public func readUInt8(_ val: inout UInt8) -> Bool {
-        if let dat = read(sizeof(UInt8)) {
-            (dat as NSData).getBytes(&val, length: sizeof(UInt8))
+        if let dat = read(sizeof(UInt8.self)) {
+            (dat as NSData).getBytes(&val, length: sizeof(UInt8.self))
             return true
         }
         return false
     }
 
     public func readInt8(_ val: inout Int8) -> Bool {
-        if let dat = read(sizeof(Int8)) {
-            (dat as NSData).getBytes(&val, length: sizeof(Int8))
+        if let dat = read(sizeof(Int8.self)) {
+            (dat as NSData).getBytes(&val, length: sizeof(Int8.self))
             return true
         }
         return false
