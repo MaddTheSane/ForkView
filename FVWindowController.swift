@@ -68,7 +68,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     }
     
     func controllerForResource(_ resource: FVResource, errmsg: inout String) -> NSViewController? {
-        if let rsrcData = resource.data where rsrcData.count > 0 {
+        if let rsrcData = resource.data, rsrcData.count > 0 {
             if let type = resource.type?.typeString {
                 for controller in typeControllers {
                     if let _ = controller.supportedTypes.index(of: type) {

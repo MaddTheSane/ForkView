@@ -35,7 +35,7 @@ public final class FVDataReader {
             if fileSizeNum == nil {
                 return nil
             }
-            if let fileSizeNum = fileSize as? NSNumber, data = try? Data(contentsOf: URL) where fileSizeNum.intValue == 0 || fileSizeNum.intValue >= maxResourceSize {
+            if let fileSizeNum = fileSize as? NSNumber, let data = try? Data(contentsOf: URL), fileSizeNum.intValue == 0 || fileSizeNum.intValue >= maxResourceSize {
             self.data = data
             } else {
                 return nil
@@ -45,7 +45,7 @@ public final class FVDataReader {
             if rsrcSize <= 0 || rsrcSize >= maxResourceSize {
                 return nil
             }
-            if let data = NSMutableData(length: rsrcSize) where getxattr((URL as NSURL).fileSystemRepresentation, XATTR_RESOURCEFORK_NAME, data.mutableBytes, rsrcSize, 0, 0) != rsrcSize {
+            if let data = NSMutableData(length: rsrcSize), getxattr((URL as NSURL).fileSystemRepresentation, XATTR_RESOURCEFORK_NAME, data.mutableBytes, rsrcSize, 0, 0) != rsrcSize {
                 self.data = data as Data
             } else {
                 return nil
