@@ -71,7 +71,7 @@ public final class FVDataReader {
         if data == nil {
             return false
         }
-        (data! as NSData).getBytes(buf)
+        (data! as NSData).getBytes(buf, length: Int(size))
         return true
     }
     
