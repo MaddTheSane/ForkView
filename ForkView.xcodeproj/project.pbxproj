@@ -21,8 +21,6 @@
 		55D6AB171D3AC10D007B6957 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB161D3AC10D007B6957 /* Carbon.framework */; };
 		55D6AB1A1D3AC119007B6957 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB181D3AC119007B6957 /* ApplicationServices.framework */; };
 		55D6AB1B1D3AC119007B6957 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB191D3AC119007B6957 /* CoreServices.framework */; };
-		55E11E031AE7122500815555 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; };
-		55E11E041AE7122500815555 /* SwiftAdditions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55F1F88C1B0012B900518344 /* StringListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1F88B1B0012B900518344 /* StringListTemplate.swift */; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		A55408FE1AF70A9E0052A143 /* RSVerticallyCenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55408FD1AF70A9E0052A143 /* RSVerticallyCenteredTextFieldCell.swift */; };
@@ -43,76 +41,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		55E11DCE1AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 550FBABE19A7ADC500EFBD3D;
-			remoteInfo = SwiftAdditions;
-		};
-		55E11DD01AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 550FBAC919A7ADC500EFBD3D;
-			remoteInfo = SwiftAdditionsTests;
-		};
-		55E11DD21AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55706D8F1A1EC2440000FD93;
-			remoteInfo = SwiftIOKitAdditions;
-		};
-		55E11DD41AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55706D991A1EC2440000FD93;
-			remoteInfo = SwiftIOKitAdditionsTests;
-		};
-		55E11DD61AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55403A011A745003007A488E;
-			remoteInfo = ForceFeedbackAdditions;
-		};
-		55E11DD81AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55403A0B1A745003007A488E;
-			remoteInfo = ForceFeedbackAdditionsTests;
-		};
-		55E11DDA1AE7111900815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
-			remoteInfo = SwiftAdditions;
-		};
-		55E11DFF1AE7122500815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E11DE11AE7114000815555;
-			remoteInfo = SwiftAudioAdditions;
-		};
-		55E11E011AE7122500815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E11DEB1AE7114000815555;
-			remoteInfo = SwiftAudioAdditionsTests;
-		};
-		55E11E051AE7122500815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
-			remoteInfo = SwiftAdditions;
-		};
 		A5FFD9051B004C12008AB914 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -140,7 +68,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				55E11E041AE7122500815555 /* SwiftAdditions.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,7 +87,6 @@
 		55D6AB161D3AC10D007B6957 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		55D6AB181D3AC119007B6957 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		55D6AB191D3AC119007B6957 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftAdditions.xcodeproj; path = SwiftAdditions/SwiftAdditions.xcodeproj; sourceTree = "<group>"; };
 		55E11E231AE723C300815555 /* AttributesFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesFormatter.swift; sourceTree = "<group>"; };
 		55F1F88B1B0012B900518344 /* StringListTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringListTemplate.swift; sourceTree = "<group>"; usesTabs = 1; };
 		8D15AC360486D014006FF6A4 /* ForkView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ForkView-Info.plist"; sourceTree = "<group>"; };
@@ -198,7 +124,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E11E031AE7122500815555 /* SwiftAdditions.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,7 +154,6 @@
 		2A37F4AAFDCFA73011CA2CEA /* ForkView */ = {
 			isa = PBXGroup;
 			children = (
-				55E11DC41AE70FFD00815555 /* Vendor */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				557168441AF06F5600B5DAD9 /* ForkView */,
@@ -297,29 +221,6 @@
 				557168461AF06F5600B5DAD9 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		55E11DC41AE70FFD00815555 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
-		55E11DC61AE7108400815555 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				55E11DCF1AE7108400815555 /* SwiftAdditions.framework */,
-				55E11DD11AE7108400815555 /* SwiftAdditionsTests.xctest */,
-				55E11DD31AE7108400815555 /* SwiftIOKitAdditions.framework */,
-				55E11DD51AE7108400815555 /* SwiftIOKitAdditionsTests.xctest */,
-				55E11DD71AE7108400815555 /* ForceFeedbackAdditions.framework */,
-				55E11DD91AE7108400815555 /* ForceFeedbackAdditionsTests.xctest */,
-				55E11E001AE7122500815555 /* SwiftAudioAdditions.framework */,
-				55E11E021AE7122500815555 /* SwiftAudioAdditionsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		A54A9F01138E0E6A004F8BB9 /* UI */ = {
@@ -424,8 +325,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				55E11DDB1AE7111900815555 /* PBXTargetDependency */,
-				55E11E061AE7122500815555 /* PBXTargetDependency */,
 				A5FFD9061B004C12008AB914 /* PBXTargetDependency */,
 			);
 			name = ForkView;
@@ -485,12 +384,6 @@
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* ForkView */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 55E11DC61AE7108400815555 /* Products */;
-					ProjectRef = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* ForkView */,
@@ -499,65 +392,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		55E11DCF1AE7108400815555 /* SwiftAdditions.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftAdditions.framework;
-			remoteRef = 55E11DCE1AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD11AE7108400815555 /* SwiftAdditionsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftAdditionsTests.xctest;
-			remoteRef = 55E11DD01AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD31AE7108400815555 /* SwiftIOKitAdditions.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftIOKitAdditions.framework;
-			remoteRef = 55E11DD21AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD51AE7108400815555 /* SwiftIOKitAdditionsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftIOKitAdditionsTests.xctest;
-			remoteRef = 55E11DD41AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD71AE7108400815555 /* ForceFeedbackAdditions.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ForceFeedbackAdditions.framework;
-			remoteRef = 55E11DD61AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD91AE7108400815555 /* ForceFeedbackAdditionsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ForceFeedbackAdditionsTests.xctest;
-			remoteRef = 55E11DD81AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11E001AE7122500815555 /* SwiftAudioAdditions.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftAudioAdditions.framework;
-			remoteRef = 55E11DFF1AE7122500815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11E021AE7122500815555 /* SwiftAudioAdditionsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftAudioAdditionsTests.xctest;
-			remoteRef = 55E11E011AE7122500815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		557168411AF06F5600B5DAD9 /* Resources */ = {
@@ -626,16 +460,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		55E11DDB1AE7111900815555 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftAdditions;
-			targetProxy = 55E11DDA1AE7111900815555 /* PBXContainerItemProxy */;
-		};
-		55E11E061AE7122500815555 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftAdditions;
-			targetProxy = 55E11E051AE7122500815555 /* PBXContainerItemProxy */;
-		};
 		A5FFD9061B004C12008AB914 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A5FFD8FD1B0048EA008AB914 /* PICTConverter */;

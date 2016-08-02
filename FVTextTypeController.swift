@@ -24,15 +24,15 @@ final class FVTextTypeController: FVTypeController {
         return viewController
     }
     
-    func attributedStringFromResource(_ rsrcData: Data, type: String) -> AttributedString? {
+    func attributedStringFromResource(_ rsrcData: Data, type: String) -> NSAttributedString? {
         switch type {
         case "RTF ":
-            return AttributedString(rtf: rsrcData, documentAttributes: nil)
+            return NSAttributedString(rtf: rsrcData, documentAttributes: nil)
         case "rtfd":
-            return AttributedString(rtfd: rsrcData, documentAttributes: nil)
+            return NSAttributedString(rtfd: rsrcData, documentAttributes: nil)
         default:
             if let str = stringFromResource(rsrcData, type: type) {
-                return AttributedString(string: str)
+                return NSAttributedString(string: str)
             }
             break;
         }
