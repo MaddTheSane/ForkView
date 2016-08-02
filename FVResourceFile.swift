@@ -252,7 +252,7 @@ final public class FVResourceFile: NSObject {
                 resource.type = obj
                 tmpResources.append(resource)
             }
-            tmpResources.sort(isOrderedBefore: { (lhs, rhs) -> Bool in
+            tmpResources.sort(by: { (lhs, rhs) -> Bool in
                 return lhs.ident > rhs.ident
             })
             obj.resources = tmpResources
@@ -286,7 +286,7 @@ final public class FVResourceFile: NSObject {
     //}
     
     public class func resourceFileWithContentsOfURL(_ fileURL: URL) throws -> FVResourceFile {
-        var tmpError: ErrorProtocol?
+        var tmpError: Error?
         
         do {
             let file = try FVResourceFile(contentsOfURL: fileURL, resourceFork: true)
