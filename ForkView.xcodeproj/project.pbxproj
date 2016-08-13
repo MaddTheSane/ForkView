@@ -11,7 +11,7 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		55442B7E1B01269D00359921 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55442B7B1B01269D00359921 /* main.m */; };
 		55442B7F1B01296300359921 /* PICTConverter.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = A5FFD8FE1B0048EA008AB914 /* PICTConverter.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		557168481AF06F5600B5DAD9 /* ForkView.h in Headers */ = {isa = PBXBuildFile; fileRef = 557168471AF06F5600B5DAD9 /* ForkView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		557168481AF06F5600B5DAD9 /* ResourceFork.h in Headers */ = {isa = PBXBuildFile; fileRef = 557168471AF06F5600B5DAD9 /* ResourceFork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		557168621AF06F7200B5DAD9 /* AttributesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E11E231AE723C300815555 /* AttributesFormatter.swift */; };
 		557168681AF06F7200B5DAD9 /* FVResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A0779D198E9B6A00AAFF2F /* FVResourceType.swift */; };
 		557168691AF06F7200B5DAD9 /* FVResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A077A0198EA0C000AAFF2F /* FVResource.swift */; };
@@ -82,7 +82,7 @@
 		55442B7D1B01269D00359921 /* PICTConverterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PICTConverterProtocol.h; sourceTree = "<group>"; usesTabs = 0; };
 		557168431AF06F5600B5DAD9 /* ResourceFork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ResourceFork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		557168461AF06F5600B5DAD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		557168471AF06F5600B5DAD9 /* ForkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForkView.h; sourceTree = "<group>"; };
+		557168471AF06F5600B5DAD9 /* ResourceFork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceFork.h; sourceTree = "<group>"; };
 		55BB99621B029915009B3EDD /* FVResourceFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVResourceFile.swift; sourceTree = "<group>"; };
 		55D6AB161D3AC10D007B6957 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		55D6AB181D3AC119007B6957 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
@@ -209,7 +209,7 @@
 		557168441AF06F5600B5DAD9 /* ForkView */ = {
 			isa = PBXGroup;
 			children = (
-				557168471AF06F5600B5DAD9 /* ForkView.h */,
+				557168471AF06F5600B5DAD9 /* ResourceFork.h */,
 				557168451AF06F5600B5DAD9 /* Supporting Files */,
 			);
 			path = ForkView;
@@ -287,7 +287,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				557168481AF06F5600B5DAD9 /* ForkView.h in Headers */,
+				557168481AF06F5600B5DAD9 /* ResourceFork.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

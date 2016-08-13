@@ -9,10 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 //! Project version number for ForkView.
-FOUNDATION_EXPORT double ForkViewVersionNumber;
+FOUNDATION_EXPORT double ResourceForkVersionNumber;
 
 //! Project version string for ForkView.
-FOUNDATION_EXPORT const unsigned char ForkViewVersionString[];
+FOUNDATION_EXPORT const unsigned char ResourceForkVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ForkView/PublicHeader.h>
 

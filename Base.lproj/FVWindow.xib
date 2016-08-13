@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11185.3" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11185.3"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FVWindowController" customModule="ForkView" customModuleProvider="target">
@@ -30,7 +30,7 @@
                         <rect key="frame" x="104" y="0.0" width="278" height="301"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="2ic-cJ-OaT">
-                            <rect key="frame" x="0.0" y="17" width="278" height="284"/>
+                            <rect key="frame" x="0.0" y="0.0" width="278" height="301"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="14" headerView="100053" id="100041" customClass="FVTableView" customModule="ForkView" customModuleProvider="target">
@@ -111,7 +111,6 @@
                                     </connections>
                                 </tableView>
                             </subviews>
-                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="100042">
                             <rect key="frame" x="0.0" y="269" width="165" height="15"/>
@@ -122,16 +121,13 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="100053">
-                            <rect key="frame" x="0.0" y="0.0" width="319" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="278" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
-                    <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="hcO-Bs-Tdt" customClass="FVLine" customModule="ForkView" customModuleProvider="target">
+                    <box horizontalHuggingPriority="750" boxType="separator" id="hcO-Bs-Tdt" customClass="FVLine" customModule="ForkView" customModuleProvider="target">
                         <rect key="frame" x="382" y="0.0" width="5" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                     </box>
                     <customView id="o0H-6L-9lt">
                         <rect key="frame" x="383" y="0.0" width="232" height="300"/>
@@ -208,12 +204,9 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="100039" customClass="FVLine" customModule="ForkView" customModuleProvider="target">
+                    <box horizontalHuggingPriority="750" boxType="separator" id="100039" customClass="FVLine" customModule="ForkView" customModuleProvider="target">
                         <rect key="frame" x="103" y="0.0" width="5" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                     </box>
                 </subviews>
             </view>
@@ -246,7 +239,7 @@
             </connections>
         </arrayController>
         <customView id="sFW-7M-TCW" userLabel="No Selection">
-            <rect key="frame" x="0.0" y="-5" width="314" height="61"/>
+            <rect key="frame" x="0.0" y="0.0" width="314" height="61"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="ZcO-TW-hXc">
