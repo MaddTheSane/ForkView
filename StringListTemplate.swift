@@ -15,8 +15,8 @@ private func pascalStringFromData(_ aResource: Data, index indexID: Int16) -> [U
 	var curSize = 2
 	var aId = indexID
 	
-	var data = UnsafePointer<UInt8>((aResource as NSData).bytes)
-	let count = UnsafePointer<Int16>((aResource as NSData).bytes).pointee.bigEndian
+	var data = (aResource as NSData).bytes.assumingMemoryBound(to: UInt8.self)
+	let count = (aResource as NSData).bytes.assumingMemoryBound(to: Int16.self).pointee.bigEndian
 	
 	// First 2 bytes are the count of strings that this resource has.
 	if count < aId {

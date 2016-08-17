@@ -44,14 +44,14 @@ class RSVerticallyCenteredTextFieldCell: NSTextFieldCell {
         return newRect
     }
 
-    override func select(withFrame aRect: NSRect, in controlView: NSView, editor textObj: NSText, delegate anObject: AnyObject?, start selStart: Int, length selLength: Int) {
+    override func select(withFrame aRect: NSRect, in controlView: NSView, editor textObj: NSText, delegate anObject: Any?, start selStart: Int, length selLength: Int) {
         let rect = drawingRect(forBounds: aRect)
         mIsEditingOrSelecting = true
         super.select(withFrame: rect, in: controlView, editor: textObj, delegate: anObject, start: selStart, length: selLength)
         mIsEditingOrSelecting = false
     }
 
-    override func edit(withFrame aRect: NSRect, in controlView: NSView, editor textObj: NSText, delegate anObject: AnyObject?, event theEvent: NSEvent?) {
+    override func edit(withFrame aRect: NSRect, in controlView: NSView, editor textObj: NSText, delegate anObject: Any?, event theEvent: NSEvent?) {
         let rect = drawingRect(forBounds: aRect)
         mIsEditingOrSelecting = true
         super.edit(withFrame: rect, in: controlView, editor: textObj, delegate: anObject, event: theEvent)
