@@ -11,7 +11,7 @@ import Cocoa
 private typealias FVResAttributes = FVResourceFile.ResourceAttributes
 
 public final class AttributesFormatter: Formatter {
-	override public func string(for obj: AnyObject?) -> String? {
+	override public func string(for obj: Any?) -> String? {
 		if let aNum = obj as? Int {
 			var addComma = false
 			var string = ""
@@ -59,15 +59,15 @@ public final class AttributesFormatter: Formatter {
 		return nil
 	}
 	
-	override public func attributedString(for obj: AnyObject?, withDefaultAttributes attrs: [String : AnyObject]?) -> AttributedString? {
+	override public func attributedString(for obj: Any?, withDefaultAttributes attrs: [String : Any]?) -> NSAttributedString? {
 		if let aStr = string(for: obj) {
-			return AttributedString(string: aStr, attributes: attrs)
+			return NSAttributedString(string: aStr, attributes: attrs)
 		} else {
 			return nil
 		}
 	}
 	
-	override public func editingString(for obj: AnyObject) -> String? {
+	override public func editingString(for obj: Any) -> String? {
 		return nil
 	}
 	

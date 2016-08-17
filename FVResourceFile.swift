@@ -14,8 +14,8 @@ extension NSError {
 }
 
 final public class FVResourceFile: NSObject {
-    private(set) var types: [FVResourceType] = []
-    private(set) var isResourceFork = false
+    public private(set) var types: [FVResourceType] = []
+    public private(set) var isResourceFork = false
     private var header = ResourceHeader()
     private var map = ResourceMap()
     private let dataReader: FVDataReader!
