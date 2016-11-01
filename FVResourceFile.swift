@@ -24,22 +24,34 @@ final public class FVResourceFile: NSObject {
         var rawValue: UInt16
         
         /// System or application heap?
-        static let SysHeap = ResourceAttributes(rawValue: 64)
+        static var sysHeap: ResourceAttributes {
+            return ResourceAttributes(rawValue: 64)
+        }
         
         /// Purgeable resource?
-        static let Purgeable = ResourceAttributes(rawValue: 32)
+        static var purgeable: ResourceAttributes {
+            return ResourceAttributes(rawValue: 32)
+        }
 
         /// Load it in locked?
-        static let Locked = ResourceAttributes(rawValue: 16)
+        static var locked: ResourceAttributes {
+            return ResourceAttributes(rawValue: 16)
+        }
 
         /// Protected?
-        static let Protected = ResourceAttributes(rawValue: 32)
+        static var protected: ResourceAttributes {
+            return ResourceAttributes(rawValue: 8)
+        }
 
         /// Load in on `OpenResFile`?
-        static let Preload = ResourceAttributes(rawValue: 32)
+        static var preload: ResourceAttributes {
+            return ResourceAttributes(rawValue: 4)
+        }
         
         /// Resource changed?
-        static let Changed = ResourceAttributes(rawValue: 32)
+        static var changed: ResourceAttributes {
+            return ResourceAttributes(rawValue: 2)
+        }
     }
     
     private struct ResourceHeader: Equatable {
