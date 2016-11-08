@@ -10,13 +10,13 @@ import Cocoa
 import Carbon
 
 //Code taken from PlayerPRO Player's Sctf importer, modified to work in Swift
-private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [UInt8]? {
-	let handSize = aResource.length
+private func pascalStringFromData(_ aResource: Data, index indexID: Int16) -> [UInt8]? {
+	let handSize = aResource.count
 	var curSize = 2
 	var aId = indexID
 	
-	var data = UnsafePointer<UInt8>(aResource.bytes)
-	let count = UnsafePointer<Int16>(aResource.bytes).memory.bigEndian
+	var data = (aResource as NSData).bytes.assumingMemoryBound(to: UInt8.self)
+	let count = (aResource as NSData).bytes.assumingMemoryBound(to: Int16.self).pointee.bigEndian
 	
 	// First 2 bytes are the count of strings that this resource has.
 	if count < aId {
@@ -29,7 +29,7 @@ private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [U
 	// looking for data.  data is in order
 	aId -= 1
 	while aId >= 0 {
-		let toAdd = Int(data.memory) + 1;
+		let toAdd = Int(data.pointee) + 1;
 		curSize += toAdd
 		if (curSize >= handSize) {
 			return nil;
@@ -40,7 +40,7 @@ private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [U
 	
 	return {
 		var aRet = [UInt8]()
-		for i in 0...Int(data.memory) {
+		for i in 0...Int(data.pointee) {
 			aRet.append(data[i])
 		}
 		
@@ -48,8 +48,8 @@ private func pascalStringFromData(aResource: NSData, index indexID: Int16) -> [U
 	}()
 }
 
-private func pascalStringToString(aStr: UnsafePointer<UInt8>) -> String? {
-	return CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, CFStringBuiltInEncodings.MacRoman.rawValue) as String
+private func pascalStringToString(_ aStr: UnsafePointer<UInt8>) -> String? {
+	return CFStringCreateWithPascalString(kCFAllocatorDefault, aStr, CFStringBuiltInEncodings.macRoman.rawValue) as String
 }
 
 final class StringListObject: NSObject {
@@ -67,7 +67,7 @@ final class StringListObject: NSObject {
 final class StringListView: FVTypeController {
 	let supportedTypes = ["STR#"]
 	
-	func viewControllerFromResourceData(data: NSData, type: String, inout errmsg: String) -> NSViewController? {
+	func viewControllerFromResourceData(_ data: Data, type: String, errmsg: inout String) -> NSViewController? {
         return StringListTemplate(resData: data, type: type)
 	}
 }
@@ -76,7 +76,7 @@ final class StringListTemplate: NSViewController {
 	@objc let stringList: [StringListObject]
 	@IBOutlet weak var arrayController: NSArrayController!
 
-    required init?(resData: NSData, type: String) {
+    required init?(resData: Data, type: String) {
         var tmpStrList = [StringListObject]()
         var strIdx: Int16 = 0
         while let aPasString = pascalStringFromData(resData, index: strIdx) {

@@ -11,7 +11,7 @@ import Cocoa
 final class FVTextTypeController: FVTypeController {
     let supportedTypes = ["plst", "TEXT", "utf8", "utxt", "ut16", "weba", "RTF ", "rtfd", "STR "]
     
-    func viewControllerFromResourceData(data: NSData, type: String, inout errmsg: String) -> NSViewController? {
+    func viewControllerFromResourceData(_ data: Data, type: String, errmsg: inout String) -> NSViewController? {
         guard let str = attributedStringFromResource(data, type: type) else {
             return nil
         }
@@ -24,12 +24,12 @@ final class FVTextTypeController: FVTypeController {
         return viewController
     }
     
-    func attributedStringFromResource(rsrcData: NSData, type: String) -> NSAttributedString? {
+    func attributedStringFromResource(_ rsrcData: Data, type: String) -> NSAttributedString? {
         switch type {
         case "RTF ":
-            return NSAttributedString(RTF: rsrcData, documentAttributes: nil)
+            return NSAttributedString(rtf: rsrcData, documentAttributes: nil)
         case "rtfd":
-            return NSAttributedString(RTFD: rsrcData, documentAttributes: nil)
+            return NSAttributedString(rtfd: rsrcData, documentAttributes: nil)
         default:
             if let str = stringFromResource(rsrcData, type: type) {
                 return NSAttributedString(string: str)
@@ -39,23 +39,23 @@ final class FVTextTypeController: FVTypeController {
         return nil
     }
     
-    func stringFromResource(rsrcData: NSData, type: String) -> String? {
+    func stringFromResource(_ rsrcData: Data, type: String) -> String? {
         switch type {
         case "plst", "weba":
-            let plist: AnyObject? = try? NSPropertyListSerialization.propertyListWithData(rsrcData, options: NSPropertyListReadOptions(rawValue: NSPropertyListMutabilityOptions.Immutable.rawValue), format: nil)
+            let plist = try? PropertyListSerialization.propertyList(from: rsrcData, options: PropertyListSerialization.ReadOptions(rawValue: PropertyListSerialization.MutabilityOptions().rawValue), format: nil)
             if plist != nil {
-                if let data = try? NSPropertyListSerialization.dataWithPropertyList(plist!, format: .XMLFormat_v1_0, options: NSPropertyListWriteOptions(0)) {
-                    return NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+                if let data = try? PropertyListSerialization.data(fromPropertyList: plist!, format: .xml, options: PropertyListSerialization.WriteOptions(0)) {
+                    return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
                 }
             }
         case "TEXT":
-            return NSString(data: rsrcData, encoding: NSMacOSRomanStringEncoding) as? String
+            return NSString(data: rsrcData, encoding: String.Encoding.macOSRoman.rawValue) as? String
         case "utf8":
-            return NSString(data: rsrcData, encoding: NSUTF8StringEncoding) as? String
+            return NSString(data: rsrcData, encoding: String.Encoding.utf8.rawValue) as? String
         case "utxt":
-            return NSString(data: rsrcData, encoding: NSUTF16BigEndianStringEncoding) as? String
+            return NSString(data: rsrcData, encoding: String.Encoding.utf16BigEndian.rawValue) as? String
         case "ut16":
-            return NSString(data: rsrcData, encoding: NSUnicodeStringEncoding) as? String
+            return NSString(data: rsrcData, encoding: String.Encoding.unicode.rawValue) as? String
         case "STR ":
             return stringFromPascalStringData(rsrcData)
         default:
@@ -64,15 +64,15 @@ final class FVTextTypeController: FVTypeController {
         return nil
     }
     
-    func stringFromPascalStringData(data: NSData) -> String? {
-        if data.length < 2 {
+    func stringFromPascalStringData(_ data: Data) -> String? {
+        if data.count < 2 {
             return nil
         }
-        let ptr = UnsafePointer<UInt8>(data.bytes)
+        let ptr = (data as NSData).bytes.assumingMemoryBound(to: UInt8.self)
         let strLen = Int(ptr[0])
-        if data.length < (strLen + 1) {
+        if data.count < (strLen + 1) {
             return nil
         }
-        return NSString(bytes: ptr + 1, length: strLen, encoding: NSMacOSRomanStringEncoding) as? String
+        return NSString(bytes: ptr + 1, length: strLen, encoding: String.Encoding.macOSRoman.rawValue) as? String
     }
 }

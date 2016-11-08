@@ -20,9 +20,9 @@ import Cocoa
 class RSVerticallyCenteredTextFieldCell: NSTextFieldCell {
     private var mIsEditingOrSelecting = false
     
-    override func drawingRectForBounds(theRect: NSRect) -> NSRect {
+    override func drawingRect(forBounds theRect: NSRect) -> NSRect {
         // Get the parent's idea of where we should draw
-        var newRect = super.drawingRectForBounds(theRect)
+        var newRect = super.drawingRect(forBounds: theRect)
 
         // When the text field is being 
         // edited or selected, we have to turn off the magic because it screws up 
@@ -31,7 +31,7 @@ class RSVerticallyCenteredTextFieldCell: NSTextFieldCell {
         // reduced, centered rect in at the last minute.
         if !mIsEditingOrSelecting {
             // Get our ideal size for current text
-            let textSize = cellSizeForBounds(theRect)
+            let textSize = cellSize(forBounds: theRect)
 
             // Center that in the proposed rect
             let heightDelta = newRect.size.height - textSize.height
@@ -44,17 +44,17 @@ class RSVerticallyCenteredTextFieldCell: NSTextFieldCell {
         return newRect
     }
 
-    override func selectWithFrame(aRect: NSRect, inView controlView: NSView, editor textObj: NSText, delegate anObject: AnyObject?, start selStart: Int, length selLength: Int) {
-        let rect = drawingRectForBounds(aRect)
+    override func select(withFrame aRect: NSRect, in controlView: NSView, editor textObj: NSText, delegate anObject: Any?, start selStart: Int, length selLength: Int) {
+        let rect = drawingRect(forBounds: aRect)
         mIsEditingOrSelecting = true
-        super.selectWithFrame(rect, inView: controlView, editor: textObj, delegate: anObject, start: selStart, length: selLength)
+        super.select(withFrame: rect, in: controlView, editor: textObj, delegate: anObject, start: selStart, length: selLength)
         mIsEditingOrSelecting = false
     }
 
-    override func editWithFrame(aRect: NSRect, inView controlView: NSView, editor textObj: NSText, delegate anObject: AnyObject?, event theEvent: NSEvent) {
-        let rect = drawingRectForBounds(aRect)
+    override func edit(withFrame aRect: NSRect, in controlView: NSView, editor textObj: NSText, delegate anObject: Any?, event theEvent: NSEvent?) {
+        let rect = drawingRect(forBounds: aRect)
         mIsEditingOrSelecting = true
-        super.editWithFrame(rect, inView: controlView, editor: textObj, delegate: anObject, event: theEvent)
+        super.edit(withFrame: rect, in: controlView, editor: textObj, delegate: anObject, event: theEvent)
         mIsEditingOrSelecting = false
     }
 }

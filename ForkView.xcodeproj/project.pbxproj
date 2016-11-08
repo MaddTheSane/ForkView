@@ -11,7 +11,7 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		55442B7E1B01269D00359921 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55442B7B1B01269D00359921 /* main.m */; };
 		55442B7F1B01296300359921 /* PICTConverter.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = A5FFD8FE1B0048EA008AB914 /* PICTConverter.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		557168481AF06F5600B5DAD9 /* ForkView.h in Headers */ = {isa = PBXBuildFile; fileRef = 557168471AF06F5600B5DAD9 /* ForkView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		557168481AF06F5600B5DAD9 /* ResourceFork.h in Headers */ = {isa = PBXBuildFile; fileRef = 557168471AF06F5600B5DAD9 /* ResourceFork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		557168621AF06F7200B5DAD9 /* AttributesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E11E231AE723C300815555 /* AttributesFormatter.swift */; };
 		557168681AF06F7200B5DAD9 /* FVResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A0779D198E9B6A00AAFF2F /* FVResourceType.swift */; };
 		557168691AF06F7200B5DAD9 /* FVResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A077A0198EA0C000AAFF2F /* FVResource.swift */; };
@@ -21,8 +21,6 @@
 		55D6AB171D3AC10D007B6957 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB161D3AC10D007B6957 /* Carbon.framework */; };
 		55D6AB1A1D3AC119007B6957 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB181D3AC119007B6957 /* ApplicationServices.framework */; };
 		55D6AB1B1D3AC119007B6957 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB191D3AC119007B6957 /* CoreServices.framework */; };
-		55E11E031AE7122500815555 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; };
-		55E11E041AE7122500815555 /* SwiftAdditions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DCF1AE7108400815555 /* SwiftAdditions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55F1F88C1B0012B900518344 /* StringListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1F88B1B0012B900518344 /* StringListTemplate.swift */; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		A55408FE1AF70A9E0052A143 /* RSVerticallyCenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55408FD1AF70A9E0052A143 /* RSVerticallyCenteredTextFieldCell.swift */; };
@@ -43,76 +41,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		55E11DCE1AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 550FBABE19A7ADC500EFBD3D;
-			remoteInfo = SwiftAdditions;
-		};
-		55E11DD01AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 550FBAC919A7ADC500EFBD3D;
-			remoteInfo = SwiftAdditionsTests;
-		};
-		55E11DD21AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55706D8F1A1EC2440000FD93;
-			remoteInfo = SwiftIOKitAdditions;
-		};
-		55E11DD41AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55706D991A1EC2440000FD93;
-			remoteInfo = SwiftIOKitAdditionsTests;
-		};
-		55E11DD61AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55403A011A745003007A488E;
-			remoteInfo = ForceFeedbackAdditions;
-		};
-		55E11DD81AE7108400815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55403A0B1A745003007A488E;
-			remoteInfo = ForceFeedbackAdditionsTests;
-		};
-		55E11DDA1AE7111900815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
-			remoteInfo = SwiftAdditions;
-		};
-		55E11DFF1AE7122500815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E11DE11AE7114000815555;
-			remoteInfo = SwiftAudioAdditions;
-		};
-		55E11E011AE7122500815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E11DEB1AE7114000815555;
-			remoteInfo = SwiftAudioAdditionsTests;
-		};
-		55E11E051AE7122500815555 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
-			remoteInfo = SwiftAdditions;
-		};
 		A5FFD9051B004C12008AB914 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -140,7 +68,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				55E11E041AE7122500815555 /* SwiftAdditions.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,14 +80,13 @@
 		55442B7B1B01269D00359921 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		55442B7C1B01269D00359921 /* PICTConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PICTConverter.h; sourceTree = "<group>"; usesTabs = 0; };
 		55442B7D1B01269D00359921 /* PICTConverterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PICTConverterProtocol.h; sourceTree = "<group>"; usesTabs = 0; };
-		557168431AF06F5600B5DAD9 /* ForkView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ForkView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		557168431AF06F5600B5DAD9 /* ResourceFork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ResourceFork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		557168461AF06F5600B5DAD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		557168471AF06F5600B5DAD9 /* ForkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForkView.h; sourceTree = "<group>"; };
+		557168471AF06F5600B5DAD9 /* ResourceFork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceFork.h; sourceTree = "<group>"; };
 		55BB99621B029915009B3EDD /* FVResourceFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVResourceFile.swift; sourceTree = "<group>"; };
 		55D6AB161D3AC10D007B6957 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		55D6AB181D3AC119007B6957 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		55D6AB191D3AC119007B6957 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftAdditions.xcodeproj; path = SwiftAdditions/SwiftAdditions.xcodeproj; sourceTree = "<group>"; };
 		55E11E231AE723C300815555 /* AttributesFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesFormatter.swift; sourceTree = "<group>"; };
 		55F1F88B1B0012B900518344 /* StringListTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringListTemplate.swift; sourceTree = "<group>"; usesTabs = 1; };
 		8D15AC360486D014006FF6A4 /* ForkView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ForkView-Info.plist"; sourceTree = "<group>"; };
@@ -198,7 +124,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E11E031AE7122500815555 /* SwiftAdditions.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,7 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				8D15AC370486D014006FF6A4 /* ForkView.app */,
-				557168431AF06F5600B5DAD9 /* ForkView.framework */,
+				557168431AF06F5600B5DAD9 /* ResourceFork.framework */,
 				A5FFD8FE1B0048EA008AB914 /* PICTConverter.xpc */,
 			);
 			name = Products;
@@ -229,7 +154,6 @@
 		2A37F4AAFDCFA73011CA2CEA /* ForkView */ = {
 			isa = PBXGroup;
 			children = (
-				55E11DC41AE70FFD00815555 /* Vendor */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				557168441AF06F5600B5DAD9 /* ForkView */,
@@ -285,7 +209,7 @@
 		557168441AF06F5600B5DAD9 /* ForkView */ = {
 			isa = PBXGroup;
 			children = (
-				557168471AF06F5600B5DAD9 /* ForkView.h */,
+				557168471AF06F5600B5DAD9 /* ResourceFork.h */,
 				557168451AF06F5600B5DAD9 /* Supporting Files */,
 			);
 			path = ForkView;
@@ -297,29 +221,6 @@
 				557168461AF06F5600B5DAD9 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		55E11DC41AE70FFD00815555 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
-		55E11DC61AE7108400815555 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				55E11DCF1AE7108400815555 /* SwiftAdditions.framework */,
-				55E11DD11AE7108400815555 /* SwiftAdditionsTests.xctest */,
-				55E11DD31AE7108400815555 /* SwiftIOKitAdditions.framework */,
-				55E11DD51AE7108400815555 /* SwiftIOKitAdditionsTests.xctest */,
-				55E11DD71AE7108400815555 /* ForceFeedbackAdditions.framework */,
-				55E11DD91AE7108400815555 /* ForceFeedbackAdditionsTests.xctest */,
-				55E11E001AE7122500815555 /* SwiftAudioAdditions.framework */,
-				55E11E021AE7122500815555 /* SwiftAudioAdditionsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		A54A9F01138E0E6A004F8BB9 /* UI */ = {
@@ -386,16 +287,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				557168481AF06F5600B5DAD9 /* ForkView.h in Headers */,
+				557168481AF06F5600B5DAD9 /* ResourceFork.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		557168421AF06F5600B5DAD9 /* ForkView */ = {
+		557168421AF06F5600B5DAD9 /* ResourceFork */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5571685C1AF06F5700B5DAD9 /* Build configuration list for PBXNativeTarget "ForkView" */;
+			buildConfigurationList = 5571685C1AF06F5700B5DAD9 /* Build configuration list for PBXNativeTarget "ResourceFork" */;
 			buildPhases = (
 				5571683E1AF06F5600B5DAD9 /* Sources */,
 				5571683F1AF06F5600B5DAD9 /* Frameworks */,
@@ -406,14 +307,14 @@
 			);
 			dependencies = (
 			);
-			name = ForkView;
+			name = ResourceFork;
 			productName = ForkView;
-			productReference = 557168431AF06F5600B5DAD9 /* ForkView.framework */;
+			productReference = 557168431AF06F5600B5DAD9 /* ResourceFork.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		8D15AC270486D014006FF6A4 /* ForkViewer */ = {
+		8D15AC270486D014006FF6A4 /* ForkView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkViewer" */;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkView" */;
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
@@ -424,11 +325,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				55E11DDB1AE7111900815555 /* PBXTargetDependency */,
-				55E11E061AE7122500815555 /* PBXTargetDependency */,
 				A5FFD9061B004C12008AB914 /* PBXTargetDependency */,
 			);
-			name = ForkViewer;
+			name = ForkView;
 			productInstallPath = "$(HOME)/Applications";
 			productName = ForkView;
 			productReference = 8D15AC370486D014006FF6A4 /* ForkView.app */;
@@ -458,11 +357,14 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Kevin Wojniak";
 				TargetAttributes = {
 					557168421AF06F5600B5DAD9 = {
 						CreatedOnToolsVersion = 6.3.1;
+					};
+					8D15AC270486D014006FF6A4 = {
+						LastSwiftMigration = 0800;
 					};
 					A5FFD8FD1B0048EA008AB914 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -482,79 +384,14 @@
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* ForkView */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 55E11DC61AE7108400815555 /* Products */;
-					ProjectRef = 55E11DC51AE7108400815555 /* SwiftAdditions.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
-				8D15AC270486D014006FF6A4 /* ForkViewer */,
-				557168421AF06F5600B5DAD9 /* ForkView */,
+				8D15AC270486D014006FF6A4 /* ForkView */,
+				557168421AF06F5600B5DAD9 /* ResourceFork */,
 				A5FFD8FD1B0048EA008AB914 /* PICTConverter */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		55E11DCF1AE7108400815555 /* SwiftAdditions.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftAdditions.framework;
-			remoteRef = 55E11DCE1AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD11AE7108400815555 /* SwiftAdditionsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftAdditionsTests.xctest;
-			remoteRef = 55E11DD01AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD31AE7108400815555 /* SwiftIOKitAdditions.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftIOKitAdditions.framework;
-			remoteRef = 55E11DD21AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD51AE7108400815555 /* SwiftIOKitAdditionsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftIOKitAdditionsTests.xctest;
-			remoteRef = 55E11DD41AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD71AE7108400815555 /* ForceFeedbackAdditions.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ForceFeedbackAdditions.framework;
-			remoteRef = 55E11DD61AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11DD91AE7108400815555 /* ForceFeedbackAdditionsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ForceFeedbackAdditionsTests.xctest;
-			remoteRef = 55E11DD81AE7108400815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11E001AE7122500815555 /* SwiftAudioAdditions.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftAudioAdditions.framework;
-			remoteRef = 55E11DFF1AE7122500815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		55E11E021AE7122500815555 /* SwiftAudioAdditionsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftAudioAdditionsTests.xctest;
-			remoteRef = 55E11E011AE7122500815555 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		557168411AF06F5600B5DAD9 /* Resources */ = {
@@ -623,16 +460,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		55E11DDB1AE7111900815555 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftAdditions;
-			targetProxy = 55E11DDA1AE7111900815555 /* PBXContainerItemProxy */;
-		};
-		55E11E061AE7122500815555 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftAdditions;
-			targetProxy = 55E11E051AE7122500815555 /* PBXContainerItemProxy */;
-		};
 		A5FFD9061B004C12008AB914 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A5FFD8FD1B0048EA008AB914 /* PICTConverter */;
@@ -803,6 +630,7 @@
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -812,8 +640,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -835,6 +665,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0.1;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -842,6 +673,7 @@
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -851,8 +683,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -871,6 +705,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0.1;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
@@ -878,7 +714,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5571685C1AF06F5700B5DAD9 /* Build configuration list for PBXNativeTarget "ForkView" */ = {
+		5571685C1AF06F5700B5DAD9 /* Build configuration list for PBXNativeTarget "ResourceFork" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5571685D1AF06F5700B5DAD9 /* Debug */,
@@ -896,7 +732,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkViewer" */ = {
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733C808A9546B00998B17 /* Debug */,

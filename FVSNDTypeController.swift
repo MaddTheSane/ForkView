@@ -14,11 +14,11 @@ import AVFoundation
 final class FVSNDTypeController: FVTypeController {
     let supportedTypes = ["snd "]
     
-    func viewControllerFromResourceData(data: NSData, type: String, inout errmsg: String) -> NSViewController? {
+    func viewControllerFromResourceData(_ data: Data, type: String, errmsg: inout String) -> NSViewController? {
         if let asset = assetForSND(data, errmsg: &errmsg) {
             let playerView = AVPlayerView(frame: NSMakeRect(0, 0, 100, 100))
             playerView.player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
-            playerView.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
+            playerView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
             playerView.player!.play()
             let viewController = FVSNDViewController()
             viewController.view = playerView
@@ -27,7 +27,7 @@ final class FVSNDTypeController: FVTypeController {
         return nil
     }
 
-    func assetForSND(data: NSData, inout errmsg: String) -> AVAsset? {
+    func assetForSND(_ data: Data, errmsg: inout String) -> AVAsset? {
         // See Sound.h in Carbon
         // Also see "Sound Manager" legacy PDF
         let firstSoundFormat: Int16  = 0x0001 /*general sound format*/
@@ -78,16 +78,16 @@ final class FVSNDTypeController: FVTypeController {
         
         // Read the SndListResource or Snd2ListResource
         var format = Int16()
-        if !reader.readInt16(.Big, &format) {
+        if !reader.readInt16(endian: .big, &format) {
             errmsg = "Missing header"
             return nil
         }
         if format == firstSoundFormat {
             var numModifiers = Int16()
             var modifierPart = ModRef()
-            if !reader.readInt16(.Big, &numModifiers) ||
-                !reader.readUInt16(.Big, &modifierPart.modNumber) ||
-                !reader.readInt32(.Big, &modifierPart.modInit) {
+            if !reader.readInt16(endian: .big, &numModifiers) ||
+                !reader.readUInt16(endian: .big, &modifierPart.modNumber) ||
+                !reader.readInt32(endian: .big, &modifierPart.modInit) {
                 errmsg = "Missing header"
                 return nil
             }
@@ -109,7 +109,7 @@ final class FVSNDTypeController: FVTypeController {
             }
         } else if format == secondSoundFormat {
             var refCount = Int16()
-            if !reader.readInt16(.Big, &refCount) {
+            if !reader.readInt16(endian: .big, &refCount) {
                 errmsg = "Missing header"
                 return nil
             }
@@ -122,7 +122,7 @@ final class FVSNDTypeController: FVTypeController {
         var header_offset = Int()
         var numCommands = Int16()
         var commandPart = SndCommand()
-        if !reader.readInt16(.Big, &numCommands) {
+        if !reader.readInt16(endian: .big, &numCommands) {
             errmsg = "Missing header"
             return nil
         }
@@ -131,9 +131,9 @@ final class FVSNDTypeController: FVTypeController {
             return nil
         }
         for _ in Int16(0) ..< numCommands {
-            if !reader.readUInt16(.Big, &commandPart.cmd) ||
-                !reader.readInt16(.Big, &commandPart.param1) ||
-                !reader.readInt32(.Big, &commandPart.param2) {
+            if !reader.readUInt16(endian: .big, &commandPart.cmd) ||
+                !reader.readInt16(endian: .big, &commandPart.param1) ||
+                !reader.readInt32(endian: .big, &commandPart.param2) {
                     errmsg = "Missing command"
                     return nil
             }
@@ -157,11 +157,11 @@ final class FVSNDTypeController: FVTypeController {
         
         // Read SoundHeader
         var header = SoundHeader()
-        if !reader.readUInt32(.Big, &header.samplePtr) ||
-            !reader.readUInt32(.Big, &header.length) ||
-            !reader.readUInt32(.Big, &header.sampleRate) ||
-            !reader.readUInt32(.Big, &header.loopStart) ||
-            !reader.readUInt32(.Big, &header.loopEnd) ||
+        if !reader.readUInt32(endian: .big, &header.samplePtr) ||
+            !reader.readUInt32(endian: .big, &header.length) ||
+            !reader.readUInt32(endian: .big, &header.sampleRate) ||
+            !reader.readUInt32(endian: .big, &header.loopStart) ||
+            !reader.readUInt32(endian: .big, &header.loopEnd) ||
             !reader.readUInt8(&header.encode) ||
             !reader.readUInt8(&header.baseFrequency) {
             errmsg = "Missing header data"
@@ -195,42 +195,42 @@ final class FVSNDTypeController: FVTypeController {
         stream.mBitsPerChannel = 8
         
         // Create a temporary file for storage
-        let url = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingFormat("%d-%f.aif", arc4random(), NSDate().timeIntervalSinceReferenceDate))
-        var audioFile: ExtAudioFileRef = nil
-        let createStatus = ExtAudioFileCreateWithURL(url, AudioFileTypeID(kAudioFileAIFFType), &stream, nil, AudioFileFlags.EraseFile.rawValue, &audioFile)
+        let url = URL(fileURLWithPath: NSTemporaryDirectory().appendingFormat("%d-%f.aif", arc4random(), Date().timeIntervalSinceReferenceDate))
+        var audioFile: ExtAudioFileRef? = nil
+        let createStatus = ExtAudioFileCreateWithURL(url as NSURL, AudioFileTypeID(kAudioFileAIFFType), &stream, nil, AudioFileFlags.eraseFile.rawValue, &audioFile)
         if createStatus != noErr {
             errmsg = "ExtAudioFileCreateWithURL failed with status \(createStatus)"
             return nil
         }
         
         // Configure the AudioBufferList
-        let srcData = UnsafePointer<UInt8>(sampleData!.bytes)
+        let srcData = ((sampleData! as NSData).bytes).assumingMemoryBound(to: UInt8.self)
         var audioBuffer = AudioBuffer()
         audioBuffer.mNumberChannels = 1
         audioBuffer.mDataByteSize = header.length
-        audioBuffer.mData = UnsafeMutablePointer(srcData)
-        let audioBufferData = UnsafeMutablePointer<UInt8>(audioBuffer.mData)
+        audioBuffer.mData = UnsafeMutableRawPointer(mutating: srcData)
+        let audioBufferData = audioBuffer.mData?.assumingMemoryBound(to: UInt8.self)
         for i in 0 ..< Int(header.length) {
-            audioBufferData[i] ^= 0x80
+            audioBufferData?[i] ^= 0x80
         }
         var bufferList = AudioBufferList(mNumberBuffers: 1, mBuffers: audioBuffer)
         
         // Write the data to the file
-        let writeStatus = ExtAudioFileWrite(audioFile, header.length, &bufferList)
+        let writeStatus = ExtAudioFileWrite(audioFile!, header.length, &bufferList)
         if writeStatus != noErr {
             errmsg = "ExtAudioFileWrite failed with status \(writeStatus)"
             return nil
         }
         
         // Finish up
-        let disposeStatus = ExtAudioFileDispose(audioFile)
+        let disposeStatus = ExtAudioFileDispose(audioFile!)
         if disposeStatus != noErr {
             errmsg = "ExtAudioFileDispose failed with status \(disposeStatus)"
             return nil
         }
         
         // Generate an AVAsset
-        return AVAsset(URL: url)
+        return AVAsset(url: url)
     }
 }
 

@@ -10,27 +10,27 @@ import Cocoa
 
 private typealias FVResAttributes = FVResourceFile.ResourceAttributes
 
-public final class AttributesFormatter: NSFormatter {
-	override public func stringForObjectValue(obj: AnyObject) -> String? {
+public final class AttributesFormatter: Formatter {
+	override public func string(for obj: Any?) -> String? {
 		if let aNum = obj as? Int {
 			var addComma = false
 			var string = ""
 			var attributeCount = 0
 			let attributes = FVResAttributes(rawValue: UInt16(aNum))
 			
-			func countAttribute(anAttrib: FVResAttributes) {
+			func countAttribute(_ anAttrib: FVResAttributes) {
 				if attributes.contains(anAttrib) {
 					attributeCount += 1
 				}
 			}
 			
-			countAttribute(.Preload)
-			countAttribute(.Protected)
-			countAttribute(.Locked)
-			countAttribute(.Purgeable)
-			countAttribute(.SysHeap)
+			countAttribute(.preload)
+			countAttribute(.protected)
+			countAttribute(.locked)
+			countAttribute(.purgeable)
+			countAttribute(.sysHeap)
 			
-			func addToString(anAttrib: FVResAttributes, longString: String, shortString: String? = nil) {
+			func addToString(_ anAttrib: FVResAttributes, longString: String, shortString: String? = nil) {
 				if addComma {
 					string += ", "
 				}
@@ -38,9 +38,8 @@ public final class AttributesFormatter: NSFormatter {
 					if let shortString = shortString {
 						string += shortString
 					} else {
-						let endIdx = longString.startIndex.advancedBy(3)
-						let aShortStr = longString[longString.startIndex..<endIdx]
-						string += aShortStr
+                        let subStrIdx = longString.index(longString.startIndex, offsetBy: 3)
+                        string += longString.substring(to: subStrIdx)
 					}
 				} else {
 					string += longString
@@ -49,34 +48,34 @@ public final class AttributesFormatter: NSFormatter {
 				addComma = true
 			}
 			
-			addToString(.Preload, longString: "Preload")
-			addToString(.Protected, longString: "Protected")
-			addToString(.Locked, longString: "Locked", shortString: "L")
-			addToString(.Purgeable, longString: "Purgeable")
-			addToString(.SysHeap, longString: "SysHeap")
+			addToString(.preload, longString: "Preload")
+			addToString(.protected, longString: "Protected")
+			addToString(.locked, longString: "Locked", shortString: "L")
+			addToString(.purgeable, longString: "Purgeable")
+			addToString(.sysHeap, longString: "SysHeap")
 			
 			return string
 		}
 		return nil
 	}
 	
-	override public func attributedStringForObjectValue(obj: AnyObject, withDefaultAttributes attrs: [String : AnyObject]?) -> NSAttributedString? {
-		if let aStr = stringForObjectValue(obj) {
+	override public func attributedString(for obj: Any?, withDefaultAttributes attrs: [String : Any]?) -> NSAttributedString? {
+		if let aStr = string(for: obj) {
 			return NSAttributedString(string: aStr, attributes: attrs)
 		} else {
 			return nil
 		}
 	}
 	
-	override public func editingStringForObjectValue(obj: AnyObject) -> String? {
+	override public func editingString(for obj: Any) -> String? {
 		return nil
 	}
 	
-	override public func getObjectValue(obj: AutoreleasingUnsafeMutablePointer<AnyObject?>, forString string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
+	override public func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
 		return false
 	}
 	
-	override public func isPartialStringValid(partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
+	override public func isPartialStringValid(_ partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
 		return false
 	}
 }
