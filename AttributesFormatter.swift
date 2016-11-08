@@ -24,11 +24,11 @@ public final class AttributesFormatter: Formatter {
 				}
 			}
 			
-			countAttribute(.Preload)
-			countAttribute(.Protected)
-			countAttribute(.Locked)
-			countAttribute(.Purgeable)
-			countAttribute(.SysHeap)
+			countAttribute(.preload)
+			countAttribute(.protected)
+			countAttribute(.locked)
+			countAttribute(.purgeable)
+			countAttribute(.sysHeap)
 			
 			func addToString(_ anAttrib: FVResAttributes, longString: String, shortString: String? = nil) {
 				if addComma {
@@ -48,11 +48,11 @@ public final class AttributesFormatter: Formatter {
 				addComma = true
 			}
 			
-			addToString(.Preload, longString: "Preload")
-			addToString(.Protected, longString: "Protected")
-			addToString(.Locked, longString: "Locked", shortString: "L")
-			addToString(.Purgeable, longString: "Purgeable")
-			addToString(.SysHeap, longString: "SysHeap")
+			addToString(.preload, longString: "Preload")
+			addToString(.protected, longString: "Protected")
+			addToString(.locked, longString: "Locked", shortString: "L")
+			addToString(.purgeable, longString: "Purgeable")
+			addToString(.sysHeap, longString: "SysHeap")
 			
 			return string
 		}
