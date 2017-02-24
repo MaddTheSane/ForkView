@@ -28,7 +28,7 @@ public final class FVDataReader {
         if !resourceFork {
             var fileSize: AnyObject?
             do {
-                try (URL as NSURL).getResourceValue(&fileSize, forKey: URLResourceKey.fileSizeKey)
+                try (URL as NSURL).getResourceValue(&fileSize, forKey: .fileSizeKey)
             } catch _ {
             }
             let fileSizeNum = fileSize as? NSNumber
@@ -41,12 +41,19 @@ public final class FVDataReader {
                 return nil
             }
         } else {
-            let rsrcSize = getxattr((URL as NSURL).fileSystemRepresentation, XATTR_RESOURCEFORK_NAME, nil, 0, 0, 0)
+            let rsrcSize = URL.withUnsafeFileSystemRepresentation({ (namePtr) -> Int in
+                return getxattr(namePtr, XATTR_RESOURCEFORK_NAME, nil, 0, 0, 0)
+            })
             if rsrcSize <= 0 || rsrcSize >= maxResourceSize {
                 return nil
             }
-            if let data = NSMutableData(length: rsrcSize), getxattr((URL as NSURL).fileSystemRepresentation, XATTR_RESOURCEFORK_NAME, data.mutableBytes, rsrcSize, 0, 0) != rsrcSize {
-                self.data = data as Data
+            var data = Data(count: rsrcSize)
+            
+            if data.withUnsafeMutableBytes({ (val: UnsafeMutablePointer<UInt8>) -> Int in
+                URL.withUnsafeFileSystemRepresentation({ (namePtr) -> Int in
+                    return getxattr(namePtr, XATTR_RESOURCEFORK_NAME, val, rsrcSize, 0, 0)
+                }) }) != rsrcSize {
+                self.data = data
             } else {
                 return nil
             }
