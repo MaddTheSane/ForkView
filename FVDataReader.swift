@@ -28,7 +28,8 @@ public final class FVDataReader {
         if !resourceFork {
             var fileSize: AnyObject?
             do {
-                try (URL as NSURL).getResourceValue(&fileSize, forKey: .fileSizeKey)
+                let num = try URL.resourceValues(forKeys: [.fileSizeKey])
+                fileSize = num.fileSize as AnyObject?
             } catch _ {
             }
             let fileSizeNum = fileSize as? NSNumber

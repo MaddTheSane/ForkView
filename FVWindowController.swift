@@ -72,7 +72,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
             if let type = resource.type?.typeString {
                 for controller in typeControllers {
                     if let _ = controller.supportedTypes.index(of: type) {
-                        return controller.viewControllerFromResourceData(rsrcData, type: type, errmsg: &errmsg)
+                        return controller.viewController(fromResourceData: rsrcData, type: type, errmsg: &errmsg)
                     }
                 }
             }

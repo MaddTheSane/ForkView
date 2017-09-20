@@ -11,7 +11,7 @@ import Cocoa
 final class FVTextTypeController: FVTypeController {
     let supportedTypes = ["plst", "TEXT", "utf8", "utxt", "ut16", "weba", "RTF ", "rtfd", "STR "]
     
-    func viewControllerFromResourceData(_ data: Data, type: String, errmsg: inout String) -> NSViewController? {
+    func viewController(fromResourceData data: Data, type: String, errmsg: inout String) -> NSViewController? {
         guard let str = attributedStringFromResource(data, type: type) else {
             return nil
         }
@@ -42,20 +42,19 @@ final class FVTextTypeController: FVTypeController {
     func stringFromResource(_ rsrcData: Data, type: String) -> String? {
         switch type {
         case "plst", "weba":
-            let plist = try? PropertyListSerialization.propertyList(from: rsrcData, options: PropertyListSerialization.ReadOptions(rawValue: PropertyListSerialization.MutabilityOptions().rawValue), format: nil)
-            if plist != nil {
-                if let data = try? PropertyListSerialization.data(fromPropertyList: plist!, format: .xml, options: PropertyListSerialization.WriteOptions(0)) {
-                    return NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
-                }
+            if let plist = try? PropertyListSerialization.propertyList(from: rsrcData, options: PropertyListSerialization.ReadOptions(rawValue: PropertyListSerialization.MutabilityOptions().rawValue), format: nil),
+                let data = try? PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: PropertyListSerialization.WriteOptions(0)) {
+                return String(data: data, encoding: .utf8)
+                
             }
         case "TEXT":
-            return NSString(data: rsrcData, encoding: String.Encoding.macOSRoman.rawValue) as? String
+            return String(data: rsrcData, encoding: .macOSRoman)
         case "utf8":
-            return NSString(data: rsrcData, encoding: String.Encoding.utf8.rawValue) as? String
+            return String(data: rsrcData, encoding: .utf8)
         case "utxt":
-            return NSString(data: rsrcData, encoding: String.Encoding.utf16BigEndian.rawValue) as? String
+            return String(data: rsrcData, encoding: .utf16BigEndian)
         case "ut16":
-            return NSString(data: rsrcData, encoding: String.Encoding.unicode.rawValue) as? String
+            return String(data: rsrcData, encoding: .unicode)
         case "STR ":
             return stringFromPascalStringData(rsrcData)
         default:
@@ -73,6 +72,6 @@ final class FVTextTypeController: FVTypeController {
         if data.count < (strLen + 1) {
             return nil
         }
-        return NSString(bytes: ptr + 1, length: strLen, encoding: String.Encoding.macOSRoman.rawValue) as? String
+        return NSString(bytes: ptr + 1, length: strLen, encoding: String.Encoding.macOSRoman.rawValue) as String?
     }
 }

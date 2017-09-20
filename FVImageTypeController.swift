@@ -13,7 +13,7 @@ final class FVImageTypeController: FVTypeController {
 		"GIFF"
 	]
     
-    func viewControllerFromResourceData(_ data: Data, type: String, errmsg: inout String) -> NSViewController? {
+    func viewController(fromResourceData data: Data, type: String, errmsg: inout String) -> NSViewController? {
 		if type == "PICT" {
             //First, see if we can get the image size via NSImage
             let tmpCocoaImg = NSImage(data: data)

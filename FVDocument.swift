@@ -20,6 +20,6 @@ import Cocoa
     }
     
     override func read(from url: URL, ofType typeName: String) throws {
-        resourceFile = try FVResourceFile.resourceFileWithContentsOfURL(url)
+        resourceFile = try FVResourceFile.resourceFileWithContents(of: url)
     }
 }

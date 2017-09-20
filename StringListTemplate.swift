@@ -67,7 +67,7 @@ final class StringListObject: NSObject {
 final class StringListView: FVTypeController {
 	let supportedTypes = ["STR#"]
 	
-	func viewControllerFromResourceData(_ data: Data, type: String, errmsg: inout String) -> NSViewController? {
+	func viewController(fromResourceData data: Data, type: String, errmsg: inout String) -> NSViewController? {
         return StringListTemplate(resData: data, type: type)
 	}
 }
@@ -82,9 +82,9 @@ final class StringListTemplate: NSViewController {
         while let aPasString = pascalStringFromData(resData, index: strIdx) {
 			strIdx += 1
             if let cStr = pascalStringToString(aPasString) {
-                tmpStrList.append(StringListObject(string: cStr, index: strIdx - 1))
+                tmpStrList.append(StringListObject(string: cStr, index: Int(strIdx) - 1))
             } else {
-                tmpStrList.append(StringListObject(string: "!!Unable to decode \(strIdx - 1)!!", index: strIdx - 1))
+                tmpStrList.append(StringListObject(string: "!!Unable to decode \(strIdx - 1)!!", index: Int(strIdx) - 1))
             }
         }
 

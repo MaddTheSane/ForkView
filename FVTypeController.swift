@@ -10,5 +10,5 @@ import Cocoa
 
 protocol FVTypeController {
     var supportedTypes: [String] { get }
-    func viewControllerFromResourceData(_ data: Data, type: String, errmsg: inout String) -> NSViewController?
+    func viewController(fromResourceData data: Data, type: String, errmsg: inout String) -> NSViewController?
 }

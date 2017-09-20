@@ -14,7 +14,7 @@ import AVFoundation
 final class FVSNDTypeController: FVTypeController {
     let supportedTypes = ["snd "]
     
-    func viewControllerFromResourceData(_ data: Data, type: String, errmsg: inout String) -> NSViewController? {
+    func viewController(fromResourceData data: Data, type: String, errmsg: inout String) -> NSViewController? {
         if let asset = assetForSND(data, errmsg: &errmsg) {
             let playerView = AVPlayerView(frame: NSMakeRect(0, 0, 100, 100))
             playerView.player = AVPlayer(playerItem: AVPlayerItem(asset: asset))

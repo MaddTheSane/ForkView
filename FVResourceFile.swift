@@ -7,10 +7,12 @@
 
 import Foundation
 
-extension NSError {
-    internal class func errorWithDescription(_ description: String) -> NSError {
-        return NSError(domain: "FVResourceErrorDomain", code: -1, userInfo: [NSLocalizedFailureReasonErrorKey: description])
-    }
+@objc(FVResourceErrors) public enum ResourceErrors: Int, Error {
+    case invalidHeader
+    case invalidMap
+    case InvalidTypesList
+    case noResources
+    case badFile
 }
 
 final public class FVResourceFile: NSObject {
@@ -108,46 +110,41 @@ final public class FVResourceFile: NSObject {
     }
 
     private init(contentsOfURL fileURL: URL, resourceFork: Bool) throws {
-        if let dataReader = FVDataReader(URL: fileURL, resourceFork: resourceFork) {
-            self.dataReader = dataReader
-            super.init()
-            
-            if !readHeader(&header) {
-                
-                throw NSError.errorWithDescription("Invalid header.")
-            }
-            
-            //NSLog(@"HEADER (%u, %u), (%u, %u)", header->dataOffset, header->dataLength, header->mapOffset, header->mapLength);
-            
-            if !readMap() {
-                throw NSError.errorWithDescription("Invalid map.");
-            }
-            
-            if !readTypes() {
-                throw NSError.errorWithDescription("Invalid types list.");
-            }
-            
-            // Don't open empty (but valid) resource forks
-            if types.count == 0 {
-                throw NSError.errorWithDescription("No resources.");
-            }
-            return
-        } else {
-            self.dataReader = nil
-            super.init()
-            
-            throw NSError.errorWithDescription("Bad File.")
+        guard let dataReader = FVDataReader(URL: fileURL, resourceFork: resourceFork) else {
+            throw ResourceErrors.badFile
         }
+        self.dataReader = dataReader
+        super.init()
+        
+        guard readHeader(&header) else {
+            throw ResourceErrors.invalidHeader
+        }
+        
+        //NSLog(@"HEADER (%u, %u), (%u, %u)", header->dataOffset, header->dataLength, header->mapOffset, header->mapLength);
+        
+        guard readMap() else {
+            throw ResourceErrors.invalidMap
+        }
+        
+        guard readTypes() else {
+            throw ResourceErrors.InvalidTypesList
+        }
+        
+        // Don't open empty (but valid) resource forks
+        guard types.count != 0 else {
+            throw ResourceErrors.noResources
+        }
+        return
     }
     
     private func readMap() -> Bool {
         // seek to the map offset
-        if !dataReader.seekTo(Int(header.mapOffset)) {
+        guard dataReader.seekTo(Int(header.mapOffset)) else {
             return false;
         }
         
         // read the map values
-        if !readHeader(&map.headerCopy) {
+        guard readHeader(&map.headerCopy) else {
             return false;
         }
 
@@ -242,10 +239,10 @@ final public class FVResourceFile: NSObject {
                 
                 if (nameOffset != -1) && (dataReader.seekTo(Int(header.mapOffset) + Int(map.namesOffset) + Int(nameOffset))) {
                     if !dataReader.read(UInt32(MemoryLayout<UInt8>.size), into: &nameLength) || !dataReader.read(UInt32(nameLength), into: &name) {
-                        nameLength = 0;
+                        nameLength = 0
                     }
                 }
-                name[Int(nameLength)] = 0;
+                name[Int(nameLength)] = 0
                 
                 var dataLength: UInt32 = 0
                 if dataReader.seekTo(Int(header.dataOffset + dataOffset)) && dataReader.read(UInt32(MemoryLayout<UInt32>.size), into: &dataLength) {
@@ -281,15 +278,17 @@ final public class FVResourceFile: NSObject {
 
     internal func dataForResource(_ resource: FVResource) -> Data? {
         if !dataReader.seekTo(Int(header.dataOffset + resource.dataOffset)) {
-            return nil;
+            return nil
         }
-        if let data = NSMutableData(length: Int(resource.dataSize)) {
-            if !dataReader.read(resource.dataSize, into: data.mutableBytes) {
-                return nil;
-            }
-            return data as Data
+        
+        var data = Data(count: Int(resource.dataSize))
+        let status = data.withUnsafeMutableBytes { (val: UnsafeMutablePointer<UInt8>) -> Bool in
+            return dataReader.read(resource.dataSize, into: val)
         }
-        return nil
+        guard status else {
+            return nil
+        }
+        return data
     }
     
     // TODO: implement, but how?
@@ -297,7 +296,7 @@ final public class FVResourceFile: NSObject {
     //
     //}
     
-    public class func resourceFileWithContentsOfURL(_ fileURL: URL) throws -> FVResourceFile {
+    public class func resourceFileWithContents(of fileURL: URL) throws -> FVResourceFile {
         var tmpError: Error?
         
         do {
