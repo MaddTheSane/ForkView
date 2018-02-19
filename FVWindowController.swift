@@ -61,7 +61,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
         })
     }
     
-    func openSelectedResource() {
+    @objc func openSelectedResource() {
         if let resource = self.selectedResource {
             openResource(resource)
         }

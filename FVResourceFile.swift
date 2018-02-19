@@ -16,7 +16,7 @@ import Foundation
 }
 
 final public class FVResourceFile: NSObject {
-    public private(set) var types: [FVResourceType] = []
+    @objc public private(set) var types: [FVResourceType] = []
     public private(set) var isResourceFork = false
     private var header = ResourceHeader()
     private var map = ResourceMap()
