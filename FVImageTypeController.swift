@@ -478,8 +478,8 @@ final class FVImageTypeController: FVTypeController {
             }
         case "ICN#":
             if rsrcData.count == 256 {
-                let data = rsrcData.subdata(in: 0..<128)
-                let mask = rsrcData.subdata(in: 128..<256)
+                let data = rsrcData[(rsrcData.startIndex+0)..<(rsrcData.startIndex+128)]
+                let mask = rsrcData[(rsrcData.startIndex+128)..<(rsrcData.startIndex+256)]
                 return imageFromBitmapData(data, maskData: mask, size: 32)
             }
         case "ics#":
@@ -488,8 +488,8 @@ final class FVImageTypeController: FVTypeController {
             }
         case "CURS":
             if rsrcData.count == 68 {
-                let data = rsrcData.subdata(in: 0..<32)
-                let mask = rsrcData.subdata(in: 32..<64)
+                let data = rsrcData[(rsrcData.startIndex+0)..<rsrcData.startIndex.advanced(by: 32)]
+                let mask = rsrcData[rsrcData.startIndex.advanced(by: 32)..<rsrcData.startIndex.advanced(by: 64)]
                 return imageFromBitmapData(data, maskData: mask, size: 16)
             }
         case "PAT ":
