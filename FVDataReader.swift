@@ -70,7 +70,7 @@ public final class FVDataReader {
         if (position + size > self.length) {
             return nil
         }
-		let subdata = data.subdata(in: position..<(position+size))
+        let subdata = data.subdata(in: position..<(position+size))
         position += size
         return subdata
     }
@@ -97,8 +97,8 @@ public final class FVDataReader {
     
     public func readUInt16<B>(endian: Endian = .big, _ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == UInt16 {
         var preVal: B.RawValue = 0
-        if let dat = read(MemoryLayout<B>.size) {
-            (dat as NSData).getBytes(&preVal, length: MemoryLayout<Int32>.size)
+        if let dat = read(MemoryLayout<UInt16>.size) {
+            (dat as NSData).getBytes(&preVal, length: MemoryLayout<UInt16>.size)
             preVal = endian == .big ? preVal.bigEndian : preVal.littleEndian
             val = B(rawValue: preVal)!
             return true
@@ -117,8 +117,8 @@ public final class FVDataReader {
 
     public func readInt16<B>(endian: Endian = .big, _ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == Int16 {
         var preVal: B.RawValue = 0
-        if let dat = read(MemoryLayout<B>.size) {
-            (dat as NSData).getBytes(&preVal, length: MemoryLayout<Int32>.size)
+        if let dat = read(MemoryLayout<Int16>.size) {
+            (dat as NSData).getBytes(&preVal, length: MemoryLayout<Int16>.size)
             preVal = endian == .big ? preVal.bigEndian : preVal.littleEndian
             val = B(rawValue: preVal)!
             return true
@@ -137,8 +137,8 @@ public final class FVDataReader {
 
     public func readUInt32<B>(endian: Endian = .big, _ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == UInt32 {
         var preVal: B.RawValue = 0
-        if let dat = read(MemoryLayout<B>.size) {
-            (dat as NSData).getBytes(&preVal, length: MemoryLayout<Int32>.size)
+        if let dat = read(MemoryLayout<UInt32>.size) {
+            (dat as NSData).getBytes(&preVal, length: MemoryLayout<UInt32>.size)
             preVal = endian == .big ? preVal.bigEndian : preVal.littleEndian
             val = B(rawValue: preVal)!
             return true
@@ -157,7 +157,7 @@ public final class FVDataReader {
     
     public func readInt32<B>(endian: Endian = .big, _ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == Int32 {
         var preVal: B.RawValue = 0
-        if let dat = read(MemoryLayout<B>.size) {
+        if let dat = read(MemoryLayout<Int32>.size) {
             (dat as NSData).getBytes(&preVal, length: MemoryLayout<Int32>.size)
             preVal = endian == .big ? preVal.bigEndian : preVal.littleEndian
             val = B(rawValue: preVal)!
@@ -175,6 +175,22 @@ public final class FVDataReader {
         return false
     }
     
+    public func readUInt8<B>(_ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == UInt8 {
+        if let dat = read(MemoryLayout<UInt8>.size) {
+            (dat as NSData).getBytes(&val, length: MemoryLayout<UInt8>.size)
+            return true
+        }
+        return false
+    }
+    
+    public func readInt8<B>(_ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == Int8 {
+        if let dat = read(MemoryLayout<Int8>.size) {
+            (dat as NSData).getBytes(&val, length: MemoryLayout<Int8>.size)
+            return true
+        }
+        return false
+    }
+
     public func readUInt8(_ val: inout UInt8) -> Bool {
         if let dat = read(MemoryLayout<UInt8>.size) {
             (dat as NSData).getBytes(&val, length: MemoryLayout<UInt8>.size)
