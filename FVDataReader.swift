@@ -76,11 +76,10 @@ public final class FVDataReader {
     }
     
     public func read(_ size: CUnsignedInt, into buf: UnsafeMutableRawPointer) -> Bool {
-        let data = self.read(Int(size))
-        if data == nil {
+        guard let data = self.read(Int(size)) else {
             return false
         }
-        (data! as NSData).getBytes(buf, length: Int(size))
+        data.copyBytes(to: buf.assumingMemoryBound(to: UInt8.self), count: Int(size))
         return true
     }
     
@@ -96,10 +95,32 @@ public final class FVDataReader {
         case little, big
     }
     
+    public func readUInt16<B>(endian: Endian = .big, _ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == UInt16 {
+        var preVal: B.RawValue = 0
+        if let dat = read(MemoryLayout<B>.size) {
+            (dat as NSData).getBytes(&preVal, length: MemoryLayout<Int32>.size)
+            preVal = endian == .big ? preVal.bigEndian : preVal.littleEndian
+            val = B(rawValue: preVal)!
+            return true
+        }
+        return false
+    }
+
     public func readUInt16(endian: Endian = .big, _ val: inout UInt16) -> Bool {
         if let dat = read(MemoryLayout<UInt16>.size) {
             (dat as NSData).getBytes(&val, length: MemoryLayout<UInt16>.size)
             val = endian == .big ? val.bigEndian : val.littleEndian
+            return true
+        }
+        return false
+    }
+
+    public func readInt16<B>(endian: Endian = .big, _ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == Int16 {
+        var preVal: B.RawValue = 0
+        if let dat = read(MemoryLayout<B>.size) {
+            (dat as NSData).getBytes(&preVal, length: MemoryLayout<Int32>.size)
+            preVal = endian == .big ? preVal.bigEndian : preVal.littleEndian
+            val = B(rawValue: preVal)!
             return true
         }
         return false
@@ -114,10 +135,32 @@ public final class FVDataReader {
         return false
     }
 
+    public func readUInt32<B>(endian: Endian = .big, _ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == UInt32 {
+        var preVal: B.RawValue = 0
+        if let dat = read(MemoryLayout<B>.size) {
+            (dat as NSData).getBytes(&preVal, length: MemoryLayout<Int32>.size)
+            preVal = endian == .big ? preVal.bigEndian : preVal.littleEndian
+            val = B(rawValue: preVal)!
+            return true
+        }
+        return false
+    }
+    
     public func readUInt32(endian: Endian = .big, _ val: inout UInt32) -> Bool {
         if let dat = read(MemoryLayout<UInt32>.size) {
             (dat as NSData).getBytes(&val, length: MemoryLayout<UInt32>.size)
             val = endian == .big ? val.bigEndian : val.littleEndian
+            return true
+        }
+        return false
+    }
+    
+    public func readInt32<B>(endian: Endian = .big, _ val: inout B) -> Bool where B: RawRepresentable, B.RawValue == Int32 {
+        var preVal: B.RawValue = 0
+        if let dat = read(MemoryLayout<B>.size) {
+            (dat as NSData).getBytes(&preVal, length: MemoryLayout<Int32>.size)
+            preVal = endian == .big ? preVal.bigEndian : preVal.littleEndian
+            val = B(rawValue: preVal)!
             return true
         }
         return false

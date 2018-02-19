@@ -32,10 +32,26 @@ final class FVSNDTypeController: FVTypeController {
         // Also see "Sound Manager" legacy PDF
         let firstSoundFormat: Int16  = 0x0001 /*general sound format*/
         let secondSoundFormat: Int16 = 0x0002 /*special sampled sound format (HyperCard)*/
-        let _/*initMono*/:   Int32 = 0x0080 /*monophonic channel*/
-        let initStereo: Int32 = 0x00C0 /*stereo channel*/
-        let initMACE3:  Int32 = 0x0300 /*MACE 3:1*/
-        let initMACE6:  Int32 = 0x0400 /*MACE 6:1*/
+        struct ModInit: OptionSet {
+            var rawValue: Int32
+            
+            /// monophonic channel
+            static var mono: ModInit {
+                return ModInit(rawValue: 0x0080)
+            }
+            /// stereo channel
+            static var stereo: ModInit {
+                return ModInit(rawValue: 0x00C0)
+            }
+            /// MACE 3:1
+            static var MACE3: ModInit {
+                return ModInit(rawValue: 0x0300)
+            }
+            /// MACE 6:1
+            static var MACE6: ModInit {
+                return ModInit(rawValue: 0x0400)
+            }
+        }
         let nullCmd: UInt16   = 0
         let soundCmd: UInt16  = 80
         let bufferCmd: UInt16 = 81
@@ -44,7 +60,7 @@ final class FVSNDTypeController: FVTypeController {
         let cmpSH: UInt8 = 0xFE /*Compressed sound header encode value*/
         struct ModRef {
             var modNumber: UInt16 = 0
-            var modInit: Int32 = 0
+            var modInit: ModInit = ModInit(rawValue: 0)
         }
         struct SndCommand {
             var cmd: UInt16 = 0
@@ -99,11 +115,11 @@ final class FVSNDTypeController: FVTypeController {
                 errmsg = "Unknown modNumber value \(modifierPart.modNumber)"
                 return nil
             }
-            if modifierPart.modInit & initStereo == 1 {
+            if modifierPart.modInit.contains(.stereo) {
                 errmsg = "Only mono channel supported"
                 return nil
             }
-            if modifierPart.modInit & initMACE3 == 1 || modifierPart.modInit & initMACE6 == 1 {
+            if modifierPart.modInit.contains(.MACE3) || modifierPart.modInit.contains(.MACE6) {
                 errmsg = "Compression not supported"
                 return nil
             }
@@ -167,12 +183,17 @@ final class FVSNDTypeController: FVTypeController {
             errmsg = "Missing header data"
             return nil
         }
-        let sampleData = reader.read(Int(header.length))
-        if sampleData == nil {
+        guard let sampleData: NSMutableData = {
+            if let sampDat2 = reader.read(Int(header.length)) {
+                return NSMutableData(data: sampDat2)
+            } else {
+                return nil
+            }
+            }() else {
             errmsg = "Missing samples"
             return nil
         }
-        if header.encode != stdSH {
+        guard header.encode == stdSH else {
             if header.encode == extSH {
                 errmsg = "Extended encoding not supported"
             } else if header.encode == cmpSH {
@@ -185,9 +206,9 @@ final class FVSNDTypeController: FVTypeController {
         
         // Generate an AudioStreamBasicDescription for conversion
         var stream = AudioStreamBasicDescription()
-        stream.mSampleRate = Float64(header.sampleRate >> 16)
-        stream.mFormatID = AudioFormatID(kAudioFormatLinearPCM)
-        stream.mFormatFlags = AudioFormatFlags(kLinearPCMFormatFlagIsSignedInteger)
+        stream.mSampleRate = Float64(header.sampleRate) / Float64(1 << 16)
+        stream.mFormatID = kAudioFormatLinearPCM
+        stream.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger
         stream.mBytesPerPacket = 1
         stream.mFramesPerPacket = 1
         stream.mBytesPerFrame = 1
@@ -204,11 +225,11 @@ final class FVSNDTypeController: FVTypeController {
         }
         
         // Configure the AudioBufferList
-        let srcData = ((sampleData! as NSData).bytes).assumingMemoryBound(to: UInt8.self)
+        let srcData = sampleData.mutableBytes
         var audioBuffer = AudioBuffer()
         audioBuffer.mNumberChannels = 1
         audioBuffer.mDataByteSize = header.length
-        audioBuffer.mData = UnsafeMutableRawPointer(mutating: srcData)
+        audioBuffer.mData = srcData
         let audioBufferData = audioBuffer.mData?.assumingMemoryBound(to: UInt8.self)
         for i in 0 ..< Int(header.length) {
             audioBufferData?[i] ^= 0x80

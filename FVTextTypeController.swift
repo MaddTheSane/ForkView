@@ -40,7 +40,7 @@ final class FVTextTypeController: FVTypeController {
     func stringFromResource(_ rsrcData: Data, type: String) -> String? {
         switch type {
         case "plst", "weba":
-            if let plist = try? PropertyListSerialization.propertyList(from: rsrcData, options: PropertyListSerialization.ReadOptions(rawValue: PropertyListSerialization.MutabilityOptions().rawValue), format: nil),
+            if let plist = try? PropertyListSerialization.propertyList(from: rsrcData, options: [], format: nil),
                 let data = try? PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: PropertyListSerialization.WriteOptions(0)) {
                 return String(data: data, encoding: .utf8)
                 
@@ -65,11 +65,17 @@ final class FVTextTypeController: FVTypeController {
         if data.count < 2 {
             return nil
         }
-        let ptr = (data as NSData).bytes.assumingMemoryBound(to: UInt8.self)
-        let strLen = Int(ptr[0])
+        var dat2 = data
+        let strLen = Int(dat2.popFirst()!)
         if data.count < (strLen + 1) {
             return nil
         }
-        return NSString(bytes: ptr + 1, length: strLen, encoding: String.Encoding.macOSRoman.rawValue) as String?
+        
+        if strLen != dat2.count {
+            let startIdx = dat2.startIndex.advanced(by: strLen)
+            let endIdx = dat2.endIndex
+            dat2.removeSubrange(startIdx ..< endIdx)
+        }
+        return String(data: dat2, encoding: .macOSRoman)
     }
 }
