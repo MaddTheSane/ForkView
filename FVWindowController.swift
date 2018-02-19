@@ -25,7 +25,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     var viewController: NSViewController? = nil
     
     class func windowController() -> Self {
-        return self.init(windowNibName: "FVWindow")
+        return self.init(windowNibName: NSNib.Name(rawValue: "FVWindow"))
     }
     
     override func windowDidLoad() {
@@ -33,7 +33,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
         
         tableView.customDelegate = self
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSWindowWillClose, object: self.window, queue: nil) { (note: Notification) in
+        NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: self.window, queue: nil) { (note: Notification) in
             for windowController in self.windowControllers {
                 windowController.close()
             }
@@ -55,7 +55,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
     @objc private func export() {
         let savePanel = NSSavePanel()
         savePanel.beginSheetModal(for: self.window!, completionHandler: { (result) in
-            if result == NSFileHandlingPanelOKButton {
+            if result.rawValue == NSFileHandlingPanelOKButton {
                 try! self.selectedResource?.data?.write(to: savePanel.url!, options: [.atomic])
             }
         })
@@ -101,7 +101,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
         var parentWinFrame = parentWin!.frameRect(forContentRect: parentWin!.contentView!.frame)
         parentWinFrame.origin = parentWin!.frame.origin
         
-            let styleMask: NSWindowStyleMask = [NSTitledWindowMask, NSClosableWindowMask, NSMiniaturizableWindowMask, NSResizableWindowMask]
+            let styleMask: NSWindow.StyleMask = [.titled, .closable, .miniaturizable, .resizable]
         let window = NSWindow(contentRect: winFrame, styleMask: styleMask, backing: .buffered, defer: true)
         window.isReleasedWhenClosed = true
         window.contentView = controller.view
@@ -116,7 +116,7 @@ final class FVWindowController: NSWindowController, FVTableViewDelegate, NSTable
         let filename = (self.document as? NSDocument)?.fileURL?.lastPathComponent ?? "(unknown)"
         window.title = String(format: "%@ ID = %u from %@", resource.type!.typeString, resource.ident, filename);
 
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSWindowWillClose, object: window, queue: nil) { (note: Notification) -> Void in
+        NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: window, queue: nil) { (note: Notification) -> Void in
             if let index = self.windowControllers.index(of: windowController) {
                 self.windowControllers.remove(at: index)
             }

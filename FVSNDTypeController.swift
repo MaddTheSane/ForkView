@@ -18,7 +18,7 @@ final class FVSNDTypeController: FVTypeController {
         if let asset = assetForSND(data, errmsg: &errmsg) {
             let playerView = AVPlayerView(frame: NSMakeRect(0, 0, 100, 100))
             playerView.player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
-            playerView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
+            playerView.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
             playerView.player!.play()
             let viewController = FVSNDViewController()
             viewController.view = playerView

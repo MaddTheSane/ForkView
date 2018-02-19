@@ -89,7 +89,7 @@ final class StringListTemplate: NSViewController {
         }
 
         stringList = tmpStrList
-        super.init(nibName: "StringListView", bundle: nil)
+        super.init(nibName: NSNib.Name(rawValue: "StringListView"), bundle: nil)
         return
 	}
 	

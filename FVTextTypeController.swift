@@ -15,9 +15,7 @@ final class FVTextTypeController: FVTypeController {
         guard let str = attributedStringFromResource(data, type: type) else {
             return nil
         }
-        guard let viewController = NSViewController(nibName: "TextView", bundle: nil) else {
-            return nil
-        }
+        let viewController = NSViewController(nibName: NSNib.Name(rawValue: "TextView"), bundle: nil)
         let scrollView = viewController.view as! NSScrollView
         let textView = scrollView.documentView as! NSTextView
         textView.textStorage?.setAttributedString(str)

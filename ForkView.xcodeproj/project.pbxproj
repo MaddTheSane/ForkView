@@ -357,14 +357,15 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Kevin Wojniak";
 				TargetAttributes = {
 					557168421AF06F5600B5DAD9 = {
 						CreatedOnToolsVersion = 6.3.1;
+						LastSwiftMigration = 0920;
 					};
 					8D15AC270486D014006FF6A4 = {
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0920;
 					};
 					A5FFD8FD1B0048EA008AB914 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -528,6 +529,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -553,6 +556,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -613,6 +618,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kainjow.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ForkView;
 				SWIFT_OBJC_BRIDGING_HEADER = "ForkView-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 			};
 			name = Debug;
 		};
@@ -626,6 +632,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kainjow.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ForkView;
 				SWIFT_OBJC_BRIDGING_HEADER = "ForkView-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 			};
 			name = Release;
 		};
@@ -674,7 +681,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -722,7 +729,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;

@@ -13,6 +13,6 @@ final class FVLine: NSBox {
         var bounds: NSRect = NSInsetRect(self.bounds, -1.0, -1.0)
         bounds.origin.x += 1
         NSColor(calibratedWhite: 0.6, alpha: 1.0).set()
-        NSFrameRect(bounds)
+        bounds.frame()
     }
 }

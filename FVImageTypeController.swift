@@ -26,7 +26,7 @@ final class FVImageTypeController: FVTypeController {
             let rect = NSRect(origin: .zero, size: imgSize)
             let imgView = FVImageView(frame: rect)
             // TODO: temporary image showing we're fetching the image.
-            imgView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
+            imgView.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
             let viewController = NSViewController()
             viewController.view = imgView
 
@@ -54,7 +54,7 @@ final class FVImageTypeController: FVTypeController {
         let rect = NSRect(origin: .zero, size: img.size)
         let imgView = FVImageView(frame: rect)
         imgView.image = img
-        imgView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
+        imgView.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
         let viewController = NSViewController()
         viewController.view = imgView
         return viewController
@@ -82,7 +82,7 @@ final class FVImageTypeController: FVTypeController {
             samplesPerPixel: 4,
             hasAlpha: true,
             isPlanar: false,
-            colorSpaceName: NSCalibratedRGBColorSpace,
+            colorSpaceName: NSColorSpaceName.calibratedRGB,
             bytesPerRow: size * 4,
             bitsPerPixel: 32
         )
