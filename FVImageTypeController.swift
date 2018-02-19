@@ -33,10 +33,15 @@ final class FVImageTypeController: FVTypeController {
             (connectionToService.remoteObjectProxyWithErrorHandler({ (err) -> Void in
                 //TODO: image or some other way of showing failure.
                 NSLog("Error encountered when trying to speak with XPC service: \(err)")
+                OperationQueue.main.addOperation {
+                    if let cocoaImg = tmpCocoaImg {
+                        imgView.image = cocoaImg
+                    }
+                }
             }) as! PICTConverterProtocol).convertPICTData(toTIFF: data, withReply: { (replyData) -> Void in
                 OperationQueue.main.addOperation({ () -> Void in
-                    if let replyData = replyData {
-                        imgView.image = NSImage(data: replyData)!
+                    if let replyData = replyData, let img = NSImage(data: replyData) {
+                        imgView.image = img
                     } else if let cocoaImg = tmpCocoaImg {
                         imgView.image = cocoaImg
                     } else {
