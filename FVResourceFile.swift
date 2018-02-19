@@ -281,14 +281,7 @@ final public class FVResourceFile: NSObject {
             return nil
         }
         
-        var data = Data(count: Int(resource.dataSize))
-        let status = data.withUnsafeMutableBytes { (val: UnsafeMutablePointer<UInt8>) -> Bool in
-            return dataReader.read(resource.dataSize, into: val)
-        }
-        guard status else {
-            return nil
-        }
-        return data
+        return dataReader.read(Int(resource.dataSize))
     }
     
     // TODO: implement, but how?

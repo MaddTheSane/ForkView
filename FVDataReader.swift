@@ -13,7 +13,7 @@ import Darwin.POSIX.sys.xattr
 private let maxResourceSize = 16777216
 
 public final class FVDataReader {
-    private var data = Data()
+    private let data: Data
     public private(set) var position = 0
     
     public var length: Int {
@@ -70,7 +70,7 @@ public final class FVDataReader {
         if (position + size > self.length) {
             return nil
         }
-        let subdata = data.subdata(in: position..<(position+size))
+        let subdata = data[(data.startIndex+position)..<(data.startIndex+position+size)]
         position += size
         return subdata
     }
