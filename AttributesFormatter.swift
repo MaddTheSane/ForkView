@@ -39,7 +39,7 @@ public final class AttributesFormatter: Formatter {
 						string += shortString
 					} else {
                         let subStrIdx = longString.index(longString.startIndex, offsetBy: 3)
-                        string += longString.substring(to: subStrIdx)
+                        string += longString[...subStrIdx]
 					}
 				} else {
 					string += longString
