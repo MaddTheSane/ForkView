@@ -9,9 +9,9 @@
 import Foundation
 
 final public class FVResourceType: NSObject {
-    public var type: OSType = 0
+    @objc public var type: OSType = 0
     @objc public var count: UInt32 = 0
-    public var offset: UInt32 = 0
+    @objc public var offset: UInt32 = 0
     @objc public var resources = [FVResource]()
 
     @objc public var typeString: String {

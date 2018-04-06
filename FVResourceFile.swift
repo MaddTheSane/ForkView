@@ -17,7 +17,7 @@ import Foundation
 
 final public class FVResourceFile: NSObject {
     @objc public private(set) var types: [FVResourceType] = []
-    public private(set) var isResourceFork = false
+    @objc public private(set) var isResourceFork = false
     private var header = ResourceHeader()
     private var map = ResourceMap()
     private let dataReader: FVDataReader!
@@ -289,6 +289,7 @@ final public class FVResourceFile: NSObject {
     //
     //}
     
+    @objc(resourceFileWithContentsOfURL:error:)
     public class func resourceFileWithContents(of fileURL: URL) throws -> FVResourceFile {
         var tmpError: Error?
         
