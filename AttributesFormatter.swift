@@ -59,7 +59,7 @@ public final class AttributesFormatter: Formatter {
 		return nil
 	}
 	
-	override public func attributedString(for obj: Any?, withDefaultAttributes attrs: [NSAttributedStringKey : Any]?) -> NSAttributedString? {
+	override public func attributedString(for obj: Any?, withDefaultAttributes attrs: [NSAttributedString.Key : Any]?) -> NSAttributedString? {
 		if let aStr = string(for: obj) {
 			return NSAttributedString(string: aStr, attributes: attrs)
 		} else {
