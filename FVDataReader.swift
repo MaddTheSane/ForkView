@@ -50,9 +50,9 @@ public final class FVDataReader {
             }
             var data = Data(count: rsrcSize)
             
-            if data.withUnsafeMutableBytes({ (val: UnsafeMutablePointer<UInt8>) -> Int in
+            if data.withUnsafeMutableBytes({ (val: UnsafeMutableRawBufferPointer) -> Int in
                 URL.withUnsafeFileSystemRepresentation({ (namePtr) -> Int in
-                    let retval = getxattr(namePtr, XATTR_RESOURCEFORK_NAME, val, rsrcSize, 0, 0)
+                    let retval = getxattr(namePtr, XATTR_RESOURCEFORK_NAME, val.baseAddress!, rsrcSize, 0, 0)
                     return retval
                 }) }) == rsrcSize {
                 self.data = data
