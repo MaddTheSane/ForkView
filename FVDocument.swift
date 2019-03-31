@@ -9,16 +9,16 @@
 import Cocoa
 
 @NSApplicationMain final class FVDocument: NSDocument, NSApplicationDelegate {
-    @objc var resourceFile: FVResourceFile? = nil
-    var windowController: NSWindowController? = nil
-    
+    @objc var resourceFile: FVResourceFile?
+    var windowController: NSWindowController?
+
     override func makeWindowControllers() {
         super.makeWindowControllers()
-    
+
         windowController = FVWindowController.windowController()
         addWindowController(windowController!)
     }
-    
+
     override func read(from url: URL, ofType typeName: String) throws {
         resourceFile = try FVResourceFile.resourceFileWithContents(of: url)
     }

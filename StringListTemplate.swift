@@ -14,36 +14,36 @@ private func pascalStringFromData(_ aResource: Data, index indexID: Int16) -> [U
 	let handSize = aResource.count
 	var curSize = 2
 	var aId = indexID
-	
+
 	var data = (aResource as NSData).bytes.assumingMemoryBound(to: UInt8.self)
-	let count = (aResource as NSData).bytes.assumingMemoryBound(to: Int16.self).pointee.bigEndian
-	
+	let count = (aResource as NSData).bytes.assumingMemoryBound(to: Int16.self)[0].bigEndian
+
 	// First 2 bytes are the count of strings that this resource has.
 	if count < aId {
 		return nil
 	}
-	
+
 	// skip count
 	data += 2
-	
+
 	// looking for data.  data is in order
-	aId -= 1
+    aId -= 1
 	while aId >= 0 {
-		let toAdd = Int(data.pointee) + 1;
+		let toAdd = Int(data.pointee) + 1
 		curSize += toAdd
-		if (curSize >= handSize) {
-			return nil;
+		if curSize >= handSize {
+			return nil
 		}
 		data += toAdd
-		aId -= 1
+        aId -= 1
 	}
-	
+
 	return {
 		var aRet = [UInt8]()
-		for i in 0...Int(data.pointee) {
-			aRet.append(data[i])
+		for idx in 0...Int(data.pointee) {
+			aRet.append(data[idx])
 		}
-		
+
 		return aRet
 	}()
 }
@@ -55,18 +55,18 @@ private func pascalStringToString(_ aStr: UnsafePointer<UInt8>) -> String? {
 final class StringListObject: NSObject {
 	@objc let name: String
 	@objc let index: Int
-	
+
 	init(string: String, index: Int) {
 		self.name = string
 		self.index = index
-		
+
 		super.init()
 	}
 }
 
 final class StringListView: FVTypeController {
 	let supportedTypes = ["STR#"]
-	
+
 	func viewController(fromResourceData data: Data, type: String, errmsg: inout String) -> NSViewController? {
         return StringListTemplate(resData: data, type: type)
 	}
@@ -80,19 +80,19 @@ final class StringListTemplate: NSViewController {
         var tmpStrList = [StringListObject]()
         var strIdx: Int16 = 0
         while let aPasString = pascalStringFromData(resData, index: strIdx) {
-			strIdx += 1
             if let cStr = pascalStringToString(aPasString) {
-                tmpStrList.append(StringListObject(string: cStr, index: Int(strIdx) - 1))
+                tmpStrList.append(StringListObject(string: cStr, index: Int(strIdx)))
             } else {
-                tmpStrList.append(StringListObject(string: "!!Unable to decode \(strIdx - 1)!!", index: Int(strIdx) - 1))
+                tmpStrList.append(StringListObject(string: "!!Unable to decode \(strIdx)!!", index: Int(strIdx)))
             }
+            strIdx += 1
         }
 
         stringList = tmpStrList
-        super.init(nibName: NSNib.Name(rawValue: "StringListView"), bundle: nil)
+        super.init(nibName: NSNib.Name("StringListView"), bundle: nil)
         return
 	}
-	
+
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}

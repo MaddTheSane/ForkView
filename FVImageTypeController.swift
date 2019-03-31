@@ -8,76 +8,42 @@
 
 import Cocoa
 
+// swiftlint:disable type_body_length
 final class FVImageTypeController: FVTypeController {
     let supportedTypes = ["icns", "PICT", "PNG ", "ICON", "ICN#", "ics#", "CURS", "PAT ", "icl4", "icl8", "kcns", "ics4", "ics8",
 		"GIFF"
 	]
-    
-    func viewController(fromResourceData data: Data, type: String, errmsg: inout String) -> NSViewController? {
-		if type == "PICT" {
-            //First, see if we can get the image size via NSImage
-            let tmpCocoaImg = NSImage(data: data)
-            let imgSize = tmpCocoaImg?.size ?? NSSize(width: 32, height: 32)
-            
-            let connectionToService = NSXPCConnection(serviceName: "com.kainjow.PICTConverter")
-            connectionToService.remoteObjectInterface = NSXPCInterface(with: PICTConverterProtocol.self)
-            connectionToService.resume()
-            
-            let rect = NSRect(origin: .zero, size: imgSize)
-            let imgView = FVImageView(frame: rect)
-            // TODO: temporary image showing we're fetching the image.
-            imgView.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
-            let viewController = NSViewController()
-            viewController.view = imgView
 
-            (connectionToService.remoteObjectProxyWithErrorHandler({ (err) -> Void in
-                //TODO: image or some other way of showing failure.
-                NSLog("Error encountered when trying to speak with XPC service: \(err)")
-                OperationQueue.main.addOperation {
-                    if let cocoaImg = tmpCocoaImg {
-                        imgView.image = cocoaImg
-                    }
-                }
-            }) as! PICTConverterProtocol).convertPICTData(toTIFF: data, withReply: { (replyData) -> Void in
-                OperationQueue.main.addOperation({ () -> Void in
-                    if let replyData = replyData, let img = NSImage(data: replyData) {
-                        imgView.image = img
-                    } else if let cocoaImg = tmpCocoaImg {
-                        imgView.image = cocoaImg
-                    } else {
-                        //TODO: image or some other way of showing failure.
-                    }
-                    connectionToService.invalidate()
-                })
-            })
-            return viewController
-        }
+    func viewController(fromResourceData data: Data, type: String, errmsg: inout String) -> NSViewController? {
         guard let img = imageFromResource(data, type: type) else {
             return nil
         }
-        
-        let rect = NSRect(origin: .zero, size: img.size)
+        let rect = NSMakeRect(0, 0, img.size.width, img.size.height)
         let imgView = FVImageView(frame: rect)
         imgView.image = img
-        imgView.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
+        imgView.autoresizingMask = [.width, .height]
         let viewController = NSViewController()
         viewController.view = imgView
         return viewController
     }
-    
+
     private struct FVRGBAColor {
+        // swiftlint:disable identifier_name
         var r: UInt8
         var g: UInt8
         var b: UInt8
         var a: UInt8
+        // swiftlint:enable identifier_name
     }
 
     private struct FVRGBColor {
+        // swiftlint:disable identifier_name
         var r: UInt8
         var g: UInt8
         var b: UInt8
+        // swiftlint:enable identifier_name
     }
-    
+
     func makeBitmap(_ size: Int) -> NSBitmapImageRep? {
         return NSBitmapImageRep(
             bitmapDataPlanes: nil,
@@ -94,50 +60,56 @@ final class FVImageTypeController: FVTypeController {
     }
 
     func imageFromBitmapData(_ data: Data, maskData: Data? = nil, size: Int) -> NSImage? {
-        let ptr: UnsafePointer<UInt8> = (data as NSData).bytes.assumingMemoryBound(to: UInt8.self)
+        let ptr = (data as NSData).bytes.assumingMemoryBound(to: UInt8.self)
+        //let ptr: UnsafePointer<UInt8> = UnsafePointer(data.bytes)
         guard let bitVector = CFBitVectorCreate(kCFAllocatorDefault, ptr, data.count * 8) else {
             return nil
         }
-        
-        let haveAlpha  = maskData != nil
-        var maskBitVector: CFBitVector
-        if haveAlpha {
-            if data.count != maskData!.count {
+
+        let haveAlpha: Bool
+        let maskBitVector: CFBitVector
+        if let maskData = maskData {
+            if data.count != maskData.count {
                 print("Data and mask lengths mismatch!")
                 return nil
             }
-            let maskPtr: UnsafePointer<UInt8> = (maskData! as NSData).bytes.assumingMemoryBound(to: UInt8.self)
-            maskBitVector = CFBitVectorCreate(kCFAllocatorDefault, maskPtr, maskData!.count * 8)
+            let maskPtr = (maskData as NSData).bytes.assumingMemoryBound(to: UInt8.self)
+            maskBitVector = CFBitVectorCreate(kCFAllocatorDefault, maskPtr, maskData.count * 8)
+            haveAlpha = true
         } else {
             // create a dummy value since CFBitVector can't be nil
             maskBitVector = CFBitVectorCreate(kCFAllocatorDefault, ptr, data.count * 8)
+            haveAlpha = false
         }
-        
+
         guard let bitmap = makeBitmap(size) else {
             return nil
         }
-        let color: UnsafeMutablePointer<FVRGBAColor>? = {
-            let bmp = bitmap.bitmapData
-            let raw = UnsafeMutableRawPointer(bmp)
-            return raw?.assumingMemoryBound(to: FVRGBAColor.self)
-        }()
         let numPixels = size * size
-        for i in 0 ..< numPixels {
-            let value: UInt8 = CFBitVectorGetBitAtIndex(bitVector, i) == 1 ? 0 : 255
-            color?[i].r = value
-            color?[i].g = value
-            color?[i].b = value
-            color?[i].a = !haveAlpha ? 255 : (CFBitVectorGetBitAtIndex(maskBitVector, i) == 1 ? 255 : 0)
+        var color: UnsafeMutablePointer<FVRGBAColor>?
+        bitmap.bitmapData?.withMemoryRebound(to: FVRGBAColor.self, capacity: numPixels, { (colorPtr) in
+            color = colorPtr
+        })
+        guard let colorPtr = color else {
+            print("Failed to get rgb colors")
+            return nil
         }
-        
+        for idx in 0 ..< numPixels {
+            let value: UInt8 = CFBitVectorGetBitAtIndex(bitVector, idx) == 1 ? 0 : 255
+            colorPtr[idx].r = value
+            colorPtr[idx].g = value
+            colorPtr[idx].b = value
+            colorPtr[idx].a = !haveAlpha ? 255 : (CFBitVectorGetBitAtIndex(maskBitVector, idx) == 1 ? 255 : 0)
+        }
+
         let img = NSImage()
         img.addRepresentation(bitmap)
         return img
     }
-    
-    func imageFrom4BitColorData(_ data: Data, size: Int) -> NSImage? {
-        let ptr: UnsafePointer<UInt8> = (data as NSData).bytes.assumingMemoryBound(to: UInt8.self)
-        
+
+    func imageFrom4BitColorData(_ data: NSData, size: Int) -> NSImage? {
+        let ptr = data.bytes.assumingMemoryBound(to: UInt8.self)
+
         let palette: [FVRGBColor] = [
             FVRGBColor(r: 255, g: 255, b: 255),
             FVRGBColor(r: 251, g: 242, b: 5),
@@ -156,40 +128,44 @@ final class FVImageTypeController: FVTypeController {
             FVRGBColor(r: 63, g: 63, b: 63),
             FVRGBColor(r: 0, g: 0, b: 0),
         ]
-        
+
         guard let bitmap = makeBitmap(size) else {
             return nil
         }
-        let color: UnsafeMutablePointer<FVRGBAColor>? = {
-            let bmp = bitmap.bitmapData
-            let raw = UnsafeMutableRawPointer(bmp)
-            return raw?.assumingMemoryBound(to: FVRGBAColor.self)
-        }()
         let numPixels = size * size
+        var color: UnsafeMutablePointer<FVRGBAColor>?
+        bitmap.bitmapData?.withMemoryRebound(to: FVRGBAColor.self, capacity: numPixels, { (colorPtr) in
+            color = colorPtr
+        })
+        guard let colorPtr = color else {
+            print("Failed to get rgb colors")
+            return nil
+        }
         var ptrIndex = 0
-        for i in 0 ..< numPixels {
+        for idx in 0 ..< numPixels {
             let index: UInt8
-            if i & 1 == 0 {
+            if idx & 1 == 0 {
                 index = (ptr[ptrIndex] & 0xF0) >> 4
             } else {
                 index = (ptr[ptrIndex] & 0x0F)
             }
-            if i > 0 && (i & 1) == 1 {
+            if idx > 0 && (idx & 1) == 1 {
                 ptrIndex += 1
             }
             let rgb = palette[Int(index)]
-            color?[i].r = rgb.r
-            color?[i].g = rgb.g
-            color?[i].b = rgb.b
-            color?[i].a = 255
+            colorPtr[idx].r = rgb.r
+            colorPtr[idx].g = rgb.g
+            colorPtr[idx].b = rgb.b
+            colorPtr[idx].a = 255
         }
-        
+
         let img = NSImage()
         img.addRepresentation(bitmap)
         return img
     }
 
-    func imageFrom8BitColorData(_ data: Data, size: Int) -> NSImage? {
+    // swiftlint:disable function_body_length
+    func imageFrom8BitColorData(data: NSData, size: Int) -> NSImage? {
         let palette: [FVRGBColor] = [
             FVRGBColor(r: 255, g: 255, b: 255),
             FVRGBColor(r: 255, g: 255, b: 204),
@@ -448,34 +424,37 @@ final class FVImageTypeController: FVTypeController {
             FVRGBColor(r: 17, g: 17, b: 17),
             FVRGBColor(r: 0, g: 0, b: 0),
         ]
-        
+
         guard let bitmap = makeBitmap(size) else {
             return nil
         }
-            //Swift 3 rigamarole!
-            let color: UnsafeMutablePointer<FVRGBAColor>? = {
-                let bmp = bitmap.bitmapData
-                let raw = UnsafeMutableRawPointer(bmp)
-                return raw?.assumingMemoryBound(to: FVRGBAColor.self)
-            }()
         let numPixels = size * size
-        let ptr: UnsafePointer<UInt8> = (data as NSData).bytes.assumingMemoryBound(to: UInt8.self)
-        for i in 0 ..< numPixels {
-            let rgb = palette[Int(ptr[i])]
-            color?[i].r = rgb.r
-            color?[i].g = rgb.g
-            color?[i].b = rgb.b
-            color?[i].a = 255
+        var color: UnsafeMutablePointer<FVRGBAColor>?
+        bitmap.bitmapData?.withMemoryRebound(to: FVRGBAColor.self, capacity: numPixels, { (colorPtr) in
+            color = colorPtr
+        })
+        guard let colorPtr = color else {
+            print("Failed to get rgb colors")
+            return nil
         }
-        
+        let ptr = data.bytes.assumingMemoryBound(to: UInt8.self)
+        for idx in 0 ..< numPixels {
+            let rgb = palette[Int(ptr[idx])]
+            colorPtr[idx].r = rgb.r
+            colorPtr[idx].g = rgb.g
+            colorPtr[idx].b = rgb.b
+            colorPtr[idx].a = 255
+        }
+
         let img = NSImage()
         img.addRepresentation(bitmap)
         return img
     }
-    
+    // swiftlint:enable function_body_length
+
     func imageFromResource(_ rsrcData: Data, type: String) -> NSImage? {
         switch type {
-        case "icns", "PNG ", "kcns", "GIFF":
+        case "icns", "PNG ", "kcns", "GIFF", "PICT":
             return NSImage(data: rsrcData)
         case "ICON":
             if rsrcData.count == 128 {
@@ -483,8 +462,8 @@ final class FVImageTypeController: FVTypeController {
             }
         case "ICN#":
             if rsrcData.count == 256 {
-                let data = rsrcData[(rsrcData.startIndex+0)..<(rsrcData.startIndex+128)]
-                let mask = rsrcData[(rsrcData.startIndex+128)..<(rsrcData.startIndex+256)]
+                let data = rsrcData[(rsrcData.startIndex+0)..<(rsrcData.startIndex.advanced(by: 128))]
+                let mask = rsrcData[(rsrcData.startIndex.advanced(by: 128))..<(rsrcData.startIndex.advanced(by: 256))]
                 return imageFromBitmapData(data, maskData: mask, size: 32)
             }
         case "ics#":
@@ -503,19 +482,19 @@ final class FVImageTypeController: FVTypeController {
             }
         case "icl4":
             if rsrcData.count == 512 {
-                return imageFrom4BitColorData(rsrcData, size: 32)
+                return imageFrom4BitColorData(rsrcData as NSData, size: 32)
             }
         case "icl8":
             if rsrcData.count == 1024 {
-                return imageFrom8BitColorData(rsrcData, size: 32)
+                return imageFrom8BitColorData(data: rsrcData as NSData, size: 32)
             }
         case "ics4":
             if rsrcData.count == 128 {
-                return imageFrom4BitColorData(rsrcData, size: 16)
+                return imageFrom4BitColorData(rsrcData as NSData, size: 16)
             }
         case "ics8":
             if rsrcData.count == 256 {
-                return imageFrom8BitColorData(rsrcData, size: 16)
+                return imageFrom8BitColorData(data: rsrcData as NSData, size: 16)
             }
         default:
             return nil
@@ -523,17 +502,14 @@ final class FVImageTypeController: FVTypeController {
         return nil
     }
 }
+// swiftlint:enable type_body_length
 
 final class FVImageView: NSImageView {
     override var acceptsFirstResponder: Bool {
-        get {
-            return true
-        }
+        return true
     }
 
     override var needsPanelToBecomeKey: Bool {
-        get {
-            return true
-        }
+        return true
     }
 }

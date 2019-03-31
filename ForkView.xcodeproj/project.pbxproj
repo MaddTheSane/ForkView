@@ -3,14 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1DDD582C0DA1D0D100B32029 /* FVWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* FVWindow.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
-		55442B7E1B01269D00359921 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55442B7B1B01269D00359921 /* main.m */; };
-		55442B7F1B01296300359921 /* PICTConverter.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = A5FFD8FE1B0048EA008AB914 /* PICTConverter.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		557168481AF06F5600B5DAD9 /* ResourceFork.h in Headers */ = {isa = PBXBuildFile; fileRef = 557168471AF06F5600B5DAD9 /* ResourceFork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		557168621AF06F7200B5DAD9 /* AttributesFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E11E231AE723C300815555 /* AttributesFormatter.swift */; };
 		557168681AF06F7200B5DAD9 /* FVResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A0779D198E9B6A00AAFF2F /* FVResourceType.swift */; };
@@ -18,9 +16,6 @@
 		55BB99631B029915009B3EDD /* FVResourceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB99621B029915009B3EDD /* FVResourceFile.swift */; };
 		55BFB0821B013562008371C4 /* FVDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A594AD1F1AF5693600197F25 /* FVDataReader.swift */; };
 		55D6AB0C1D3ABF2A007B6957 /* FVResourceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB99621B029915009B3EDD /* FVResourceFile.swift */; };
-		55D6AB171D3AC10D007B6957 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB161D3AC10D007B6957 /* Carbon.framework */; };
-		55D6AB1A1D3AC119007B6957 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB181D3AC119007B6957 /* ApplicationServices.framework */; };
-		55D6AB1B1D3AC119007B6957 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6AB191D3AC119007B6957 /* CoreServices.framework */; };
 		55F1F88C1B0012B900518344 /* StringListTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F1F88B1B0012B900518344 /* StringListTemplate.swift */; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		A55408FE1AF70A9E0052A143 /* RSVerticallyCenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55408FD1AF70A9E0052A143 /* RSVerticallyCenteredTextFieldCell.swift */; };
@@ -37,31 +32,9 @@
 		A5BC74691BF7DFF8007B0D5D /* StringListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC746B1BF7DFF8007B0D5D /* StringListView.xib */; };
 		A5BC746C1BF7E004007B0D5D /* TextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC746E1BF7E004007B0D5D /* TextView.xib */; };
 		A5FFD8E41AFEDC33008AB914 /* FVTextTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FFD8E31AFEDC33008AB914 /* FVTextTypeController.swift */; };
-		A5FFD9011B0048EA008AB914 /* PICTConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FFD9001B0048EA008AB914 /* PICTConverter.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A5FFD9051B004C12008AB914 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A5FFD8FD1B0048EA008AB914;
-			remoteInfo = PICTConverter;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		5539F2251B01253E001FCFE0 /* Embed XPC Services */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
-			dstSubfolderSpec = 16;
-			files = (
-				55442B7F1B01296300359921 /* PICTConverter.xpc in Embed XPC Services */,
-			);
-			name = "Embed XPC Services";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		55E11E071AE7122500815555 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -75,11 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		5539F2181B01253E001FCFE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55442B7B1B01269D00359921 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		55442B7C1B01269D00359921 /* PICTConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PICTConverter.h; sourceTree = "<group>"; usesTabs = 0; };
-		55442B7D1B01269D00359921 /* PICTConverterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PICTConverterProtocol.h; sourceTree = "<group>"; usesTabs = 0; };
+		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		557168431AF06F5600B5DAD9 /* ResourceFork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ResourceFork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		557168461AF06F5600B5DAD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		557168471AF06F5600B5DAD9 /* ResourceFork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceFork.h; sourceTree = "<group>"; };
@@ -101,15 +70,12 @@
 		A594AD1D1AF5630A00197F25 /* FVSNDTypeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVSNDTypeController.swift; sourceTree = "<group>"; };
 		A594AD1F1AF5693600197F25 /* FVDataReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVDataReader.swift; sourceTree = "<group>"; };
 		A5A0779D198E9B6A00AAFF2F /* FVResourceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVResourceType.swift; sourceTree = "<group>"; };
-		A5A0779F198EA05000AAFF2F /* ForkView-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ForkView-Bridging-Header.h"; sourceTree = "<group>"; };
 		A5A077A0198EA0C000AAFF2F /* FVResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVResource.swift; sourceTree = "<group>"; };
 		A5A077A2198EA38B00AAFF2F /* FVDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVDocument.swift; sourceTree = "<group>"; };
 		A5A077A7198EDF0600AAFF2F /* FVLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVLine.swift; sourceTree = "<group>"; };
 		A5BC746A1BF7DFF8007B0D5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StringListView.xib; sourceTree = "<group>"; };
 		A5BC746D1BF7E004007B0D5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TextView.xib; sourceTree = "<group>"; };
 		A5FFD8E31AFEDC33008AB914 /* FVTextTypeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FVTextTypeController.swift; sourceTree = "<group>"; };
-		A5FFD8FE1B0048EA008AB914 /* PICTConverter.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = PICTConverter.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5FFD9001B0048EA008AB914 /* PICTConverter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PICTConverter.m; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,16 +94,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A5FFD8FB1B0048EA008AB914 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				55D6AB1A1D3AC119007B6957 /* ApplicationServices.framework in Frameworks */,
-				55D6AB1B1D3AC119007B6957 /* CoreServices.framework in Frameworks */,
-				55D6AB171D3AC10D007B6957 /* Carbon.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -146,7 +102,6 @@
 			children = (
 				8D15AC370486D014006FF6A4 /* ForkView.app */,
 				557168431AF06F5600B5DAD9 /* ResourceFork.framework */,
-				A5FFD8FE1B0048EA008AB914 /* PICTConverter.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,7 +112,6 @@
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				557168441AF06F5600B5DAD9 /* ForkView */,
-				A5FFD8FF1B0048EA008AB914 /* PICTConverter */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 			);
@@ -197,15 +151,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5539F2171B01253E001FCFE0 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				55442B7B1B01269D00359921 /* main.m */,
-				5539F2181B01253E001FCFE0 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		557168441AF06F5600B5DAD9 /* ForkView */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,7 +187,6 @@
 				A594AD1F1AF5693600197F25 /* FVDataReader.swift */,
 				A5A0779D198E9B6A00AAFF2F /* FVResourceType.swift */,
 				A5A077A0198EA0C000AAFF2F /* FVResource.swift */,
-				A5A0779F198EA05000AAFF2F /* ForkView-Bridging-Header.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -267,17 +211,6 @@
 				55F1F88B1B0012B900518344 /* StringListTemplate.swift */,
 			);
 			name = "Type Controllers";
-			sourceTree = "<group>";
-		};
-		A5FFD8FF1B0048EA008AB914 /* PICTConverter */ = {
-			isa = PBXGroup;
-			children = (
-				55442B7C1B01269D00359921 /* PICTConverter.h */,
-				A5FFD9001B0048EA008AB914 /* PICTConverter.m */,
-				55442B7D1B01269D00359921 /* PICTConverterProtocol.h */,
-				5539F2171B01253E001FCFE0 /* Supporting Files */,
-			);
-			path = PICTConverter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,38 +249,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ForkView" */;
 			buildPhases = (
+				A55FF7DD22505E810076B839 /* Run SwiftLine */,
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				55E11E071AE7122500815555 /* Embed Frameworks */,
-				5539F2251B01253E001FCFE0 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A5FFD9061B004C12008AB914 /* PBXTargetDependency */,
 			);
 			name = ForkView;
 			productInstallPath = "$(HOME)/Applications";
 			productName = ForkView;
 			productReference = 8D15AC370486D014006FF6A4 /* ForkView.app */;
 			productType = "com.apple.product-type.application";
-		};
-		A5FFD8FD1B0048EA008AB914 /* PICTConverter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A5FFD9041B0048EA008AB914 /* Build configuration list for PBXNativeTarget "PICTConverter" */;
-			buildPhases = (
-				A5FFD8FA1B0048EA008AB914 /* Sources */,
-				A5FFD8FB1B0048EA008AB914 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PICTConverter;
-			productName = PICTConverter;
-			productReference = A5FFD8FE1B0048EA008AB914 /* PICTConverter.xpc */;
-			productType = "com.apple.product-type.xpc-service";
 		};
 /* End PBXNativeTarget section */
 
@@ -357,7 +273,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Kevin Wojniak";
 				TargetAttributes = {
 					557168421AF06F5600B5DAD9 = {
@@ -365,23 +281,17 @@
 						LastSwiftMigration = 1000;
 					};
 					8D15AC270486D014006FF6A4 = {
-						LastSwiftMigration = 0920;
-					};
-					A5FFD8FD1B0048EA008AB914 = {
-						CreatedOnToolsVersion = 6.3.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "ForkView" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				Base,
-				de,
-				fr,
 				en,
-				ja,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* ForkView */;
 			projectDirPath = "";
@@ -389,7 +299,6 @@
 			targets = (
 				8D15AC270486D014006FF6A4 /* ForkView */,
 				557168421AF06F5600B5DAD9 /* ResourceFork */,
-				A5FFD8FD1B0048EA008AB914 /* PICTConverter */,
 			);
 		};
 /* End PBXProject section */
@@ -414,6 +323,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A55FF7DD22505E810076B839 /* Run SwiftLine */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLine";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5571683E1AF06F5600B5DAD9 /* Sources */ = {
@@ -449,24 +379,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A5FFD8FA1B0048EA008AB914 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				55442B7E1B01269D00359921 /* main.m in Sources */,
-				A5FFD9011B0048EA008AB914 /* PICTConverter.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A5FFD9061B004C12008AB914 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A5FFD8FD1B0048EA008AB914 /* PICTConverter */;
-			targetProxy = A5FFD9051B004C12008AB914 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1DDD58280DA1D0D100B32029 /* FVWindow.xib */ = {
@@ -524,7 +437,11 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = ForkView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -549,7 +466,11 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = ForkView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -559,60 +480,22 @@
 			};
 			name = Release;
 		};
-		A5FFD9021B0048EA008AB914 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = PICTConverter/Info.plist;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kainjow.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		A5FFD9031B0048EA008AB914 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_NS_ASSERTIONS = NO;
-				INFOPLIST_FILE = PICTConverter/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kainjow.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "__FORKVIEWER__=1";
 				INFOPLIST_FILE = "ForkView-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kainjow.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ForkView;
-				SWIFT_OBJC_BRIDGING_HEADER = "ForkView-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -620,18 +503,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "__FORKVIEWER__=1";
 				INFOPLIST_FILE = "ForkView-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kainjow.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ForkView;
-				SWIFT_OBJC_BRIDGING_HEADER = "ForkView-Bridging-Header.h";
 			};
 			name = Release;
 		};
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -672,12 +560,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = $ARCHS_STANDARD;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -685,6 +574,7 @@
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -724,11 +614,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = $ARCHS_STANDARD;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
@@ -741,15 +633,6 @@
 			buildConfigurations = (
 				5571685D1AF06F5700B5DAD9 /* Debug */,
 				5571685E1AF06F5700B5DAD9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A5FFD9041B0048EA008AB914 /* Build configuration list for PBXNativeTarget "PICTConverter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A5FFD9021B0048EA008AB914 /* Debug */,
-				A5FFD9031B0048EA008AB914 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
