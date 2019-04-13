@@ -273,13 +273,16 @@ final public class FVResourceFile: NSObject {
         if !dataReader.seekTo(Int(header.dataOffset + resource.dataOffset)) {
             return nil
         }
-        if let data = NSMutableData(length: Int(resource.dataSize)) {
-            if !dataReader.read(resource.dataSize, into: data.mutableBytes) {
-                return nil
+        var data = Data(count: Int(resource.dataSize))
+        if !data.withUnsafeMutableBytes({ (rawDat: UnsafeMutableRawBufferPointer) -> Bool in
+            guard let baseAddr = rawDat.baseAddress else {
+                return false
             }
-            return data as Data
+            return dataReader.read(resource.dataSize, into: baseAddr)
+        }) {
+            return nil
         }
-        return nil
+        return data
     }
 
     @objc(resourceFileWithContentsOfURL:error:)
