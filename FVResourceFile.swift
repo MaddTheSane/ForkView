@@ -21,20 +21,6 @@ extension NSError {
     }
 }
 
-private func ==(lhs: FVResourceFile.ResourceHeader, rhs: FVResourceFile.ResourceHeader) -> Bool {
-    if lhs.dataOffset != rhs.dataOffset {
-        return false
-    } else if lhs.mapOffset != rhs.mapOffset {
-        return false
-    } else if lhs.dataLength != rhs.dataLength {
-        return false
-    } else if lhs.mapLength != rhs.mapLength {
-        return false
-    }
-
-    return true
-}
-
 final public class FVResourceFile: NSObject {
     @objc public private(set) var types: [FVResourceType] = []
     @objc public private(set) var isResourceFork = false
@@ -82,20 +68,6 @@ final public class FVResourceFile: NSObject {
         var mapOffset: UInt32 = 0
         var dataLength: UInt32 = 0
         var mapLength: UInt32 = 0
-        
-        static func ==(lhs: FVResourceFile.ResourceHeader, rhs: FVResourceFile.ResourceHeader) -> Bool {
-            if lhs.dataOffset != rhs.dataOffset {
-                return false
-            } else if lhs.mapOffset != rhs.mapOffset {
-                return false
-            } else if lhs.dataLength != rhs.dataLength {
-                return false
-            } else if lhs.mapLength != rhs.mapLength {
-                return false
-            }
-            
-            return true
-        }
     }
 
     private struct ResourceMap {

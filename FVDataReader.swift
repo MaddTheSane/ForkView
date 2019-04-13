@@ -70,7 +70,7 @@ public final class FVDataReader {
         if position + size > self.length {
             return nil
         }
-        let subdata = data[(data.startIndex+position)..<(data.startIndex+position+size)]
+        let subdata = data[(data.startIndex.advanced(by: position))..<(data.startIndex.advanced(by: position+size))]
         position += size
         return subdata
     }
