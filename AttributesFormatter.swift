@@ -59,7 +59,7 @@ public final class AttributesFormatter: Formatter {
 		return nil
 	}
 	
-	override public func attributedString(for obj: Any?, withDefaultAttributes attrs: [NSAttributedString.Key : Any]?) -> NSAttributedString? {
+	override public func attributedString(for obj: Any?, withDefaultAttributes attrs: [NSAttributedString.Key: Any]?) -> NSAttributedString? {
 		if let aStr = string(for: obj) {
 			return NSAttributedString(string: aStr, attributes: attrs)
 		} else {
@@ -75,7 +75,9 @@ public final class AttributesFormatter: Formatter {
 		return false
 	}
 	
-	override public func isPartialStringValid(_ partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+	override public func isPartialStringValid(_ partialString: String, newEditingString newString:
+        AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription
+        error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
 		return false
 	}
 }

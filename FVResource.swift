@@ -19,7 +19,7 @@ final public class FVResource: NSObject {
     @objc public var data: Data? {
         return file?.dataForResource(self)
     }
-	
+
 	override public var description: String {
 		let tmpType = type?.typeString ?? "(undefined)"
 		return name + ": size: \(dataSize), offset: \(dataOffset), type: \(tmpType)"

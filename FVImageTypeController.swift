@@ -10,7 +10,8 @@ import Cocoa
 
 // swiftlint:disable type_body_length
 final class FVImageTypeController: FVTypeController {
-    let supportedTypes = ["icns", "PICT", "PNG ", "ICON", "ICN#", "ics#", "CURS", "PAT ", "icl4", "icl8", "kcns", "ics4", "ics8",
+    let supportedTypes: [String] = ["icns", "PICT", "PNG ", "ICON", "ICN#", "ics#",
+                                    "CURS", "PAT ", "icl4", "icl8", "kcns", "ics4", "ics8",
 		"GIFF"
 	]
 
@@ -18,7 +19,7 @@ final class FVImageTypeController: FVTypeController {
         guard let img = imageFromResource(data, type: type) else {
             return nil
         }
-        let rect = NSMakeRect(0, 0, img.size.width, img.size.height)
+        let rect = NSRect(origin: .zero, size: img.size)
         let imgView = FVImageView(frame: rect)
         imgView.image = img
         imgView.autoresizingMask = [.width, .height]
@@ -126,7 +127,7 @@ final class FVImageTypeController: FVTypeController {
             FVRGBColor(r: 191, g: 191, b: 191),
             FVRGBColor(r: 127, g: 127, b: 127),
             FVRGBColor(r: 63, g: 63, b: 63),
-            FVRGBColor(r: 0, g: 0, b: 0),
+            FVRGBColor(r: 0, g: 0, b: 0)
         ]
 
         guard let bitmap = makeBitmap(size) else {
@@ -422,7 +423,7 @@ final class FVImageTypeController: FVTypeController {
             FVRGBColor(r: 68, g: 68, b: 68),
             FVRGBColor(r: 34, g: 34, b: 34),
             FVRGBColor(r: 17, g: 17, b: 17),
-            FVRGBColor(r: 0, g: 0, b: 0),
+            FVRGBColor(r: 0, g: 0, b: 0)
         ]
 
         guard let bitmap = makeBitmap(size) else {

@@ -16,7 +16,7 @@ final class FVSNDTypeController: FVTypeController {
 
     func viewController(fromResourceData data: Data, type: String, errmsg: inout String) -> NSViewController? {
         if let asset = assetForSND(data: data, errmsg: &errmsg) {
-            let playerView = AVPlayerView(frame: NSMakeRect(0, 0, 100, 100))
+            let playerView = AVPlayerView(frame: NSRect(x: 0, y: 0, width: 100, height: 100))
             playerView.player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
             playerView.autoresizingMask = [.width, .height]
             playerView.player!.play()

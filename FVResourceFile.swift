@@ -10,7 +10,7 @@ import Foundation
 @objc(FVResourceErrors) public enum ResourceErrors: Int, Error {
     case invalidHeader
     case invalidMap
-    case InvalidTypesList
+    case invalidTypesList
     case noResources
     case badFile
 }
@@ -120,7 +120,7 @@ final public class FVResourceFile: NSObject {
         }
         
         guard readTypes() else {
-            throw ResourceErrors.InvalidTypesList
+            throw ResourceErrors.invalidTypesList
         }
         
         // Don't open empty (but valid) resource forks

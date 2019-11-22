@@ -17,7 +17,7 @@ final public class FVResourceType: NSObject {
     @objc public var typeString: String {
         return UTCreateStringForOSType(type).takeRetainedValue() as String
     }
-	
+
 	override public var description: String {
 		return typeString
 	}
